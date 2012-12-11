@@ -6,6 +6,7 @@
 
 #include <bb/cascades/TextField>
 #include <bb/cascades/ActivityIndicator>
+#include <bb/cascades/AbstractPane>
 
 using namespace bb::cascades;
 
@@ -14,6 +15,7 @@ namespace bb {
 		class Application;
 		class TextField;
 		class ActivityIndicator;
+		class AbstractPane;
 	}
 }
 
@@ -41,6 +43,7 @@ public:
         TextField *mUsernameText;
         TextField *mPasswordText;
         ActivityIndicator *mActivityIndicator;
+        AbstractPane *mPrimaryPane;
 };
 
 

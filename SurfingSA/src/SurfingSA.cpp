@@ -19,25 +19,43 @@ SurfingSA::SurfingSA(bb::cascades::Application *app)
     qml->setContextProperty("app", this);
 
     // create root object for the UI
-    AbstractPane *root = qml->createRootObject<AbstractPane>();
+    mPrimaryPane = qml->createRootObject<AbstractPane>();
     // set created root object as a scene
-    app->setScene(root);
+    app->setScene(mPrimaryPane);
 
 
     // Retrieve the activity indicator from QML so that we can start
     // and stop it from C++
-    mActivityIndicator = root->findChild<ActivityIndicator*>("indicator");
-    // Retrieve the list so we can set the data model on it once
-    // we retrieve it
-    mUsernameText = root->findChild<TextField*>("usernameText");
-    mPasswordText = root->findChild<TextField*>("passwordText");
+    mActivityIndicator = mPrimaryPane->findChild<ActivityIndicator*>("indicator");
+
+    mUsernameText = mPrimaryPane->findChild<TextField*>("usernameText");
+	mPasswordText = mPrimaryPane->findChild<TextField*>("passwordText");
+
+    // Create a network access manager and connect a custom slot to its
+	// finished signal
+	mNetworkAccessManager = new QNetworkAccessManager(this);
+
+	bool result = connect(mNetworkAccessManager,
+			SIGNAL(finished(QNetworkReply*)),
+			this, SLOT(requestFinished(QNetworkReply*)));
+
+	// Displays a warning message if there's an issue connecting the signal
+	// and slot. This is a good practice with signals and slots as it can
+	// be easier to mistype a slot or signal definition
+	Q_ASSERT(result);
+	Q_UNUSED(result);
 }
 
 void SurfingSA::initiateRequest()
 {
+	// Start the activity indicator
+	mActivityIndicator->start();
+
     // Create and send the network request
     QNetworkRequest request = QNetworkRequest();
-    request.setUrl(QUrl("https://www.mytcg.net/"));
+    request.setUrl(QUrl("http://dev.mytcg.net/_phone?userdetails=1"));
+    request.setRawHeader(QString("AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
+    request.setRawHeader(QString("AUTH_PW").toUtf8(), mPasswordText->text().toUtf8());
     mNetworkAccessManager->get(request);
 }
 
@@ -45,12 +63,16 @@ void SurfingSA::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
+    	qDebug() << "\n Printing return data";
+		qDebug() << "\n" << reply->readAll();
     	mUsernameText->setText(reply->readAll());
-
     }
     else
     {
         qDebug() << "\n Problem with the network";
         qDebug() << "\n" << reply->errorString();
     }
+    mActivityIndicator->stop();
+
+    reply->deleteLater();
 }
