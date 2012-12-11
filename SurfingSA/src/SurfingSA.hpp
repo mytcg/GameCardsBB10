@@ -4,6 +4,7 @@
 
 #include <QObject>
 
+#include <bb/cascades/TextField>
 namespace bb { namespace cascades { class Application; }}
 
 /*!
@@ -17,6 +18,18 @@ class SurfingSA : public QObject
 public:
     SurfingSA(bb::cascades::Application *app);
     virtual ~SurfingSA() {}
+    Q_INVOKABLE void initiateRequest();
+
+    private slots:
+        /*!
+         * Handles the network reply.
+         */
+        void requestFinished(QNetworkReply* reply);
+
+    private:
+        QNetworkAccessManager *mNetworkAccessManager;
+        TextField *mUsernameText;
+        TextField *mPasswordText;
 };
 
 
