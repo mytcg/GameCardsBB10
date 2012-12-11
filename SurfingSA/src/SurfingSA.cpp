@@ -50,7 +50,7 @@ void SurfingSA::requestFinished(QNetworkReply* reply)
     }
     else
     {
-        //qDebug() <&lt; "\n Problem with the network";
-        //qDebug() <&lt; "\n" <&lt; reply->errorString();
+        qDebug() << "\n Problem with the network";
+        qDebug() << "\n" << reply->errorString();
     }
 }
