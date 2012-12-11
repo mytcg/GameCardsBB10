@@ -5,7 +5,17 @@
 #include <QObject>
 
 #include <bb/cascades/TextField>
-namespace bb { namespace cascades { class Application; }}
+#include <bb/cascades/ActivityIndicator>
+
+using namespace bb::cascades;
+
+namespace bb {
+	namespace cascades {
+		class Application;
+		class TextField;
+		class ActivityIndicator;
+	}
+}
 
 /*!
  * @brief Application pane object
@@ -30,6 +40,7 @@ public:
         QNetworkAccessManager *mNetworkAccessManager;
         TextField *mUsernameText;
         TextField *mPasswordText;
+        ActivityIndicator *mActivityIndicator;
 };
 
 
