@@ -37,7 +37,7 @@ void SurfingSA::initiateRequest()
 {
     // Create and send the network request
     QNetworkRequest request = QNetworkRequest();
-    request.setUrl(QUrl("https://www.mytcg.net/"));
+    request.setUrl(QUrl("https://www.mytcg.net/?userdetails=1"));
     mNetworkAccessManager->get(request);
 }
 
