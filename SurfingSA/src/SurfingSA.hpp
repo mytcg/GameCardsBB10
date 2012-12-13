@@ -39,7 +39,10 @@ public:
         void requestFinished(QNetworkReply* reply);
 
     private:
+        //networking
         QNetworkAccessManager *mNetworkAccessManager;
+
+        //interface
         TextField *mUsernameText;
         TextField *mPasswordText;
         ActivityIndicator *mActivityIndicator;

@@ -53,18 +53,21 @@ void SurfingSA::initiateRequest()
 
     // Create and send the network request
     QNetworkRequest request = QNetworkRequest();
-    request.setUrl(QUrl("http://dev.mytcg.net/_phone?userdetails=1"));
-    request.setRawHeader(QString("AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
-    request.setRawHeader(QString("AUTH_PW").toUtf8(), mPasswordText->text().toUtf8());
+    request.setUrl(QUrl("http://mobidex.biz/_phone/index.php?userdetails=1"));
+    request.setRawHeader(QString("HTTP_AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
+    request.setRawHeader(QString("HTTP_AUTH_PW").toUtf8(), QString("YWFhYWFh").toUtf8());
     mNetworkAccessManager->get(request);
 }
 
 void SurfingSA::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
-    if (reply->error() == QNetworkReply::NoError) {
+    if (reply->error() == QNetworkReply::NoError)
+    {
     	qDebug() << "\n Printing return data";
 		qDebug() << "\n" << reply->readAll();
+		qDebug() << "\n" << reply->url();
+
     	mUsernameText->setText(reply->readAll());
     }
     else
