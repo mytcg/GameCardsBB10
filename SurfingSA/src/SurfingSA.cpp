@@ -1,5 +1,6 @@
 // Default empty project template
 #include "SurfingSA.hpp"
+#include "utils/Util.h"
 
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
@@ -53,9 +54,14 @@ void SurfingSA::initiateRequest()
 
     // Create and send the network request
     QNetworkRequest request = QNetworkRequest();
-    request.setUrl(QUrl("http://dev.mytcg.net/_phone?index.php?userdetails=1"));
+
+    request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?userdetails=1"));
+
+    QString password = mPasswordText->text();
+    string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(password.toStdString().c_str()), password.length());
+
     request.setRawHeader(QString("AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
-    request.setRawHeader(QString("AUTH_PW").toUtf8(), mPasswordText->text().toUtf8());
+    request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
 
     mNetworkAccessManager->get(request);
 }
@@ -66,8 +72,8 @@ void SurfingSA::requestFinished(QNetworkReply* reply)
     if (reply->error() == QNetworkReply::NoError)
     {
     	qDebug() << "\n Printing return data";
-		qDebug() << "\n" << reply->readAll();
-		qDebug() << "\n" << reply->url();
+		//qDebug() << "\n" << reply->readAll();
+		//qDebug() << "\n" << reply->url();
 
     	mUsernameText->setText(reply->readAll());
     }
