@@ -53,7 +53,7 @@ void SurfingSA::initiateRequest()
 
     // Create and send the network request
     QNetworkRequest request = QNetworkRequest();
-    request.setUrl(QUrl("http://dev.mytcg.net/_phone?index.phpuserdetails=1"));
+    request.setUrl(QUrl("http://dev.mytcg.net/_phone?index.php?userdetails=1"));
     request.setRawHeader(QString("AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
     request.setRawHeader(QString("AUTH_PW").toUtf8(), mPasswordText->text().toUtf8());
 
