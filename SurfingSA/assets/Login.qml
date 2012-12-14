@@ -13,29 +13,32 @@ Page {
         }
         TextField {
             id: usernameText
-            objectName: "usernameText";
+            objectName: "usernameText"
         }
         Label {
             text: "Password:"
         }
         TextField {
             id: passwordText
-            objectName: "passwordText";
+            objectName: "passwordText"
         }
         Button {
             id: login
             text: "Log In"
             onClicked: app.initiateRequest()
-            
         }
-        // The activity indicator has an object name set so that
-        // we can start and stop it from C++
+        Button {
+            text: "Back"
+        }
         ActivityIndicator {
             objectName: "indicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200    
-            preferredHeight: 200   
+            preferredWidth: 200
+            preferredHeight: 200
         }
+
+        // The activity indicator has an object name set so that
+        // we can start and stop it from C++
     }
 }
