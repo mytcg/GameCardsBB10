@@ -14,7 +14,7 @@ SurfingSA::SurfingSA(bb::cascades::Application *app)
 {
     // create scene document from main.qml asset
     // set parent to created document to ensure it exists for the whole application lifetime
-    QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
+    QmlDocument *qml = QmlDocument::create("asset:///LoginRegister.qml").parent(this);
 
     // Expose this class to QML so that we can call its functions from there
     qml->setContextProperty("app", this);
@@ -54,6 +54,7 @@ void SurfingSA::initiateRequest()
 
     // Create and send the network request
     QNetworkRequest request = QNetworkRequest();
+
     request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?userdetails=1"));
 
     QString password = mPasswordText->text();
