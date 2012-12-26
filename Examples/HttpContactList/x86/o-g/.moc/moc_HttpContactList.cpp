@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'HttpContactList.hpp'
 **
-** Created: Mon 24. Dec 16:33:08 2012
+** Created: Wed 26. Dec 18:32:05 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

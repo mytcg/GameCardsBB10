@@ -17,24 +17,12 @@ Page {
     ]        
     content: Container {
         layout: DockLayout {}
-        attachedObjects: [
-            // Add the data model as an attached object. Make sure
-            // to specify a value for the objectName property,
-            // which is used to access the model from C++.
-            GroupDataModel {
-                id: groupDataModel
-  
-                // Sort the data first by last name, then by first
-                // name
-                sortingKeys: ["lastName", "firstName"]
-            }
-        ]
          
         // A list that has two list item components, one for a header
         // and one for contact names. The list has an object name so
         // that we can set the data model from C++.
         ListView {
-            objectName: "list"
+            objectName: "listView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
                          
@@ -44,7 +32,7 @@ Page {
             // A simple data model is loaded with just a header.
             // This will be replaced when we load the real one
             // from C++.
-            dataModel: groupDataModel
+            //dataModel: groupDataModel
              
             listItemComponents: [
                 // The contact list item displays the name of the contact

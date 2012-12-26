@@ -11,8 +11,10 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/XmlDataModel>
 #include <bb/cascades/GroupDataModel>
+#include <bb/data/XmlDataAccess>
 
 using namespace bb::cascades;
+using namespace bb::data;
 
 HttpContactList::HttpContactList(bb::cascades::Application *app)
 : QObject(app)
@@ -34,7 +36,7 @@ HttpContactList::HttpContactList(bb::cascades::Application *app)
 
     // Retrieve the list so we can set the data model on it once
     // we retrieve it
-    mListView = root->findChild<ListView*>("list");
+    mListView = root->findChild<ListView*>("listView");
 
     // Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -95,8 +97,10 @@ void HttpContactList::requestFinished(QNetworkReply* reply)
         mListView->setDataModel(dataModel);*/
 
     	// Create the data model and specify the sorting keys to use
-    	GroupDataModel *model = (GroupDataModel*)mListView->dataModel();
-
+    	//GroupDataModel *model = (GroupDataModel*)mListView->dataModel();
+    	//GroupDataModel *model = root->findChild<GroupDataModel*>("groupDataModel");
+    	GroupDataModel *model = new GroupDataModel(QStringList() << "firstName"
+    	                                           << "lastName");
     	// Specify the type of grouping to use for the headers in the list
     	model->setGrouping(ItemGrouping::None);
 
@@ -104,7 +108,7 @@ void HttpContactList::requestFinished(QNetworkReply* reply)
     	// for an item has been populated, add the item to the data model and reuse
     	// the same QVariantMap for the next item.
     	// Insert the data as instances of the Employee class
-    	model->insert(new Employee("Barichak", "Westlee", 12596375));
+    	/*model->insert(new Employee("Barichak", "Westlee", 12596375));
     	model->insert(new Employee("Lambier", "Jamie", 53621479));
     	model->insert(new Employee("Chepesky", "Mike", 65523696));
     	model->insert(new Employee("Marshall", "Denise", 77553269));
@@ -112,9 +116,25 @@ void HttpContactList::requestFinished(QNetworkReply* reply)
     	model->insert(new Employee("Tiegs", "Mark", 13112965));
     	model->insert(new Employee("Tetzel", "Karla", 99214732));
     	model->insert(new Employee("Dundas", "Ian", 64329841));
-    	model->insert(new Employee("Cacciacarro", "Marco", 54575213));
+    	model->insert(new Employee("Cacciacarro", "Marco", 54575213));*/
 
-    	//mListView->setDataModel(model);
+    	/*QVariantMap map;
+    	map["firstName"] = "Italy"; map["lastName"] = "Rome"; model->insert(map);
+    	map["firstName"] = "Spain"; map["lastName"] = "Barcelona"; model->insert(map);
+    	map["firstName"] = "Canada"; map["lastName"] = "Waterloo"; model->insert(map);
+    	map["firstName"] = "Canada"; map["lastName"] = "Vancouver"; model->insert(map);
+    	map["firstName"] = "Italy"; map["lastName"] = "Milan"; model->insert(map);
+    	map["firstName"] = "Canada"; map["lastName"] = "Toronto"; model->insert(map);
+    	map["firstName"] = "Spain"; map["lastName"] = "Madrid"; model->insert(map);*/
+
+    	// load the xml data
+    	QString xmldata = "<contacts><contact><id>1</id><title>Sr. Editor</title><firstName>Mike</firstName><lastName>Chepesky</lastName></contact><contact><id>2</id><title>Talent Scout</title><firstName>Westlee</firstName><lastName>Barichak</lastName><phonenumber>+465256467</phonenumber><phonenumber>+464746734</phonenumber></contact></contacts>";
+    	XmlDataAccess xda;
+    	QVariant list = xda.loadFromBuffer(xmldata, "/contacts/contact");
+    	// add the data to the model
+    	model->insertList(list.value<QVariantList>());
+
+    	mListView->setDataModel(model);
 
         mActivityIndicator->stop();
 

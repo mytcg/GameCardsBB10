@@ -48,6 +48,7 @@ private:
     ListView *mListView;
     QNetworkAccessManager *mNetworkAccessManager;
     QFile *mFile;
+    AbstractPane *root;
 };
 
 
