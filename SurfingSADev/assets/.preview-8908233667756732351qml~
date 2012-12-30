@@ -1,0 +1,38 @@
+// Navigation pane project template
+import bb.cascades 1.0
+
+NavigationPane {
+    function checkLoggedIn() {
+        var loggedIn = app.loggedIn()
+        mainMenu.text = loggedIn
+        
+        if (loggedIn == "false") {
+            // show detail page when the button is clicked
+            loginSheet.open()
+        }
+    }
+    
+    attachedObjects: [
+        Sheet {
+            id: loginSheet
+            Login {
+                id: login
+            }
+        }
+    ]
+    
+    id: navigationPane
+    Page {
+        // page with a picture thumbnail
+        Container {
+            MainMenu {
+                id: mainMenu
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+            }
+        }
+    }
+    onCreationCompleted: {
+        checkLoggedIn()
+    }
+}
