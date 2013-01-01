@@ -26,9 +26,11 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
 
     //create the functionality classes
     mLogin = new Login(root);
+    mAlbum = new Album(root);
 
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
+    qml->setContextProperty("albumClass", mAlbum);
 }
 
 QString SurfingSADev::loggedIn() {

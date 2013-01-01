@@ -3,6 +3,7 @@
 #define SurfingSADev_HPP_
 
 #include "functionality/Login.h"
+#include "functionality/Album.h"
 
 #include <QObject>
 
@@ -30,6 +31,7 @@ public:
 
     //functionality classes
     Login *mLogin;
+    Album *mAlbum;
 };
 
 #endif /* SurfingSADev_HPP_ */

@@ -10,13 +10,13 @@ INCLUDEPATH +=  \
 
 SOURCES +=  \
     $$BASEDIR/src/SurfingSADev.cpp \
-    $$BASEDIR/src/functionality/Login.cpp \
+    $$BASEDIR/src/functionality/*.cpp \
     $$BASEDIR/src/main.cpp \
     $$BASEDIR/src/utils/Util.cpp
 
 HEADERS +=  \
     $$BASEDIR/src/SurfingSADev.hpp \
-    $$BASEDIR/src/functionality/Login.h \
+    $$BASEDIR/src/functionality/*.h \
     $$BASEDIR/src/utils/Util.h
 
 CONFIG += precompile_header
