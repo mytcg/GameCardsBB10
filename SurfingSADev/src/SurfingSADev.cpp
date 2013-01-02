@@ -27,10 +27,24 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     //create the functionality classes
     mLogin = new Login(root);
     mAlbum = new Album(root);
+    mShop = new Shop(root);
+    mAuction = new Auction(root);
+    mCredits = new Credits(root);
+    mFriends = new Friends(root);
+    mInviteFriend = new InviteFriend(root);
+    mNotifications = new Notifications(root);
+    mRedeem = new Redeem(root);
 
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
     qml->setContextProperty("albumClass", mAlbum);
+    qml->setContextProperty("shopClass", mShop);
+    qml->setContextProperty("auctionClass", mAuction);
+    qml->setContextProperty("creditsClass", mCredits);
+    qml->setContextProperty("friendsClass", mFriends);
+    qml->setContextProperty("invitefriendClass", mInviteFriend);
+    qml->setContextProperty("notificationsClass", mNotifications);
+    qml->setContextProperty("redeemClass", mRedeem);
 }
 
 QString SurfingSADev::loggedIn() {
