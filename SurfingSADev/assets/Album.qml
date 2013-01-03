@@ -5,6 +5,10 @@ Page {
     id: albumPage
     signal cancel ()
     
+    function loadAlbums() {
+        albumClass.loadAlbums("0");
+    }
+    
     titleBar: TitleBar {
         title: "Album"
         visibility: ChromeVisibility.Visible
@@ -59,8 +63,5 @@ ListItemData.firstName
             onStopped: {
             }
         }    
-    }
-    onCreationCompleted: {
-        albumClass.loadAlbums("0");
     }
 }

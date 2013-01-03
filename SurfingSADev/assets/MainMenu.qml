@@ -43,7 +43,9 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
-                    albumSheet.open()
+                    albumSheet.open();
+                    
+                    album.loadAlbums();
                 }
                 leftMargin: 5.0
                 rightMargin: 5.0
@@ -287,6 +289,8 @@ Container {
             id: albumSheet
             
             Album{
+                id: album
+                
                 onCancel: {
                     albumSheet.close();
                 }
