@@ -4,13 +4,6 @@
 
 #include "functionality/Login.h"
 #include "functionality/Album.h"
-#include "functionality/Shop.h"
-#include "functionality/Auction.h"
-#include "functionality/Credits.h"
-#include "functionality/Friends.h"
-#include "functionality/InviteFriend.h"
-#include "functionality/Notifications.h"
-#include "functionality/Redeem.h"
 
 #include <QObject>
 
@@ -39,13 +32,6 @@ public:
     //functionality classes
     Login *mLogin;
     Album *mAlbum;
-    Shop *mShop;
-    Auction *mAuction;
-    Credits *mCredits;
-    Friends *mFriends;
-    InviteFriend *mInviteFriend;
-    Notifications *mNotifications;
-    Redeem *mRedeem;
 };
 
 #endif /* SurfingSADev_HPP_ */
