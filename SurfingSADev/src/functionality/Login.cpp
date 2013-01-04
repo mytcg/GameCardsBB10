@@ -2,6 +2,7 @@
 #include "../utils/Util.h"
 
 #include <QFile>
+#include <QTextStream>
 
 using namespace bb::cascades;
 
@@ -48,12 +49,10 @@ void Login::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
-    	QString *result = new QString(reply->readAll());
 
-    	qDebug() << "\n" << result;
-    	qDebug() << "\n" << "result->compare(\"<user><result>Invalid User Details</result></user>\"): " << (result->compare("<user><result>Invalid User Details</result></user>"));
+    	QString result(reply->readAll());
 
-    	if (result->compare("<user><result>Invalid User Details</result></user>") == 0) {
+    	if (result.compare("<user><result>Invalid User Details</result></user>") == 0) {
     		mLoggedIn->setText("0");
     	}
     	else {
@@ -63,9 +62,10 @@ void Login::requestFinished(QNetworkReply* reply)
 			// Open the file and print an error if the file cannot be opened
 			if (file->open(QIODevice::ReadWrite))
 			{
-				// Write to the file using the reply data and close the file
-				file->write(reply->readAll());
-				file->flush();
+				QTextStream fileStream(file);
+
+				fileStream << result;
+
 				file->close();
 			}
 			else {
