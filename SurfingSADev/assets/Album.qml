@@ -32,21 +32,22 @@ Page {
             visible: false
         }
         ListView {
-            objectName: "listView"
+            objectName: "albumView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            
-            layout: FlowListLayout {
-            
+            dataModel: GroupDataModel {
+                sortingKeys: ["albumname"]
             }
-            
             listItemComponents: [
                 ListItemComponent {
-                    type: "listItem"
-                    StandardListItem {
-                        title: ListItemData.albumname + ", " +
-ListItemData.firstName
-                        description: ListItemData.employeeNumber
+                    type: "album"
+                    /*StandardListItem {
+                        title: ListItemData.albumname 
+                        description: ListItemData.albumname
+                    }*/
+                    Container {
+                        id: itemRoot
+                        Label { text: ListItemData.albumname }
                     }
                 }
             ]

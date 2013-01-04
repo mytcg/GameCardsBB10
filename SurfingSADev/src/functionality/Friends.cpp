@@ -3,6 +3,7 @@
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
+#include <QtXml/QDomDocument>
 
 using namespace bb::cascades;
 using namespace bb::data;
@@ -50,28 +51,65 @@ void Friends::loadFriends() {
 void Friends::requestFinished(QNetworkReply* reply)
 {
 	qDebug() << "\n Got Friends";
-    // Check the network reply for errors
+	// Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
-		mListView = root->findChild<ListView*>("listView");
+		mListView = root->findChild<ListView*>("friendsView");
 		QString xmldata = QString(reply->readAll());
-	    	GroupDataModel *model = new GroupDataModel(QStringList() << "usr"
-	    	                                           << "val");
-	    	// Specify the type of grouping to use for the headers in the list
-	    	model->setGrouping(ItemGrouping::None);
+		GroupDataModel *model = new GroupDataModel(QStringList() << "usr"
+				<< "val" << "desc");
+		// Specify the type of grouping to use for the headers in the list
+		model->setGrouping(ItemGrouping::None);
 
-	    	// load the xml data
-	    	XmlDataAccess xda;
-	    	QVariant list = xda.loadFromBuffer(xmldata, "/friends/friend");
-	    	// add the data to the model
-	    	model->insertList(list.value<QVariantList>());
+		QList<QMap<QString, QString> > friends;
 
-	    	mListView->setDataModel(model);
-	    }
-	    else
-	    {
-	        qDebug() << "\n Problem with the network";
-	        qDebug() << "\n" << reply->errorString();
-	    }
+		QDomDocument doc("mydocument");
+		if (!doc.setContent(xmldata)) {
+			return;
+		}
 
-    mActivityIndicator->stop();
+		//Get the root element
+		QDomElement docElem = doc.documentElement();
+
+		// you could check the root tag name here if it matters
+		QString rootTag = docElem.tagName(); // == persons
+
+		// get the node's interested in, this time only caring about person's
+		QDomNodeList nodeList = docElem.elementsByTagName("friend");
+
+		//Check each node one by one.
+		QMap<QString, QVariant> lfriend;
+		for (int ii = 0; ii < nodeList.count(); ii++) {
+			// get the current one as QDomElement
+			QDomElement el = nodeList.at(ii).toElement();
+
+			//get all data for the element, by looping through all child elements
+			QDomNode pEntries = el.firstChild();
+			while (!pEntries.isNull()) {
+				QDomElement peData = pEntries.toElement();
+				QString tagNam = peData.tagName();
+
+				if (tagNam == "usr") {
+					//We've found first name.
+					lfriend["usr"] = peData.text();
+				} else if (tagNam == "val") {
+					//We've found surname.
+					lfriend["val"] = peData.text();
+				} else if (tagNam == "desc") {
+					//We've found email.
+					lfriend["desc"] = peData.text();
+				}
+				pEntries = pEntries.nextSibling();
+			}
+			model->insert(lfriend);
+		}
+
+		mListView->setDataModel(model);
+	}
+	else
+	{
+		qDebug() << "\n Problem with the network";
+		qDebug() << "\n" << reply->errorString();
+	}
+
+	mActivityIndicator->stop();
 }

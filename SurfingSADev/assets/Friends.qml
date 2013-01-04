@@ -26,7 +26,7 @@ Page {
             visible: false
         }
         ListView {
-            objectName: "listView"
+            objectName: "friendsView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             
@@ -57,8 +57,5 @@ ListItemData.val
             onStopped: {
             }
         }    
-    }
-    onCreationCompleted: {
-        friendsClass.loadFriends();
     }
 }

@@ -3,6 +3,7 @@
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
+#include <QtXml/QDomDocument>
 
 using namespace bb::cascades;
 using namespace bb::data;
@@ -52,19 +53,58 @@ void Album::requestFinished(QNetworkReply* reply)
 	qDebug() << "\n Got Albums";
     // Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
-		mListView = root->findChild<ListView*>("listView");
+		mListView = root->findChild<ListView*>("albumView");
 		QString xmldata = QString(reply->readAll());
-	    	GroupDataModel *model = new GroupDataModel(QStringList() << "albumname"
-	    	                                           << "lastName");
+	    	GroupDataModel *model = new GroupDataModel(QStringList() << "albumname");
 	    	// Specify the type of grouping to use for the headers in the list
 	    	model->setGrouping(ItemGrouping::None);
 
-	    	// load the xml data
-	    	XmlDataAccess xda;
-	    	QVariant list = xda.loadFromBuffer(xmldata, "/usercategories/album");
-	    	// add the data to the model
-	    	model->insertList(list.value<QVariantList>());
+	    	QList<QMap<QString, QString> > albums;
 
+	    	QDomDocument doc("mydocument");
+	    	if (!doc.setContent(xmldata)) {
+	    	return;
+	    	}
+
+	    	//Get the root element
+	    	QDomElement docElem = doc.documentElement();
+
+	    	// you could check the root tag name here if it matters
+	    	QString rootTag = docElem.tagName(); // == persons
+
+	    	// get the node's interested in, this time only caring about person's
+	    	QDomNodeList nodeList = docElem.elementsByTagName("album");
+
+	    	//Check each node one by one.
+	    	QMap<QString, QVariant> album;
+	    	for (int ii = 0; ii < nodeList.count(); ii++) {
+
+	    	// get the current one as QDomElement
+	    	QDomElement el = nodeList.at(ii).toElement();
+
+	    	//get all data for the element, by looping through all child elements
+	    	QDomNode pEntries = el.firstChild();
+	    	while (!pEntries.isNull()) {
+	    	QDomElement peData = pEntries.toElement();
+	    	QString tagNam = peData.tagName();
+
+	    	if (tagNam == "albumname") {
+	    	//We've found first name.
+	    	album["albumname"] = peData.text();
+	    	} else if (tagNam == "surname") {
+	    	//We've found surname.
+	    	album["surname"] = peData.text();
+	    	} else if (tagNam == "email") {
+	    	//We've found email.
+	    	album["email"] = peData.text();
+	    	} else if (tagNam == "website") {
+	    	//We've found website.
+	    	album["website"] = peData.text();
+	    	}
+	    	pEntries = pEntries.nextSibling();
+	    	}
+	    	model->insert(album);
+	    	}
 	    	mListView->setDataModel(model);
 	    }
 	    else

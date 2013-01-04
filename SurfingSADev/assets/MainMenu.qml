@@ -64,7 +64,8 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
-                    notificationsSheet.open()
+                    notificationsSheet.open();
+                    notificationsClass.loadNotifications();
                 }
                 
                 leftMargin: 5.0
@@ -111,7 +112,8 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
-                    shopSheet.open()
+                    shopSheet.open();
+                    shopClass.loadProducts();
                 }
                 
                 leftMargin: 5.0
@@ -131,7 +133,8 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
-                    creditsSheet.open()
+                    creditsSheet.open();
+                    creditsClass.loadCredits();
                 }
                 
                 leftMargin: 5.0
@@ -178,7 +181,8 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
-                    auctionSheet.open()
+                    auctionSheet.open();
+                    auctionClass.loadAuctions();;
                 }
                 
                 leftMargin: 5.0
@@ -198,7 +202,8 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
-                    friendsSheet.open()
+                    friendsSheet.open();
+                    friendsClass.loadFriends();
                 }
                 
                 leftMargin: 5.0

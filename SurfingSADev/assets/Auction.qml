@@ -26,7 +26,7 @@ Page {
             visible: false
         }
         ListView {
-            objectName: "listView"
+            objectName: "auctionView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             
@@ -57,8 +57,5 @@ ListItemData.firstName
             onStopped: {
             }
         }    
-    }
-    onCreationCompleted: {
-        albumClass.loadAlbums("0");
     }
 }

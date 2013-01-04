@@ -26,7 +26,7 @@ Page {
             visible: false
         }
         ListView {
-            objectName: "listView"
+            objectName: "creditsView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             
@@ -57,8 +57,5 @@ ListItemData.firstName
             onStopped: {
             }
         }    
-    }
-    onCreationCompleted: {
-        creditsClass.loadCredits();
     }
 }
