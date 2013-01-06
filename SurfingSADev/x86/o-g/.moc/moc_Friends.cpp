@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Friends.h'
 **
-** Created: Wed 2. Jan 17:40:24 2013
+** Created: Sun 6. Jan 16:23:18 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
