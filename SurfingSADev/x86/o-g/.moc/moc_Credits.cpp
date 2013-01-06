@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Credits.h'
 **
+<<<<<<< HEAD
 ** Created: Sun 6. Jan 16:23:13 2013
+=======
+** Created: Sun 6. Jan 19:22:05 2013
+>>>>>>> 160c073b447bcfa5bbf2ed730743563032e172fd
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

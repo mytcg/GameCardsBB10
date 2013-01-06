@@ -36,11 +36,20 @@ Page {
             
             listItemComponents: [
                 ListItemComponent {
-                    type: "listItem"
-                    StandardListItem {
-                        title: ListItemData.desc + ", " +
-ListItemData.firstName
-                        description: ListItemData.employeeNumber
+                    type: "item"
+                    Container{
+                        touchPropagationMode: TouchPropagationMode.Full
+                        rightPadding: 5.0
+                        topPadding: 5.0
+                        bottomPadding: 5.0
+                        leftPadding: 5.0
+                        Label{
+                            text:  ListItemData.desc
+                        }
+                        Divider {
+                            verticalAlignment: VerticalAlignment.Bottom
+                            horizontalAlignment: HorizontalAlignment.Center  
+                        }
                     }
                 }
             ]

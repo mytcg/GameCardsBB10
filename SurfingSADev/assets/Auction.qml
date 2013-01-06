@@ -36,7 +36,7 @@ Page {
             
             listItemComponents: [
                 ListItemComponent {
-                    type: "listItem"
+                    type: "item"
                     StandardListItem {
                         title: ListItemData.albumname + ", " +
 ListItemData.firstName
