@@ -8,6 +8,7 @@
 #include <bb/cascades/ActivityIndicator>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/Label>
+#include <bb/cascades/TextField>
 #include <bb/cascades/ListView>
 
 using namespace bb::cascades;

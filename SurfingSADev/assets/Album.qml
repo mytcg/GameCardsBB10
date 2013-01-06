@@ -40,15 +40,15 @@ Page {
             }
             listItemComponents: [
                 ListItemComponent {
-                    type: "album"
-                    /*StandardListItem {
+                    type: "item"
+                    StandardListItem {
                         title: ListItemData.albumname 
-                        description: ListItemData.albumname
-                    }*/
-                    Container {
+                        horizontalAlignment: HorizontalAlignment.Center
+                    }
+                    /*Container {
                         id: itemRoot
                         Label { text: ListItemData.albumname }
-                    }
+                    }*/
                 }
             ]
         }

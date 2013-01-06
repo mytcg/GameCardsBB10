@@ -2,19 +2,19 @@ import bb.cascades 1.0
 
 Page {
     id: creditsPage
-        signal cancel ()
+    signal cancel ()
+    
+    titleBar: TitleBar {
+        title: "Credits"
+        visibility: ChromeVisibility.Visible
         
-        titleBar: TitleBar {
-            title: "Credits"
-            visibility: ChromeVisibility.Visible
-            
-            acceptAction: ActionItem {
-                title: "Back"
-                onTriggered: {
-                    creditsPage.cancel();
-                }
+        acceptAction: ActionItem {
+            title: "Back"
+            onTriggered: {
+                creditsPage.cancel();
             }
         }
+    }
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
@@ -24,6 +24,26 @@ Page {
             objectName: "creditsLabel"
             text: "0"
             visible: false
+        }
+        Label{
+            text: "Credits"
+            horizontalAlignment: HorizontalAlignment.Center
+        }
+        TextField {
+            id: creditsText
+            objectName: "creditsText"
+            text: "0"
+            enabled: false
+        }
+        Label{
+            text: "Premium"
+            horizontalAlignment: HorizontalAlignment.Center
+        }
+        TextField {
+            id: premiumText
+            objectName: "premiumText"
+            text: "0"
+            enabled: false
         }
         ListView {
             objectName: "creditsView"
@@ -36,11 +56,20 @@ Page {
             
             listItemComponents: [
                 ListItemComponent {
-                    type: "listItem"
-                    StandardListItem {
-                        title: ListItemData.desc + ", " +
-ListItemData.firstName
-                        description: ListItemData.employeeNumber
+                    type: "item"
+                    Container{
+                        touchPropagationMode: TouchPropagationMode.Full
+                        rightPadding: 5.0
+                        topPadding: 5.0
+                        bottomPadding: 5.0
+                        leftPadding: 5.0
+                        Label{
+                            text:  ListItemData.desc
+                        }
+                        Divider {
+                            verticalAlignment: VerticalAlignment.Bottom
+                            horizontalAlignment: HorizontalAlignment.Center  
+                        }
                     }
                 }
             ]

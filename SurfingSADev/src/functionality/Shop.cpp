@@ -55,8 +55,8 @@ void Shop::requestFinished(QNetworkReply* reply)
 	if (reply->error() == QNetworkReply::NoError) {
 		mListView = root->findChild<ListView*>("shopView");
 		QString xmldata = QString(reply->readAll());
-		GroupDataModel *model = new GroupDataModel(QStringList() << "productname"
-				<< "productprice");
+		GroupDataModel *model = new GroupDataModel(QStringList() << "productname");
+
 		// Specify the type of grouping to use for the headers in the list
 		model->setGrouping(ItemGrouping::None);
 
@@ -73,7 +73,7 @@ void Shop::requestFinished(QNetworkReply* reply)
 		// you could check the root tag name here if it matters
 		QString rootTag = docElem.tagName(); // == persons
 
-		// get the node's interested in, this time only caring about person's
+		// get the node's interested in, this time only caring about products
 		QDomNodeList nodeList = docElem.elementsByTagName("product");
 
 		//Check each node one by one.
@@ -90,11 +90,15 @@ void Shop::requestFinished(QNetworkReply* reply)
 				QString tagNam = peData.tagName();
 
 				if (tagNam == "productname") {
-					//We've found first name.
 					product["productname"] = peData.text();
 				} else if (tagNam == "productprice") {
-					//We've found surname.
 					product["productprice"] = peData.text();
+				} else if (tagNam == "productnumcards") {
+					product["productnumcards"] = peData.text();
+				} else if (tagNam == "productid") {
+					product["productid"] = peData.text();
+				} else if (tagNam == "productthumb") {
+					product["productthumb"] = peData.text();
 				}
 				pEntries = pEntries.nextSibling();
 			}

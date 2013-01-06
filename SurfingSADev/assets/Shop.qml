@@ -30,18 +30,21 @@ Page {
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             
-            layout: FlowListLayout {
-            
-            }
-            
             listItemComponents: [
                 ListItemComponent {
-                    type: "listItem"
+                    type: "item"
                     StandardListItem {
-                        title: ListItemData.albumname + ", " +
-ListItemData.firstName
-                        description: ListItemData.employeeNumber
-                    }
+                        title: ListItemData.productname 
+                        description: "Credits: " + ListItemData.productprice + "  Cards: "+ListItemData.productnumcards
+                        imageSpaceReserved: true
+                        imageSource: ListItemData.productthumb
+                        
+                }
+                 /*   Container {
+                        Label { text: ListItemData.productname }
+                        Label { text: "Credits: " + ListItemData.productprice }
+                        Label { text: "Cards: " + ListItemData.productnumcards }
+                    }*/
                 }
             ]
         }

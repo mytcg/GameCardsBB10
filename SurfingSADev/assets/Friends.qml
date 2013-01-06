@@ -2,20 +2,20 @@ import bb.cascades 1.0
 
 Page {
     id: friendsPage
-        signal cancel ()
+    signal cancel ()
+    
+    titleBar: TitleBar {
+        title: "Friends"
+        visibility: ChromeVisibility.Visible
         
-        titleBar: TitleBar {
-            title: "Friends"
-            visibility: ChromeVisibility.Visible
-            
-            acceptAction: ActionItem {
-                title: "Back"
-                onTriggered: {
-                    friendsPage.cancel();
-                }
+        acceptAction: ActionItem {
+            title: "Back"
+            onTriggered: {
+                friendsPage.cancel();
             }
         }
-     Container {
+    }
+    Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }
@@ -36,11 +36,32 @@ Page {
             
             listItemComponents: [
                 ListItemComponent {
-                    type: "listItem"
-                    StandardListItem {
-                        title: ListItemData.usr + ", " +
-ListItemData.val
-                        description: ListItemData.desc
+                    type: "item"
+                    /*StandardListItem {
+                    
+                    description: ListItemData.usr + "\n" +
+                    ListItemData.val+ "\n" +ListItemData.desc
+                    
+                    }*/
+                    Container{
+                        touchPropagationMode: TouchPropagationMode.Full
+                        rightPadding: 5.0
+                        topPadding: 5.0
+                        bottomPadding: 5.0
+                        leftPadding: 5.0
+                        Label{
+                            text:  ListItemData.usr
+                        }
+                        Label{
+                            text:  ListItemData.val
+                        }
+                        Label{
+                            text:  ListItemData.desc
+                        }
+                        Divider {
+                            verticalAlignment: VerticalAlignment.Bottom
+                            horizontalAlignment: HorizontalAlignment.Center  
+                        }
                     }
                 }
             ]

@@ -54,6 +54,8 @@ void Credits::requestFinished(QNetworkReply* reply)
 	// Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
 		mListView = root->findChild<ListView*>("creditsView");
+		TextField * credits = root->findChild<TextField*>("creditsText");
+		TextField * premium = root->findChild<TextField*>("premiumText");
 		QString xmldata = QString(reply->readAll());
 		GroupDataModel *model = new GroupDataModel(QStringList() << "desc");
 		// Specify the type of grouping to use for the headers in the list
@@ -69,11 +71,35 @@ void Credits::requestFinished(QNetworkReply* reply)
 		//Get the root element
 		QDomElement docElem = doc.documentElement();
 
-		// you could check the root tag name here if it matters
-		QString rootTag = docElem.tagName(); // == persons
+		QDomNodeList nodeList = docElem.elementsByTagName("categoryproducts");
+		// get the current one as QDomElement
+		QDomElement el = nodeList.at(0).toElement();
 
-		// get the node's interested in, this time only caring about person's
-		QDomNodeList nodeList = docElem.elementsByTagName("transaction");
+		//get all data for the element, by looping through all child elements
+		QDomNode pEntries = el.firstChild();
+		while (!pEntries.isNull()) {
+			QDomElement peData = pEntries.toElement();
+			QString tagNam = peData.tagName();
+
+			if (tagNam == "credits") {
+				credits->setEnabled(true);
+				credits->setText (peData.text());
+				credits->setEnabled(false);
+			} else if (tagNam == "premium") {
+				credits->setEnabled(true);
+				premium->setText (peData.text());
+				credits->setEnabled(false);
+				return;
+			}
+			pEntries = pEntries.nextSibling();
+		}
+
+
+		// you could check the root tag name here if it matters
+		QString rootTag = docElem.tagName();
+
+		// get the node's interested in, this time only caring about transaction
+		nodeList = docElem.elementsByTagName("transaction");
 
 		//Check each node one by one.
 		QMap<QString, QVariant> transaction;
