@@ -4,6 +4,7 @@
 
 #include "functionality/Login.h"
 #include "functionality/Album.h"
+#include "functionality/Weather.h"
 
 #include <QObject>
 
@@ -32,6 +33,7 @@ public:
     //functionality classes
     Login *mLogin;
     Album *mAlbum;
+    Weather *mWeather;
 };
 
 #endif /* SurfingSADev_HPP_ */
