@@ -1,4 +1,4 @@
-#include "Album.h"
+#include "AlbumView.h"
 #include "../utils/Util.h"
 
 #include <bb/data/XmlDataAccess>
@@ -8,7 +8,7 @@
 using namespace bb::cascades;
 using namespace bb::data;
 
-Album::Album(AbstractPane *root): root(root)
+AlbumView::AlbumView(AbstractPane *root): root(root)
 {
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -25,23 +25,21 @@ Album::Album(AbstractPane *root): root(root)
 	Q_UNUSED(result);
 }
 
-void Album::loadAlbums(QString id) {
+void AlbumView::loadAlbum(QString id) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
-	qDebug() << "\n Loading Albums";
-	mActivityIndicator = root->findChild<ActivityIndicator*>("loadIndicator");
-	mAlbum = root->findChild<Label*>("albumLabel");
+	qDebug() << "\n Loading Album";
+	mActivityIndicator = root->findChild<ActivityIndicator*>("loadAlbumViewIndicator");
+	mAlbumView = root->findChild<Label*>("albumViewLabel");
 
 	// Start the activity indicator
 	mActivityIndicator->start();
 
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-	if(id.compare(QString("0"))==0){
-		request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?usercategories=1"));
-	}else{
-		request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?usersubcategories=1&category="+id));
-	}
+
+	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360"));
+
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
@@ -50,17 +48,23 @@ void Album::loadAlbums(QString id) {
 	mNetworkAccessManager->get(request);
 }
 
-void Album::requestFinished(QNetworkReply* reply)
+void AlbumView::requestFinished(QNetworkReply* reply)
 {
-	qDebug() << "\n Got Albums";
+	qDebug() << "\n Got Album";
     // Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
-		mListView = root->findChild<ListView*>("albumView");
+		mListView = root->findChild<ListView*>("albumViewView");
 		QString xmldata = QString(reply->readAll());
-	    	GroupDataModel *model = new GroupDataModel(QStringList() << "albumname");
+
+	    	GroupDataModel *model = new GroupDataModel(QStringList() << "description");
 	    	// Specify the type of grouping to use for the headers in the list
 	    	model->setGrouping(ItemGrouping::None);
 
+	    	XmlDataAccess xda;
+	    	QVariant list = xda.loadFromBuffer(xmldata, "/cardsincategory/card");
+
+	    	model->insertList(list.value<QVariantList>());
+/*
 	    	QList<QMap<QString, QString> > albums;
 
 	    	QDomDocument doc("mydocument");
@@ -72,9 +76,9 @@ void Album::requestFinished(QNetworkReply* reply)
 	    	QDomElement docElem = doc.documentElement();
 
 	    	// you could check the root tag name here if it matters
-	    	QString rootTag = docElem.tagName(); // == albums
+	    	QString rootTag = docElem.tagName(); // == persons
 
-	    	// get the node's interested in, this time only caring about album
+	    	// get the node's interested in, this time only caring about person's
 	    	QDomNodeList nodeList = docElem.elementsByTagName("album");
 
 	    	//Check each node one by one.
@@ -102,7 +106,7 @@ void Album::requestFinished(QNetworkReply* reply)
 	    	pEntries = pEntries.nextSibling();
 	    	}
 	    	model->insert(album);
-	    	}
+	    	}*/
 	    	mListView->setDataModel(model);
 	    }
 	    else

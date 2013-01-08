@@ -37,9 +37,9 @@ Page {
                         title: ListItemData.productname 
                         description: "Credits: " + ListItemData.productprice + "  Cards: "+ListItemData.productnumcards
                         imageSpaceReserved: true
-                        imageSource: ListItemData.productthumb
-                        
-                }
+                        imageSource: "asset:///images/loadingthumb.png"
+                        minHeight: 66
+                    }
                  /*   Container {
                         Label { text: ListItemData.productname }
                         Label { text: "Credits: " + ListItemData.productprice }

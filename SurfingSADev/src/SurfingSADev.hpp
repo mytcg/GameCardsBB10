@@ -4,6 +4,7 @@
 
 #include "functionality/Login.h"
 #include "functionality/Album.h"
+#include "functionality/AlbumView.h"
 #include "functionality/Weather.h"
 #include "functionality/Auction.h"
 #include "functionality/Credits.h"
@@ -40,6 +41,7 @@ public:
     //functionality classes
     Login *mLogin;
     Album *mAlbum;
+    AlbumView *mAlbumView;
     Weather *mWeather;
     Auction *mAuction;
     Credits *mCredits;

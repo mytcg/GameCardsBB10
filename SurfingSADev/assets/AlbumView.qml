@@ -2,11 +2,11 @@ import bb.cascades 1.0
 
 
 Page {
-    id: albumPage
+    id: albumViewPage
     signal cancel ()
     
-    function loadAlbums(String) {
-        albumClass.loadAlbums(String);
+    function loadAlbum(String) {
+        albumViewClass.loadAlbum(String);
     }
     
     titleBar: TitleBar {
@@ -16,7 +16,7 @@ Page {
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
-                albumPage.cancel();
+                albumViewPage.cancel();
             }
         }
     }
@@ -27,12 +27,12 @@ Page {
         }
         Label {
             id: albumLabel
-            objectName: "albumLabel"
+            objectName: "albumViewLabel"
             text: "0"
             visible: false
         }
         ListView {
-            objectName: "albumView"
+            objectName: "albumViewView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             
@@ -40,30 +40,24 @@ Page {
                 ListItemComponent {
                     type: "item"
                     StandardListItem {
-                        title: ListItemData.albumname 
+                        title: ListItemData.description +" ("+ListItemData.quantity+")"
                         horizontalAlignment: HorizontalAlignment.Center
+                        imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
+                        minHeight: 66
                     }
-                    /*Container {
-                    id: itemRoot
-                    Label { text: ListItemData.albumname }
-                    }*/
                 }
             ]
             onTriggered: {
                 clearSelection();
-                if(dataModel.data (indexPath).hascards == "false"){
-                    albumPage.loadAlbums(dataModel.data (indexPath).albumid);
-                }else{
-                    albumViewSheet.open();
-                    albumView.loadAlbum(dataModel.data (indexPath).albumid);
+                if(dataModel.data (indexPath).quantity!="0"){
+                    cardSheet.open();
                 }
             }
-        
         }
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
-            objectName: "loadIndicator"
+            objectName: "loadAlbumViewIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 200
@@ -75,14 +69,14 @@ Page {
     }
     attachedObjects: [
         Sheet {
-            id: albumViewSheet
+            id: cardSheet
             
-            AlbumView{
-                id: albumView
-                
-                onCancel: {
-                    albumViewSheet.close();
-                }
+            Card{
+            id: card
+            
+            onCancel: {
+            cardSheet.close();
+            }
             }
         }
     ]

@@ -4,7 +4,11 @@
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/DropDown>
+<<<<<<< HEAD
 #include <bb/cascades/Label>
+=======
+#include <bb/data/XmlDataAccess>
+>>>>>>> 7bc243336a369761349228ec9a9ecd6e67b6e835
 
 using namespace bb::cascades;
 using namespace bb::data;

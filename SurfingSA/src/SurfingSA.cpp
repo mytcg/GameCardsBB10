@@ -14,12 +14,17 @@ SurfingSA::SurfingSA(bb::cascades::Application *app)
 {
     // create scene document from main.qml asset
     // set parent to created document to ensure it exists for the whole application lifetime
-    QmlDocument *qml = QmlDocument::create("asset:///LoginRegister.qml").parent(this);
+    QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
     // Expose this class to QML so that we can call its functions from there
     qml->setContextProperty("app", this);
 
     // create root object for the UI
+	AbstractPane *root = qml->createRootObject<AbstractPane>();
+	// set created root object as a scene
+	app->setScene(root);
+
+    /*// create root object for the UI
     mPrimaryPane = qml->createRootObject<AbstractPane>();
     // set created root object as a scene
     app->setScene(mPrimaryPane);
@@ -44,12 +49,12 @@ SurfingSA::SurfingSA(bb::cascades::Application *app)
 	// and slot. This is a good practice with signals and slots as it can
 	// be easier to mistype a slot or signal definition
 	Q_ASSERT(result);
-	Q_UNUSED(result);
+	Q_UNUSED(result);*/
 }
 
 void SurfingSA::initiateRequest()
 {
-	// Start the activity indicator
+	/*// Start the activity indicator
 	mActivityIndicator->start();
 
     // Create and send the network request
@@ -63,12 +68,12 @@ void SurfingSA::initiateRequest()
     request.setRawHeader(QString("AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
     request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
 
-    mNetworkAccessManager->get(request);
+    mNetworkAccessManager->get(request);*/
 }
 
 void SurfingSA::requestFinished(QNetworkReply* reply)
 {
-    // Check the network reply for errors
+    /*// Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError)
     {
     	qDebug() << "\n Printing return data";
@@ -84,5 +89,5 @@ void SurfingSA::requestFinished(QNetworkReply* reply)
     }
     mActivityIndicator->stop();
 
-    reply->deleteLater();
+    reply->deleteLater();*/
 }
