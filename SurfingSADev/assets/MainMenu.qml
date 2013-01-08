@@ -256,6 +256,15 @@ Container {
                     }
                 }
             ]
+            
+            onTriggered: {
+                var selectedItem = dataModel.data(indexPath);
+                //textField.text = selectedItem.title + " " + indexPath;
+                
+                if (indexPath == 0) {
+                    weatherSheet.open();
+                }
+            }
         }
     }
     
@@ -368,6 +377,16 @@ Container {
             Redeem{
                 onCancel: {
                     redeemSheet.close();
+                }
+            }
+        },
+                
+        Sheet {
+            id: weatherSheet
+            
+            Weather{
+                onCancel: {
+                    weatherSheet.close();
                 }
             }
         }
