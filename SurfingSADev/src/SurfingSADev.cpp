@@ -28,6 +28,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     //create the functionality classes
     mLogin = new Login(root);
     mAlbum = new Album(root);
+    mAlbumView = new AlbumView(root);
     mAuction = new Auction(root);
     mCredits = new Credits(root);
     mFriends = new Friends(root);
@@ -39,6 +40,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
     qml->setContextProperty("albumClass", mAlbum);
+    qml->setContextProperty("albumViewClass", mAlbumView);
     qml->setContextProperty("auctionClass", mAuction);
     qml->setContextProperty("creditsClass", mCredits);
     qml->setContextProperty("friendsClass", mFriends);

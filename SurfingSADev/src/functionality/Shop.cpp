@@ -98,7 +98,7 @@ void Shop::requestFinished(QNetworkReply* reply)
 				} else if (tagNam == "productid") {
 					product["productid"] = peData.text();
 				} else if (tagNam == "productthumb") {
-					product["productthumb"] = peData.text();
+					product["productthumb"] = "www.mytcg.net/img/products/booster7_thumb.png";
 				}
 				pEntries = pEntries.nextSibling();
 			}

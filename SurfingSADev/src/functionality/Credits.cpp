@@ -57,6 +57,15 @@ void Credits::requestFinished(QNetworkReply* reply)
 		TextField * credits = root->findChild<TextField*>("creditsText");
 		TextField * premium = root->findChild<TextField*>("premiumText");
 		QString xmldata = QString(reply->readAll());
+		XmlDataAccess xda;
+		QVariant list = xda.loadFromBuffer(xmldata, "/transactions");
+		QVariantList qList = list.value<QVariantList>();
+		for (int i = 0; i < qList.size(); i++) {
+			QVariantMap temp = qList[i].value<QVariantMap>();
+			credits->setText (temp["credits"].value<QString>());
+			premium->setText (temp["premium"].value<QString>());
+		}
+
 		GroupDataModel *model = new GroupDataModel(QStringList() << "desc");
 		// Specify the type of grouping to use for the headers in the list
 		model->setGrouping(ItemGrouping::None);
@@ -71,35 +80,11 @@ void Credits::requestFinished(QNetworkReply* reply)
 		//Get the root element
 		QDomElement docElem = doc.documentElement();
 
-		QDomNodeList nodeList = docElem.elementsByTagName("categoryproducts");
-		// get the current one as QDomElement
-		QDomElement el = nodeList.at(0).toElement();
-
-		//get all data for the element, by looping through all child elements
-		QDomNode pEntries = el.firstChild();
-		while (!pEntries.isNull()) {
-			QDomElement peData = pEntries.toElement();
-			QString tagNam = peData.tagName();
-
-			if (tagNam == "credits") {
-				credits->setEnabled(true);
-				credits->setText (peData.text());
-				credits->setEnabled(false);
-			} else if (tagNam == "premium") {
-				credits->setEnabled(true);
-				premium->setText (peData.text());
-				credits->setEnabled(false);
-				return;
-			}
-			pEntries = pEntries.nextSibling();
-		}
-
-
 		// you could check the root tag name here if it matters
 		QString rootTag = docElem.tagName();
 
 		// get the node's interested in, this time only caring about transaction
-		nodeList = docElem.elementsByTagName("transaction");
+		QDomNodeList nodeList = docElem.elementsByTagName("transaction");
 
 		//Check each node one by one.
 		QMap<QString, QVariant> transaction;

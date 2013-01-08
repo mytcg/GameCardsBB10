@@ -45,7 +45,7 @@ Container {
                 onClicked: {
                     albumSheet.open();
                     
-                    album.loadAlbums();
+                    album.loadAlbums("0");
                 }
                 leftMargin: 5.0
                 rightMargin: 5.0
