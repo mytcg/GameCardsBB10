@@ -57,11 +57,17 @@ void Credits::requestFinished(QNetworkReply* reply)
 		TextField * credits = root->findChild<TextField*>("creditsText");
 		TextField * premium = root->findChild<TextField*>("premiumText");
 		QString xmldata = QString(reply->readAll());
+		QString creds = xmldata.mid(xmldata.indexOf("<credits>")+9,xmldata.indexOf("</credits>")-(xmldata.indexOf("<credits>")+9));
+		QString prem = xmldata.mid(xmldata.indexOf("<premium>")+9,xmldata.indexOf("</premium>")-(xmldata.indexOf("<premium>")+9));
+		credits->setText (creds);
+		premium->setText (prem);
 		XmlDataAccess xda;
 		QVariant list = xda.loadFromBuffer(xmldata, "/transactions");
 		QVariantList qList = list.value<QVariantList>();
 		for (int i = 0; i < qList.size(); i++) {
 			QVariantMap temp = qList[i].value<QVariantMap>();
+			qDebug() << temp["credits"].value<QString>();
+						qDebug() << temp["premium"].value<QString>();
 			credits->setText (temp["credits"].value<QString>());
 			premium->setText (temp["premium"].value<QString>());
 		}
