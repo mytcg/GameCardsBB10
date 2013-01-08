@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Album.h'
 **
-** Created: Sun 6. Jan 16:23:04 2013
+** Created: Tue 8. Jan 16:36:49 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

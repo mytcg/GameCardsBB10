@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'SurfingSADev.hpp'
 **
-<<<<<<< HEAD
-** Created: Sun 6. Jan 16:22:59 2013
-=======
-** Created: Sun 6. Jan 19:22:02 2013
->>>>>>> 160c073b447bcfa5bbf2ed730743563032e172fd
+** Created: Tue 8. Jan 16:36:45 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
