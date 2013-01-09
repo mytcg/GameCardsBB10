@@ -39,6 +39,7 @@ Page {
                         imageSpaceReserved: true
                         imageSource: "asset:///images/loadingthumb.png"
                         minHeight: 66
+                        onCreationCompleted: imageLoaderClass.loadImage(ListItemData.productthumb,this)
                     }
                  /*   Container {
                         Label { text: ListItemData.productname }

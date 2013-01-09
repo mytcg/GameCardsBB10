@@ -17,6 +17,7 @@ SOURCES +=  \
 HEADERS +=  \
     $$BASEDIR/src/SurfingSADev.hpp \
     $$BASEDIR/src/functionality/*.h \
+    $$BASEDIR/src/functionality/*.hpp \
     $$BASEDIR/src/utils/Util.h
 
 CONFIG += precompile_header
