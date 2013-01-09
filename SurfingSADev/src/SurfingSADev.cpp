@@ -37,6 +37,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     mNotifications = new Notifications(root);
     mRedeem = new Redeem(root);
     mShop = new Shop(root);
+    mImageLoader = new ImageLoader(root);
 
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
@@ -50,6 +51,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     qml->setContextProperty("notificationsClass", mNotifications);
     qml->setContextProperty("redeemClass", mRedeem);
     qml->setContextProperty("shopClass", mShop);
+    qml->setContextProperty("imageLoaderClass", mImageLoader);
 }
 
 QString SurfingSADev::loggedIn() {
