@@ -1,15 +1,15 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'InviteFriend.h'
+** Meta object code from reading C++ file 'Friends.h'
 **
-** Created: Wed 9. Jan 15:06:51 2013
+** Created: Wed 9. Jan 15:06:47 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../src/functionality/InviteFriend.h"
+#include "../../../src/functionality/Friends.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'InviteFriend.h' doesn't include <QObject>."
+#error "The header file 'Friends.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
 #error "This file was generated using the moc from 4.8.4. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -17,7 +17,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_InviteFriend[] = {
+static const uint qt_meta_data_Friends[] = {
 
  // content:
        6,       // revision
@@ -31,60 +31,59 @@ static const uint qt_meta_data_InviteFriend[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      20,   14,   13,   13, 0x08,
+      15,    9,    8,    8, 0x08,
 
  // methods: signature, parameters, type, tag, flags
-      74,   52,   13,   13, 0x02,
+      47,    8,    8,    8, 0x02,
 
        0        // eod
 };
 
-static const char qt_meta_stringdata_InviteFriend[] = {
-    "InviteFriend\0\0reply\0requestFinished(QNetworkReply*)\0"
-    "username,email,number\0"
-    "inviteFriend(QString,QString,QString)\0"
+static const char qt_meta_stringdata_Friends[] = {
+    "Friends\0\0reply\0requestFinished(QNetworkReply*)\0"
+    "loadFriends()\0"
 };
 
-void InviteFriend::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void Friends::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         Q_ASSERT(staticMetaObject.cast(_o));
-        InviteFriend *_t = static_cast<InviteFriend *>(_o);
+        Friends *_t = static_cast<Friends *>(_o);
         switch (_id) {
         case 0: _t->requestFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
-        case 1: _t->inviteFriend((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 1: _t->loadFriends(); break;
         default: ;
         }
     }
 }
 
-const QMetaObjectExtraData InviteFriend::staticMetaObjectExtraData = {
+const QMetaObjectExtraData Friends::staticMetaObjectExtraData = {
     0,  qt_static_metacall 
 };
 
-const QMetaObject InviteFriend::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_InviteFriend,
-      qt_meta_data_InviteFriend, &staticMetaObjectExtraData }
+const QMetaObject Friends::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_Friends,
+      qt_meta_data_Friends, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &InviteFriend::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &Friends::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *InviteFriend::metaObject() const
+const QMetaObject *Friends::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *InviteFriend::qt_metacast(const char *_clname)
+void *Friends::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_InviteFriend))
-        return static_cast<void*>(const_cast< InviteFriend*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_Friends))
+        return static_cast<void*>(const_cast< Friends*>(this));
     return QObject::qt_metacast(_clname);
 }
 
-int InviteFriend::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int Friends::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)

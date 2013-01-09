@@ -13,9 +13,6 @@ using namespace bb::cascades;
 namespace bb {
 	namespace cascades {
 		class Application;
-		class TextField;
-		class ActivityIndicator;
-		class AbstractPane;
 	}
 }
 
@@ -41,12 +38,6 @@ public:
     private:
         //networking
         QNetworkAccessManager *mNetworkAccessManager;
-
-        //interface
-        TextField *mUsernameText;
-        TextField *mPasswordText;
-        ActivityIndicator *mActivityIndicator;
-        AbstractPane *mPrimaryPane;
 };
 
 

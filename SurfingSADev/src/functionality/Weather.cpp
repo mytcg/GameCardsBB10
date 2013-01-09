@@ -1,7 +1,10 @@
 #include "Weather.h"
 
-#include <bb/cascades/DropDown>
+#include <QTime>
+
 #include <bb/data/XmlDataAccess>
+#include <bb/cascades/DropDown>
+#include <bb/cascades/Label>
 
 using namespace bb::cascades;
 using namespace bb::data;
@@ -50,6 +53,20 @@ void Weather::requestFinished(QNetworkReply* reply)
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
 
+    	QString timeString("");
+    	QTextStream timeStream(&timeString);
+    	QTime time;
+    	time.start();
+    	qDebug() << "\n weather time: " << time.toString("hh:mm:ss.zzz");
+    	qDebug() << "\n weather time hh: " << time.toString("hh");
+    	qDebug() << "\n weather time.hour(): " << time.hour();
+    	qDebug() << "\n weather time.minute(): " << time.minute();
+    	qDebug() << "\n weather time.second(): " << time.second();
+
+    	timeStream << time.hour() << "00";
+
+    	qDebug() << "\n weather timeString: " << timeString;
+
     	QString result(reply->readAll());
 
     	qDebug() << "\n result: " << result;
@@ -57,14 +74,32 @@ void Weather::requestFinished(QNetworkReply* reply)
 		XmlDataAccess xda;
 		QVariant weatherData = xda.loadFromBuffer(result, "/data/weather");
 
-		QVariantList qList = weatherData.value<QVariantList>();
+		QVariantMap weatherMap = weatherData.value<QVariantMap>();
+
+		qDebug() << "\n weather date: " << weatherMap["date"].value<QString>();
+		qDebug() << "\n weather maxtempC: " << weatherMap["maxtempC"].value<QString>();
+		qDebug() << "\n weather mintempC: " << weatherMap["mintempC"].value<QString>();
+
+		QVariantList qList = weatherMap["hourly"].value<QVariantList>();
 		for (int i = 0; i < qList.size(); i++) {
 			QVariantMap temp = qList[i].value<QVariantMap>();
-			qDebug() << "\nfirstName: " << temp["firstName"].value<QString>();
-			qDebug() << "\nlastName: " << temp["lastName"].value<QString>();
-			qDebug() << "\ntitle: " << temp["title"].value<QString>();
-		}
 
+			if ((temp["time"].value<QString>()).toInt() <= timeString.toInt()) {
+				(root->findChild<Label*>("dateLabel"))->setText(weatherMap["date"].value<QString>());
+				(root->findChild<Label*>("timeLabel"))->setText(time.toString("hh:mm"));
+				(root->findChild<Label*>("maxTempLabel"))->setText(weatherMap["maxtempC"].value<QString>());
+				(root->findChild<Label*>("minTempLabel"))->setText(weatherMap["mintempC"].value<QString>());
+				(root->findChild<Label*>("currentTempLabel"))->setText(temp["tempC"].value<QString>());
+
+
+				qDebug() << "\n weather time: " << temp["time"].value<QString>();
+				qDebug() << "\n weather tempC: " << temp["tempC"].value<QString>();
+				qDebug() << "\n weather swellPeriod_secs: " << temp["swellPeriod_secs"].value<QString>();
+				qDebug() << "\n weather weatherIconUrl: " << temp["weatherIconUrl"].value<QString>();
+
+				break;
+			}
+		}
     }
     else {
         qDebug() << "\n Problem with the network";

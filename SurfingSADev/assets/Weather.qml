@@ -68,6 +68,76 @@ Page {
             }
         }
         
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            
+            Label {
+                text: "Date: "
+            }
+            
+            Label {
+                objectName: "dateLabel"
+            }   
+        }
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            
+            Label {
+                text: "Time: "
+            }
+            
+            Label {
+	            objectName: "timeLabel"
+	        }   
+        }
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            
+            Label {
+                text: "Maximum Temperature: "
+            }
+            
+            Label {
+	            objectName: "maxTempLabel"
+	        }  
+        }
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            
+            Label {
+                text: "Minimum Temperature: "
+            }
+            
+            Label {
+	            objectName: "minTempLabel"
+	        }  
+        }
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            
+            Label {
+                text: "Current Temperature: "
+            }
+            
+            Label {
+	            objectName: "currentTempLabel"
+	        }  
+        }
+        
         ActivityIndicator {
             objectName: "weatherIndicator"
             verticalAlignment: VerticalAlignment.Center
