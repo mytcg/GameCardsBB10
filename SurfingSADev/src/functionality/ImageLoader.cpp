@@ -30,8 +30,8 @@ void ImageLoader::loadImage(QString imageUrl, ImageView * parent)
 			qDebug() << "\n loadImage loading from file";
 			QTextStream fileStream(file);
 
-			QByteArray data ( QString(fileStream.readAll()).toLocal8Bit ());
-
+			QByteArray data;
+			data.append(QString(fileStream.readAll()));
 			file->close();
 
 			QImage image;
@@ -70,12 +70,13 @@ void ImageLoader::onReplyFinished()
 	QString response;
 	if (reply) {
 		if (reply->error() == QNetworkReply::NoError) {
-			qDebug() << "\n Saving image";
+			QString filename = "data/surfingsa_"+(m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)));
+			qDebug() << "\n Saving image "+filename;
 			const int available = reply->bytesAvailable();
 			if (available > 0) {
 				const QByteArray data(reply->readAll());
 				//save image
-				QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/cards/")+10)));
+				QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)));
 
 				// Open the file and print an error if the file cannot be opened
 				if (file->open(QIODevice::ReadWrite))
