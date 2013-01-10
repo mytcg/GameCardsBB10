@@ -42,6 +42,6 @@ void ShopItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *listI
     QVariantMap map = data.value<QVariantMap>();
     ShopItem *recipeItem = static_cast<ShopItem *>(listItem);
     //recipeItem->updateItem(map["fruit"].toString());
-
-    imageLoader->loadImage(map["productthumb"].toString(), recipeItem->itemImage());
+    ImageLoader *imloader = new ImageLoader();
+    imloader->loadImage(map["productthumb"].toString(), recipeItem->itemImage());
 }

@@ -29,20 +29,16 @@ class ImageLoader : public QObject
 {
     Q_OBJECT
 public:
-    ImageLoader(AbstractPane *root);
+    ImageLoader(AbstractPane *root = 0);
     virtual ~ImageLoader() {}
 
-    Q_INVOKABLE void loadImage(QString imageUrl, QObject * parent);
+    Q_INVOKABLE void loadImage(QString imageUrl, ImageView * parent);
 
-private slots:
-	/*!
-	 * Handles the network reply.
-	 */
-	void onReplyFinished(QNetworkReply* reply);
+private Q_SLOTS:
+	void onReplyFinished();
 
 private:
 	bb::ImageData imageToData(QImage & qImage);
-    QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     QString m_imageUrl;
     ImageView *mParent;

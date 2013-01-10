@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Shop.h'
 **
-** Created: Thu 10. Jan 15:16:57 2013
+** Created: Thu 10. Jan 19:29:26 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

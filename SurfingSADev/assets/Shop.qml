@@ -55,7 +55,7 @@ Page {
                         imageSource: "asset:///images/loadingthumb.png"
                         minHeight: 66
                         onCreationCompleted: {
-                            imageloaderClass.loadImage(ListItemData.productthumb);
+                            //imageloaderClass.loadImage(ListItemData.productthumb);
                         }
                     }
                     /*Container {

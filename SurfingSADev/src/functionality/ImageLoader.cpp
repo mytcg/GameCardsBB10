@@ -11,27 +11,17 @@ using namespace bb;
 ImageLoader::ImageLoader(AbstractPane *root): root(root)
 {
 	qDebug() << "\n ImageLoader ";
-	mNetworkAccessManager = new QNetworkAccessManager(this);
 
-	bool result = connect(mNetworkAccessManager,
-			SIGNAL(finished(QNetworkReply*)),
-			this, SLOT(onReplyFinished(QNetworkReply*)));
-
-	// Displays a warning message if there's an issue connecting the signal
-	// and slot. This is a good practice with signals and slots as it can
-	// be easier to mistype a slot or signal definition
-	Q_ASSERT(result);
-	Q_UNUSED(result);
 }
 
-void ImageLoader::loadImage(QString imageUrl, QObject * parent)
+void ImageLoader::loadImage(QString imageUrl, ImageView * parent)
 {
 	qDebug() << "\n loadImage "+imageUrl;
 	m_imageUrl = imageUrl;
-	mParent = ((StandardListItem *)parent);
+	mParent = parent;
 
-	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)))){
-		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)));
+	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)))){
+		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)));
 
 		qDebug() << "\n loadImage file exists";
 		// Open the file and print an error if the file cannot be opened
@@ -51,34 +41,41 @@ void ImageLoader::loadImage(QString imageUrl, QObject * parent)
 			mParent->setImage (imageToData(image));
 		}
 		else {
-			mNetworkAccessManager = new QNetworkAccessManager(this);
+			qDebug() << "\n loadImage 2";
+			QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
 
-			QNetworkRequest request = QNetworkRequest();
-			request.setUrl(QUrl(m_imageUrl));
+			const QUrl url(m_imageUrl);
+			QNetworkRequest request(url);
 
-			mNetworkAccessManager->get(request);
+			QNetworkReply* reply = netManager->get(request);
+			connect(reply, SIGNAL(finished()), this, SLOT(onReplyFinished()));
 		}
 	}
 	else {
-		mNetworkAccessManager = new QNetworkAccessManager(this);
+		qDebug() << "\n loadImage 3";
+		QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
 
-		QNetworkRequest request = QNetworkRequest();
-					request.setUrl(QUrl(m_imageUrl));
+		const QUrl url(m_imageUrl);
+		QNetworkRequest request(url);
 
-		mNetworkAccessManager->get(request);
+		QNetworkReply* reply = netManager->get(request);
+		connect(reply, SIGNAL(finished()), this, SLOT(onReplyFinished()));
 	}
 }
 
-void ImageLoader::onReplyFinished(QNetworkReply* reply)
+void ImageLoader::onReplyFinished()
 {
+	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+	qDebug() << "\n Downloading image";
 	QString response;
 	if (reply) {
 		if (reply->error() == QNetworkReply::NoError) {
+			qDebug() << "\n Saving image";
 			const int available = reply->bytesAvailable();
 			if (available > 0) {
 				const QByteArray data(reply->readAll());
 				//save image
-				QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.length()-(m_imageUrl.indexOf("/cards/")+7)));
+				QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/cards/")+10)));
 
 				// Open the file and print an error if the file cannot be opened
 				if (file->open(QIODevice::ReadWrite))
@@ -92,7 +89,7 @@ void ImageLoader::onReplyFinished(QNetworkReply* reply)
 					qDebug() << "\n Failed to open file";
 				}
 				QImage image;
-
+				qDebug() << "\n Converting image";
 				image.loadFromData(data);
 
 				mParent->setImage (imageToData(image));
