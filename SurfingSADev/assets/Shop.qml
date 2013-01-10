@@ -25,6 +25,20 @@ Page {
             text: "0"
             visible: false
         }
+        
+        ListView {
+            objectName: "shopList"
+            
+            layoutProperties: StackLayoutProperties {
+                spaceQuota: 1
+            }
+            
+            layout: GridListLayout {
+                columnCount: 2
+                cellAspectRatio: 1.6
+            }            
+        }
+        
         ListView {
             objectName: "shopView"
             verticalAlignment: VerticalAlignment.Center
@@ -41,7 +55,7 @@ Page {
                         minHeight: 66
                         onCreationCompleted: imageLoaderClass.loadImage(ListItemData.productthumb,this)
                     }
-                 /*   Container {
+                    /*Container {
                         Label { text: ListItemData.productname }
                         Label { text: "Credits: " + ListItemData.productprice }
                         Label { text: "Cards: " + ListItemData.productnumcards }

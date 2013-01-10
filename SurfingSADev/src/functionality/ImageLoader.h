@@ -6,6 +6,7 @@
 
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/StandardListItem>
+#include <bb/cascades/ImageView>
 #include <bb/ImageData>
 
 using namespace bb::cascades;
@@ -17,6 +18,7 @@ namespace bb {
 		class Label;
 		class ListView;
 		class StandardListItem;
+		class ImageView;
 	}
 }
 
@@ -32,7 +34,7 @@ public:
     ImageLoader(AbstractPane *root);
     virtual ~ImageLoader() {}
 
-    Q_INVOKABLE void loadImage(QString &imageUrl, QObject* parent = 0);
+    Q_INVOKABLE void loadImage(QString imageUrl, ImageView *parent);
 
 private slots:
 	/*!
@@ -45,7 +47,7 @@ private:
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     QString m_imageUrl;
-    StandardListItem * mParent;
+    ImageView *mParent;
 };
 
 #endif /* ImageLoader_HPP_ */

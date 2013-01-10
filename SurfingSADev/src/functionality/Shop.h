@@ -2,6 +2,8 @@
 #ifndef Shop_HPP_
 #define Shop_HPP_
 
+#include "ImageLoader.h"
+
 #include <QObject>
 
 #include <bb/cascades/AbstractPane>
@@ -30,7 +32,7 @@ class Shop : public QObject
 {
     Q_OBJECT
 public:
-    Shop(AbstractPane *root);
+    Shop(AbstractPane *root, ImageLoader *loader);
     virtual ~Shop() {}
 
     Q_INVOKABLE void loadProducts();
@@ -47,6 +49,8 @@ private:
     ActivityIndicator *mActivityIndicator;
     ListView *mListView;
     Label *mShop;
+
+    ImageLoader *imageLoader;
 };
 
 #endif /* Shop_HPP_ */

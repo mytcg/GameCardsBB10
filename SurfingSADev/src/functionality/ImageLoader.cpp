@@ -12,18 +12,20 @@ ImageLoader::ImageLoader(AbstractPane *root): root(root)
 {
 }
 
-void ImageLoader::loadImage(QString &imageUrl, QObject* parent)
+void ImageLoader::loadImage(QString imageUrl, ImageView* parent)
 {
-	qDebug() << "\nloadImage "+imageUrl;
+	qDebug() << "\n loadImage "+imageUrl;
 	m_imageUrl = imageUrl;
-	mParent = (StandardListItem*) parent;
+	mParent = parent;
 
 	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)))){
 		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)));
 
+		qDebug() << "\n loadImage file exists";
 		// Open the file and print an error if the file cannot be opened
 		if (file->open(QIODevice::ReadWrite))
 		{
+			qDebug() << "\n loadImage loading from file";
 			QTextStream fileStream(file);
 
 			const QByteArray data ( QString(fileStream.readAll()).toLocal8Bit ());
@@ -37,6 +39,8 @@ void ImageLoader::loadImage(QString &imageUrl, QObject* parent)
 		    mParent->setImage (imageToData(image));
 		}
 		else {
+			qDebug() << "\n loadImage error opening file, downloading";
+
 			QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
 
 			const QUrl url(m_imageUrl);
@@ -47,6 +51,7 @@ void ImageLoader::loadImage(QString &imageUrl, QObject* parent)
 		}
 	}
 	else {
+		qDebug() << "\n loadImage downloading file";
 		QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
 
 		const QUrl url(m_imageUrl);
@@ -60,6 +65,8 @@ void ImageLoader::loadImage(QString &imageUrl, QObject* parent)
 void ImageLoader::onReplyFinished()
 {
 	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+
+	qDebug() << "\n loadImage reply finished";
 
 	QString response;
 	if (reply) {
