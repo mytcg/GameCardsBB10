@@ -6,6 +6,7 @@
 
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/StandardListItem>
+#include <bb/cascades/ImageView>
 #include <bb/ImageData>
 
 using namespace bb::cascades;
@@ -15,6 +16,7 @@ namespace bb {
 		class ActivityIndicator;
 		class AbstractPane;
 		class StandardListItem;
+		class ImageView;
 	}
 }
 
@@ -43,7 +45,7 @@ private:
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     QString m_imageUrl;
-    StandardListItem * mParent;
+    ImageView *mParent;
 };
 
 #endif /* ImageLoader_HPP_ */

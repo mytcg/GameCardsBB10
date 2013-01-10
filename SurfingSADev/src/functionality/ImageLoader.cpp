@@ -33,9 +33,11 @@ void ImageLoader::loadImage(QString imageUrl, QObject * parent)
 	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)))){
 		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)));
 
+		qDebug() << "\n loadImage file exists";
 		// Open the file and print an error if the file cannot be opened
 		if (file->open(QIODevice::ReadWrite))
 		{
+			qDebug() << "\n loadImage loading from file";
 			QTextStream fileStream(file);
 
 			QByteArray data ( QString(fileStream.readAll()).toLocal8Bit ());

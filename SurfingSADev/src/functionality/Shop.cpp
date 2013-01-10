@@ -1,14 +1,19 @@
 #include "Shop.h"
+
 #include "../utils/Util.h"
+#include "../customcomponents/ShopItem.h"
+#include "../customcomponents/ShopItemFactory.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
+#include <bb/cascades/Container>
+
 #include <QtXml/QDomDocument>
 
 using namespace bb::cascades;
 using namespace bb::data;
 
-Shop::Shop(AbstractPane *root): root(root)
+Shop::Shop(AbstractPane *root, ImageLoader *loader): root(root), imageLoader(loader)
 {
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -76,6 +81,10 @@ void Shop::requestFinished(QNetworkReply* reply)
 		// get the node's interested in, this time only caring about products
 		QDomNodeList nodeList = docElem.elementsByTagName("product");
 
+		// Container for products
+		ListView *shopContainer = root->findChild<ListView*>("shopList");
+		//ShopItem *productItem;
+
 		//Check each node one by one.
 		QMap<QString, QVariant> product;
 		for (int ii = 0; ii < nodeList.count(); ii++) {
@@ -103,7 +112,17 @@ void Shop::requestFinished(QNetworkReply* reply)
 				pEntries = pEntries.nextSibling();
 			}
 			model->insert(product);
+			//productItem = new ShopItem(shopContainer);
+			//product->updateItem();
 		}
+
+		shopContainer->setDataModel(model);
+
+		ShopItemFactory *itemfactory = new ShopItemFactory(imageLoader);
+		shopContainer->setListItemProvider(itemfactory);
+
+		connect(shopContainer, SIGNAL(triggered(const QVariantList)), this,
+				SLOT(onNewFruitChanged(const QVariantList)));
 
 		mListView->setDataModel(model);
 	}
