@@ -34,12 +34,15 @@ Page {
                 ListItemComponent {
                     type: "item"
                     StandardListItem {
+                        id: rootThingy
                         title: ListItemData.productname 
                         description: "Credits: " + ListItemData.productprice + "  Cards: "+ListItemData.productnumcards
                         imageSpaceReserved: true
                         imageSource: "asset:///images/loadingthumb.png"
                         minHeight: 66
-                        onCreationCompleted: imageLoaderClass.loadImage(ListItemData.productthumb,this)
+                        onCreationCompleted: {
+                            imageloaderClass.loadImage(ListItemData.productthumb);
+                        }
                     }
                  /*   Container {
                         Label { text: ListItemData.productname }

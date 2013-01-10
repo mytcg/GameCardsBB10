@@ -44,6 +44,9 @@ Page {
                         horizontalAlignment: HorizontalAlignment.Center
                         imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
                         minHeight: 66
+                        onCreationCompleted: {
+                            imageloaderClass.loadImage(ListItemData.thumburl, this);
+                        }
                     }
                 }
             ]

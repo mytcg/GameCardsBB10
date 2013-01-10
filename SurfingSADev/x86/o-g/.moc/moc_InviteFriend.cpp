@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'InviteFriend.h'
 **
-** Created: Wed 9. Jan 15:06:51 2013
+** Created: Thu 10. Jan 15:16:47 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

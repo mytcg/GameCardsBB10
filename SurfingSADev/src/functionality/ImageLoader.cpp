@@ -10,13 +10,25 @@ using namespace bb;
 
 ImageLoader::ImageLoader(AbstractPane *root): root(root)
 {
+	qDebug() << "\n ImageLoader ";
+	mNetworkAccessManager = new QNetworkAccessManager(this);
+
+	bool result = connect(mNetworkAccessManager,
+			SIGNAL(finished(QNetworkReply*)),
+			this, SLOT(onReplyFinished(QNetworkReply*)));
+
+	// Displays a warning message if there's an issue connecting the signal
+	// and slot. This is a good practice with signals and slots as it can
+	// be easier to mistype a slot or signal definition
+	Q_ASSERT(result);
+	Q_UNUSED(result);
 }
 
-void ImageLoader::loadImage(QString &imageUrl, QObject* parent)
+void ImageLoader::loadImage(QString imageUrl, QObject * parent)
 {
-	qDebug() << "\nloadImage "+imageUrl;
+	qDebug() << "\n loadImage "+imageUrl;
 	m_imageUrl = imageUrl;
-	mParent = (StandardListItem*) parent;
+	mParent = ((StandardListItem *)parent);
 
 	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)))){
 		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/cards/")+7,m_imageUrl.indexOf(".jpg")-(m_imageUrl.indexOf("/cards/")+7)));
@@ -26,41 +38,37 @@ void ImageLoader::loadImage(QString &imageUrl, QObject* parent)
 		{
 			QTextStream fileStream(file);
 
-			const QByteArray data ( QString(fileStream.readAll()).toLocal8Bit ());
+			QByteArray data ( QString(fileStream.readAll()).toLocal8Bit ());
 
 			file->close();
 
 			QImage image;
 
-		    image.loadFromData(data);
+			image.loadFromData(data);
 
-		    mParent->setImage (imageToData(image));
+			mParent->setImage (imageToData(image));
 		}
 		else {
-			QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
+			mNetworkAccessManager = new QNetworkAccessManager(this);
 
-			const QUrl url(m_imageUrl);
-			QNetworkRequest request(url);
+			QNetworkRequest request = QNetworkRequest();
+			request.setUrl(QUrl(m_imageUrl));
 
-			QNetworkReply* reply = netManager->get(request);
-			connect(reply, SIGNAL(finished()), this, SLOT(onReplyFinished()));
+			mNetworkAccessManager->get(request);
 		}
 	}
 	else {
-		QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
+		mNetworkAccessManager = new QNetworkAccessManager(this);
 
-		const QUrl url(m_imageUrl);
-		QNetworkRequest request(url);
+		QNetworkRequest request = QNetworkRequest();
+					request.setUrl(QUrl(m_imageUrl));
 
-		QNetworkReply* reply = netManager->get(request);
-		connect(reply, SIGNAL(finished()), this, SLOT(onReplyFinished()));
+		mNetworkAccessManager->get(request);
 	}
 }
 
-void ImageLoader::onReplyFinished()
+void ImageLoader::onReplyFinished(QNetworkReply* reply)
 {
-	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-
 	QString response;
 	if (reply) {
 		if (reply->error() == QNetworkReply::NoError) {
@@ -98,20 +106,20 @@ void ImageLoader::onReplyFinished()
 }
 
 bb::ImageData ImageLoader::imageToData(QImage & qImage) {
-    bb::ImageData imageData(bb::PixelFormat::RGBA_Premultiplied, qImage.width(), qImage.height());
+	bb::ImageData imageData(bb::PixelFormat::RGBA_Premultiplied, qImage.width(), qImage.height());
 
-    unsigned char *dstLine = imageData.pixels();
-    for (int y = 0; y < imageData.height(); y++) {
-        unsigned char * dst = dstLine;
-        for (int x = 0; x < imageData.width(); x++) {
-            QRgb srcPixel = qImage.pixel(x, y);
-            *dst++ = qRed(srcPixel);
-            *dst++ = qGreen(srcPixel);
-            *dst++ = qBlue(srcPixel);
-            *dst++ = qAlpha(srcPixel);
-        }
-        dstLine += imageData.bytesPerLine();
-    }
+	unsigned char *dstLine = imageData.pixels();
+	for (int y = 0; y < imageData.height(); y++) {
+		unsigned char * dst = dstLine;
+		for (int x = 0; x < imageData.width(); x++) {
+			QRgb srcPixel = qImage.pixel(x, y);
+			*dst++ = qRed(srcPixel);
+			*dst++ = qGreen(srcPixel);
+			*dst++ = qBlue(srcPixel);
+			*dst++ = qAlpha(srcPixel);
+		}
+		dstLine += imageData.bytesPerLine();
+	}
 
-    return imageData;
+	return imageData;
 }

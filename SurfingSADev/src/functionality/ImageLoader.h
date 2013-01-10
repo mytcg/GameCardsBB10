@@ -14,8 +14,6 @@ namespace bb {
 	namespace cascades {
 		class ActivityIndicator;
 		class AbstractPane;
-		class Label;
-		class ListView;
 		class StandardListItem;
 	}
 }
@@ -32,16 +30,16 @@ public:
     ImageLoader(AbstractPane *root);
     virtual ~ImageLoader() {}
 
-    Q_INVOKABLE void loadImage(QString &imageUrl, QObject* parent = 0);
+    Q_INVOKABLE void loadImage(QString imageUrl, QObject * parent);
 
 private slots:
 	/*!
 	 * Handles the network reply.
 	 */
-	void onReplyFinished();
-	bb::ImageData imageToData(QImage & qImage);
+	void onReplyFinished(QNetworkReply* reply);
 
 private:
+	bb::ImageData imageToData(QImage & qImage);
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     QString m_imageUrl;
