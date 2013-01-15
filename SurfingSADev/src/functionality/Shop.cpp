@@ -13,7 +13,7 @@
 using namespace bb::cascades;
 using namespace bb::data;
 
-Shop::Shop(AbstractPane *root, ImageLoader *loader): root(root), imageLoader(loader)
+Shop::Shop(AbstractPane *root): root(root)
 {
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -118,7 +118,7 @@ void Shop::requestFinished(QNetworkReply* reply)
 
 		shopContainer->setDataModel(model);
 
-		ShopItemFactory *itemfactory = new ShopItemFactory(imageLoader);
+		ShopItemFactory *itemfactory = new ShopItemFactory();
 		shopContainer->setListItemProvider(itemfactory);
 
 		connect(shopContainer, SIGNAL(triggered(const QVariantList)), this,

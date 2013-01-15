@@ -13,7 +13,7 @@
 #include "functionality/Notifications.h"
 #include "functionality/Redeem.h"
 #include "functionality/Shop.h"
-#include "functionality/ImageLoader.h"
+#include "functionality/Card.h"
 
 #include <QObject>
 
@@ -51,7 +51,7 @@ public:
     Notifications *mNotifications;
     Redeem *mRedeem;
     Shop *mShop;
-    ImageLoader *mImageLoader;
+    Card *mCard;
 };
 
 #endif /* SurfingSADev_HPP_ */

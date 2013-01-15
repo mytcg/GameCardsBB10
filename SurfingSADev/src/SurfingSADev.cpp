@@ -26,8 +26,6 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     app->setScene(root);
 
     //create the functionality classes
-    mImageLoader = new ImageLoader(root);
-
     mLogin = new Login(root);
     mAlbum = new Album(root);
     mAlbumView = new AlbumView(root);
@@ -38,7 +36,8 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     mInviteFriend = new InviteFriend(root);
     mNotifications = new Notifications(root);
     mRedeem = new Redeem(root);
-    mShop = new Shop(root, mImageLoader);
+    mShop = new Shop(root);
+    mCard = new Card(root);
 
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
@@ -52,7 +51,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     qml->setContextProperty("notificationsClass", mNotifications);
     qml->setContextProperty("redeemClass", mRedeem);
     qml->setContextProperty("shopClass", mShop);
-    qml->setContextProperty("imageloaderClass", mImageLoader);
+    qml->setContextProperty("cardClass", mCard);
 }
 
 QString SurfingSADev::loggedIn() {

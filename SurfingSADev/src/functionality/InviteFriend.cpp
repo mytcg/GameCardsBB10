@@ -65,10 +65,11 @@ void InviteFriend::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
-    	QString *result = new QString(reply->readAll());
+    	QString result = QString(reply->readAll());
+    	mInviteFriend->setText(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)));
     }
     else {
-    	mInviteFriend->setText("0");
+    	mInviteFriend->setText("Problem with the network");
         qDebug() << "\n Problem with the network";
         qDebug() << "\n" << reply->errorString();
     }

@@ -11,6 +11,10 @@ Page {
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
+                inviteFriendLabel.text = "";
+                usernameText.text = "";
+                emailText.text = "";
+                numberText.text = "";
                 invitefriendPage.cancel();
             }
         }
@@ -18,6 +22,11 @@ Page {
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
+        }
+        Label {
+            id: inviteFriendLabel
+            objectName: "inviteFriendLabel"
+            text: ""
         }
         Label {
             text: "Invite by Username:"
@@ -46,12 +55,6 @@ Page {
             objectName: "numberText"
             
             text: ""
-        }
-        Label {
-            id: inviteFriendLabel
-            objectName: "inviteFriendLabel"
-            text: "0"
-            visible: false
         }
         Button {
             id: invite

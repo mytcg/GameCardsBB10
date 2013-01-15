@@ -32,7 +32,7 @@ public:
     ImageLoader(AbstractPane *root = 0);
     virtual ~ImageLoader() {}
 
-    Q_INVOKABLE void loadImage(QString imageUrl, ImageView * parent);
+    Q_INVOKABLE void loadImage(QString imageUrl, ImageView * parent, QString prefix, QString suffix);
 
 private Q_SLOTS:
 	void onReplyFinished();
@@ -41,6 +41,8 @@ private:
 	bb::ImageData imageToData(QImage & qImage);
     AbstractPane *root;
     QString m_imageUrl;
+    QString mPrefix;
+    QString mSuffix;
     ImageView *mParent;
 };
 

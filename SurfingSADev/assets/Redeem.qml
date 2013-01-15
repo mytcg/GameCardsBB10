@@ -2,22 +2,29 @@ import bb.cascades 1.0
 
 Page {
     id: redeemPage
-        signal cancel ()
+    signal cancel ()
+    
+    titleBar: TitleBar {
+        title: "Redeem"
+        visibility: ChromeVisibility.Visible
         
-        titleBar: TitleBar {
-            title: "Redeem"
-            visibility: ChromeVisibility.Visible
-            
-            acceptAction: ActionItem {
-                title: "Back"
-                onTriggered: {
-                    redeemPage.cancel();
-                }
+        acceptAction: ActionItem {
+            title: "Back"
+            onTriggered: {
+                redeemLabel.text = "";
+                redeemText.text = "";
+                redeemPage.cancel();
             }
         }
+    }
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
+        }
+        Label {
+            id: redeemLabel
+            objectName: "redeemLabel"
+            text: ""
         }
         Label {
             text: "Redeem Code:"
@@ -26,19 +33,14 @@ Page {
         TextField {
             id: redeemText
             objectName: "redeemText"
-        }
-        Label {
-            id: redeemLabel
-            objectName: "redeemLabel"
-            text: "0"
-            visible: false
+            text: ""
         }
         Button {
             id: redeem
             text: "Redeem"
             onClicked: redeemClass.redeem(redeemText.text)
         }
-      
+        
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
@@ -52,7 +54,7 @@ Page {
                 //cancelScreen()
             }
         }
-
-        
+    
+    
     }
 }

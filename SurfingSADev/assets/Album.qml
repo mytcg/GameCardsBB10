@@ -3,6 +3,7 @@ import bb.cascades 1.0
 
 Page {
     id: albumPage
+    
     signal cancel ()
     
     function loadAlbums(String) {

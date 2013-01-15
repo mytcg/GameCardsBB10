@@ -46,10 +46,11 @@ void Redeem::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
-    	QString *result = new QString(reply->readAll());
+    	QString result = QString(reply->readAll());
+    	mRedeem->setText(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)));
     }
     else {
-    	mRedeem->setText("0");
+    	mRedeem->setText("Problem with the network");
         qDebug() << "\n Problem with the network";
         qDebug() << "\n" << reply->errorString();
     }
