@@ -44,4 +44,9 @@ void ShopItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *listI
     //recipeItem->updateItem(map["fruit"].toString());
     ImageLoader *imloader = new ImageLoader();
     imloader->loadImage(map["productthumb"].toString(), recipeItem->itemImage(),"/products/",".png");
+
+    //set labels
+    recipeItem->setTitle(map["productname"].toString());
+
+    recipeItem->setDescription("Credits: " + map["productprice"].toString() + "\nCards: "+map["productnumcards"].toString());
 }
