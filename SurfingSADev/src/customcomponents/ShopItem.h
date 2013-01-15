@@ -12,6 +12,7 @@ namespace bb
     {
         class ImageView;
         class Container;
+        class Label;
     }
 }
 
@@ -28,6 +29,11 @@ public:
      * @param imagePath The path to the image content used for the item.
      */
     void updateItem(const QString imagePath);
+
+    void setTitle(const QString title);
+
+    void setDescription(const QString description);
+
 
     /**
      * ListItemListener interface function called when the select state changes.
@@ -59,6 +65,7 @@ private:
     // Item Controls
     ImageView *mItemImage;
     Container *mHighlighContainer;
+    Label *mItemTitle, *mItemDescription;
 };
 
 #endif // ifndef _SHOPITEM_H_

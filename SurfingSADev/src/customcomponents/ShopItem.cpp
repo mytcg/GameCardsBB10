@@ -4,6 +4,12 @@
 #include <bb/cascades/Container>
 #include <bb/cascades/DockLayout>
 #include <bb/cascades/ImageView>
+#include <bb/cascades/Label>
+#include <bb/cascades/SystemDefaults>
+#include <bb/cascades/TextStyle>
+#include <bb/cascades/Color>
+#include <bb/cascades/StackLayout>
+#include <bb/cascades/StackLayoutProperties>
 
 using namespace bb::cascades;
 
@@ -14,6 +20,15 @@ ShopItem::ShopItem(Container *parent) :
     Container *itemContainer = new Container();
     DockLayout *itemLayout = new DockLayout();
     itemContainer->setLayout(itemLayout);
+
+    // Sub item container
+	Container *subItemContainer = Container::create();
+	subItemContainer->setLayout(new DockLayout());
+	subItemContainer->setTopPadding(25);
+	subItemContainer->setLeftPadding(25);
+	subItemContainer->setRightPadding(25);
+	subItemContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
+	subItemContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
     // The white background item image with drop shadow
     ImageView *bkgImage = ImageView::create("asset:///images/customcomponents/title_gui_buffet_empty_box.amd");
@@ -26,14 +41,30 @@ ShopItem::ShopItem(Container *parent) :
     mHighlighContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
     // The list item image, the actual image is set in updateItem
-    mItemImage = ImageView::create("asset:///images/customcomponents/white_photo.png");
-    mItemImage->setHorizontalAlignment(HorizontalAlignment::Center);
-    mItemImage->setVerticalAlignment(VerticalAlignment::Center);
+    mItemImage = ImageView::create("asset:///images/loadingthumb.png");
+    mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
+    mItemImage->setVerticalAlignment(VerticalAlignment::Top);
+
+    mItemTitle = Label::create("Title");
+    mItemTitle->setLayoutProperties(StackLayoutProperties::create().spaceQuota(1));
+    mItemTitle->setHorizontalAlignment(HorizontalAlignment::Center);
+    mItemTitle->setVerticalAlignment(VerticalAlignment::Top);
+
+    mItemDescription = Label::create("Description");
+    mItemDescription->textStyle()->setBase(SystemDefaults::TextStyles::subtitleText());
+    mItemDescription->setHorizontalAlignment(HorizontalAlignment::Center);
+    mItemDescription->setVerticalAlignment(VerticalAlignment::Center);
+    mItemDescription->setMultiline(true);
+
+    // Add the shopitem details to the subitem container
+    subItemContainer->add(mItemImage);
+    subItemContainer->add(mItemTitle);
+    subItemContainer->add(mItemDescription);
 
     // Add the background image and the content to the full item container.
     itemContainer->add(bkgImage);
     itemContainer->add(mHighlighContainer);
-    itemContainer->add(mItemImage);
+    itemContainer->add(subItemContainer);
 
     setRoot(itemContainer);
 }
@@ -42,6 +73,14 @@ void ShopItem::updateItem(const QString imagePath)
 {
     // Update image and text for the current item.
     mItemImage->setImage(Image(imagePath));
+}
+
+void ShopItem::setTitle(const QString title) {
+	mItemTitle->setText(title);
+}
+
+void ShopItem::setDescription(const QString description) {
+	mItemDescription->setText(description);
 }
 
 void ShopItem::select(bool select)
