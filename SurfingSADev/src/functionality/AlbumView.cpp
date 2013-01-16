@@ -55,65 +55,75 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 	if (reply->error() == QNetworkReply::NoError) {
 		mListView = root->findChild<ListView*>("albumViewView");
 		QString xmldata = QString(reply->readAll());
-		qDebug() << "\n "+xmldata;
-	    	GroupDataModel *model = new GroupDataModel(QStringList() << "description");
-	    	// Specify the type of grouping to use for the headers in the list
-	    	model->setGrouping(ItemGrouping::None);
 
-	    	XmlDataAccess xda;
-	    	QVariant list = xda.loadFromBuffer(xmldata, "/cardsincategory/card");
+		qDebug() << "\nAlbumView xml: " << xmldata;
 
-	    	model->insertList(list.value<QVariantList>());
+		GroupDataModel *model = new GroupDataModel(QStringList() << "description");
+		// Specify the type of grouping to use for the headers in the list
+		model->setGrouping(ItemGrouping::None);
+
+		XmlDataAccess xda;
+		QVariant list = xda.loadFromBuffer(xmldata, "/cardsincategory/card");
+		QVariantMap tempMap = list.value<QVariantMap>();
+		QVariantList tempList;
+		if (tempMap.isEmpty()) {
+			tempList = list.value<QVariantList>();
+		}
+		else {
+			tempList.append(tempMap);
+		}
+
+		model->insertList(tempList);
 /*
-	    	QList<QMap<QString, QString> > albums;
+		QList<QMap<QString, QString> > albums;
 
-	    	QDomDocument doc("mydocument");
-	    	if (!doc.setContent(xmldata)) {
-	    	return;
-	    	}
+		QDomDocument doc("mydocument");
+		if (!doc.setContent(xmldata)) {
+		return;
+		}
 
-	    	//Get the root element
-	    	QDomElement docElem = doc.documentElement();
+		//Get the root element
+		QDomElement docElem = doc.documentElement();
 
-	    	// you could check the root tag name here if it matters
-	    	QString rootTag = docElem.tagName(); // == persons
+		// you could check the root tag name here if it matters
+		QString rootTag = docElem.tagName(); // == persons
 
-	    	// get the node's interested in, this time only caring about person's
-	    	QDomNodeList nodeList = docElem.elementsByTagName("album");
+		// get the node's interested in, this time only caring about person's
+		QDomNodeList nodeList = docElem.elementsByTagName("album");
 
-	    	//Check each node one by one.
-	    	QMap<QString, QVariant> album;
-	    	for (int ii = 0; ii < nodeList.count(); ii++) {
+		//Check each node one by one.
+		QMap<QString, QVariant> album;
+		for (int ii = 0; ii < nodeList.count(); ii++) {
 
-	    	// get the current one as QDomElement
-	    	QDomElement el = nodeList.at(ii).toElement();
+		// get the current one as QDomElement
+		QDomElement el = nodeList.at(ii).toElement();
 
-	    	//get all data for the element, by looping through all child elements
-	    	QDomNode pEntries = el.firstChild();
-	    	while (!pEntries.isNull()) {
-	    	QDomElement peData = pEntries.toElement();
-	    	QString tagNam = peData.tagName();
+		//get all data for the element, by looping through all child elements
+		QDomNode pEntries = el.firstChild();
+		while (!pEntries.isNull()) {
+		QDomElement peData = pEntries.toElement();
+		QString tagNam = peData.tagName();
 
-	    	if (tagNam == "albumname") {
-	    	album["albumname"] = peData.text();
-	    	} else if (tagNam == "albumid") {
-	    	album["albumid"] = peData.text();
-	    	} else if (tagNam == "hascards") {
-	    	album["hascards"] = peData.text();
-	    	} else if (tagNam == "website") {
-	    	album["website"] = peData.text();
-	    	}
-	    	pEntries = pEntries.nextSibling();
-	    	}
-	    	model->insert(album);
-	    	}*/
-	    	mListView->setDataModel(model);
-	    }
-	    else
-	    {
-	        qDebug() << "\n Problem with the network";
-	        qDebug() << "\n" << reply->errorString();
-	    }
+		if (tagNam == "albumname") {
+		album["albumname"] = peData.text();
+		} else if (tagNam == "albumid") {
+		album["albumid"] = peData.text();
+		} else if (tagNam == "hascards") {
+		album["hascards"] = peData.text();
+		} else if (tagNam == "website") {
+		album["website"] = peData.text();
+		}
+		pEntries = pEntries.nextSibling();
+		}
+		model->insert(album);
+		}*/
+		mListView->setDataModel(model);
+	}
+	else
+	{
+		qDebug() << "\n Problem with the network";
+		qDebug() << "\n" << reply->errorString();
+	}
 
     mActivityIndicator->stop();
 }
