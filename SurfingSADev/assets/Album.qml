@@ -55,6 +55,9 @@ Page {
                 if(dataModel.data (indexPath).hascards == "false"){
                     albumPage.loadAlbums(dataModel.data (indexPath).albumid);
                 }else{
+                    if(dataModel.data (indexPath).albumid=="-3"){
+                        albumView.newCards = true;
+                    }
                     albumViewSheet.open();
                     albumView.loadAlbum(dataModel.data (indexPath).albumid);
                 }

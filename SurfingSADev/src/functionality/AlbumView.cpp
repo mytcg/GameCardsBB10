@@ -37,7 +37,7 @@ void AlbumView::loadAlbum(QString id) {
 
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-
+	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360";
 	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360"));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
@@ -55,7 +55,7 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 	if (reply->error() == QNetworkReply::NoError) {
 		mListView = root->findChild<ListView*>("albumViewView");
 		QString xmldata = QString(reply->readAll());
-
+		qDebug() << "\n "+xmldata;
 	    	GroupDataModel *model = new GroupDataModel(QStringList() << "description");
 	    	// Specify the type of grouping to use for the headers in the list
 	    	model->setGrouping(ItemGrouping::None);

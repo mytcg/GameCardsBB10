@@ -39,33 +39,6 @@ Page {
             }            
         }
         
-        ListView {
-            objectName: "shopView"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
-                    StandardListItem {
-                        id: rootThingy
-                        title: ListItemData.productname 
-                        description: "Credits: " + ListItemData.productprice + "  Cards: "+ListItemData.productnumcards
-                        imageSpaceReserved: true
-                        imageSource: "asset:///images/loadingthumb.png"
-                        minHeight: 66
-                        onCreationCompleted: {
-                            //imageloaderClass.loadImage(ListItemData.productthumb);
-                        }
-                    }
-                    /*Container {
-                        Label { text: ListItemData.productname }
-                        Label { text: "Credits: " + ListItemData.productprice }
-                        Label { text: "Cards: " + ListItemData.productnumcards }
-                    }*/
-                }
-            ]
-        }
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {

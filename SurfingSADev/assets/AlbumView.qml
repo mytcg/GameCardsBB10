@@ -3,6 +3,9 @@ import bb.cascades 1.0
 
 Page {
     id: albumViewPage
+    
+    property string newCards: "false"
+    
     signal cancel ()
     
     function loadAlbum(String) {
@@ -53,6 +56,8 @@ Page {
             onTriggered: {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
+                    card.cardId = dataModel.data (indexPath).cardid;
+                    card.newCard = newCards;
                     cardSheet.open();
                 }
             }

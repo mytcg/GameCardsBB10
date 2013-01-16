@@ -58,7 +58,6 @@ void Shop::requestFinished(QNetworkReply* reply)
 	qDebug() << "\n Got Products";
 	// Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
-		mListView = root->findChild<ListView*>("shopView");
 		QString xmldata = QString(reply->readAll());
 		GroupDataModel *model = new GroupDataModel(QStringList() << "productname");
 
@@ -123,8 +122,6 @@ void Shop::requestFinished(QNetworkReply* reply)
 
 		connect(shopContainer, SIGNAL(triggered(const QVariantList)), this,
 				SLOT(onNewFruitChanged(const QVariantList)));
-
-		mListView->setDataModel(model);
 	}
 	else
 	{
