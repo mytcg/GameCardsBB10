@@ -2,303 +2,273 @@ import bb.cascades 1.0
 
 // The root container for the custom component
 Container {
-    
-    function showCoreMenu() {
-        coreContainer.visible = true
-        
-        surfContainer.visible = false
-    }
-    
-    function showSurfMenu() {
-        coreContainer.visible = false
-        
-        surfContainer.visible = true
-    }
-    
-    layout: StackLayout {
-        orientation: LayoutOrientation.LeftToRight
+    layout: DockLayout {
     }
     
     Container {
-        id: coreContainer
-        
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
+        layout: DockLayout {
         }
         
+        topPadding: 10
+	    bottomPadding: 55
+	    leftPadding: 10
+	    rightPadding: 10
+        
+        horizontalAlignment: HorizontalAlignment.Fill
+        verticalAlignment: VerticalAlignment.Fill
+        
         Container {
+            leftPadding: 50
+    	    rightPadding: 50
+            id: coreContainer
             
-            layout: StackLayout {
-                orientation: LayoutOrientation.TopToBottom
+            layout: DockLayout {
             }
             
-            // An ImageButton
-            ImageButton {
-                id: albumButton
-                defaultImageSource: "asset:///images/menu/Album.png"
-                pressedImageSource: "asset:///images/menu/Album.png"
-                disabledImageSource: "asset:///images/menu/Album.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            
+            Container {
+                horizontalAlignment: HorizontalAlignment.Left
+                verticalAlignment: VerticalAlignment.Fill
                 
-                onClicked: {
-                    albumSheet.open();
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                
+                // An ImageButton
+                ImageButton {
+                    id: albumButton
+                    defaultImageSource: "asset:///images/menu/Album.png"
+                    pressedImageSource: "asset:///images/menu/Album.png"
+                    disabledImageSource: "asset:///images/menu/Album.png"
+                    enabled: true
                     
-                    album.loadAlbums("0");
-                }
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-            
-            // An ImageButton
-            ImageButton {
-                id: notificationButton
-                defaultImageSource: "asset:///images/menu/Notifications.png"
-                pressedImageSource: "asset:///images/menu/Notifications.png"
-                disabledImageSource: "asset:///images/menu/Notifications.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    notificationsSheet.open();
-                    notificationsClass.loadNotifications();
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-            
-            // An ImageButton
-            ImageButton {
-                id: inviteButton
-                defaultImageSource: "asset:///images/menu/Invite.png"
-                pressedImageSource: "asset:///images/menu/Invite.png"
-                disabledImageSource: "asset:///images/menu/Invite.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    invitefriendSheet.open()
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-        }
-        
-        Container {
-            
-            layout: StackLayout {
-                orientation: LayoutOrientation.TopToBottom
-            }
-            
-            // An ImageButton
-            ImageButton {
-                id: shopButton
-                defaultImageSource: "asset:///images/menu/Shop.png"
-                pressedImageSource: "asset:///images/menu/Shop.png"
-                disabledImageSource: "asset:///images/menu/Shop.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    shopSheet.open();
-                    shopClass.loadProducts();
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-            
-            // An ImageButton
-            ImageButton {
-                id: creditsButton
-                defaultImageSource: "asset:///images/menu/Credits.png"
-                pressedImageSource: "asset:///images/menu/Credits.png"
-                disabledImageSource: "asset:///images/menu/Credits.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    creditsSheet.open();
-                    creditsClass.loadCredits();
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-            
-            // An ImageButton
-            ImageButton {
-                id: redeemButton
-                defaultImageSource: "asset:///images/menu/Redeem.png"
-                pressedImageSource: "asset:///images/menu/Redeem.png"
-                disabledImageSource: "asset:///images/menu/Redeem.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    redeemSheet.open()
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-        }
-        
-        Container {
-            
-            layout: StackLayout {
-                orientation: LayoutOrientation.TopToBottom
-            }
-            
-            // An ImageButton
-            ImageButton {
-                id: auctionButton
-                defaultImageSource: "asset:///images/menu/Auctions.png"
-                pressedImageSource: "asset:///images/menu/Auctions.png"
-                disabledImageSource: "asset:///images/menu/Auctions.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    auctionSheet.open();
-                    auctionClass.loadAuctions();;
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-            
-            // An ImageButton
-            ImageButton {
-                id: friendsButton
-                defaultImageSource: "asset:///images/menu/Friends.png"
-                pressedImageSource: "asset:///images/menu/Friends.png"
-                disabledImageSource: "asset:///images/menu/Friends.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    friendsSheet.open();
-                    friendsClass.loadFriends();
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-            
-            // An ImageButton
-            ImageButton {
-                id: exitButton
-                defaultImageSource: "asset:///images/menu/exit.png"
-                pressedImageSource: "asset:///images/menu/exit.png"
-                disabledImageSource: "asset:///images/menu/exit.png"
-                enabled: true
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                onClicked: {
-                    testSheet.open()
-                }
-                
-                leftMargin: 5.0
-                rightMargin: 5.0
-                topMargin: 5.0
-                bottomMargin: 5.0
-            }// ImageButton
-        }
-    }
-    
-    Container {
-        id: surfContainer
-        visible: false
-        
-        ListView {
-            dataModel: XmlDataModel {
-                source: "models/surfMenuItems.xml"
-            }
-            
-            // Use a ListItemComponent to determine which property in the
-            // data model is displayed for each list item
-            listItemComponents: [
-                ListItemComponent {
-                    type: "listItem"
-                    
-                    StandardListItem {
-                        // Display the value of an item's title property
-                        // in the list
-                        title: ListItemData.title
+                    onClicked: {
+                        albumSheet.open();
+                        
+                        album.loadAlbums("0");
                     }
-                }
-            ]
-            
-            onTriggered: {
-                var selectedItem = dataModel.data(indexPath);
-                //textField.text = selectedItem.title + " " + indexPath;
+                }// ImageButton
                 
-                if (indexPath == 0) {
-                    weatherSheet.open();
-                }
+                // An ImageButton
+                ImageButton {
+                    id: notificationButton
+                    defaultImageSource: "asset:///images/menu/Notifications.png"
+                    pressedImageSource: "asset:///images/menu/Notifications.png"
+                    disabledImageSource: "asset:///images/menu/Notifications.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        notificationsSheet.open();
+                        notificationsClass.loadNotifications();
+                    }
+                }// ImageButton
+                
+                // An ImageButton
+                ImageButton {
+                    id: inviteButton
+                    defaultImageSource: "asset:///images/menu/Invite.png"
+                    pressedImageSource: "asset:///images/menu/Invite.png"
+                    disabledImageSource: "asset:///images/menu/Invite.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        invitefriendSheet.open()
+                    }
+                }// ImageButton
             }
+            
+            Container {
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Fill
+                
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                
+                // An ImageButton
+                ImageButton {
+                    id: shopButton
+                    defaultImageSource: "asset:///images/menu/Shop.png"
+                    pressedImageSource: "asset:///images/menu/Shop.png"
+                    disabledImageSource: "asset:///images/menu/Shop.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        shopSheet.open();
+                        shopClass.loadProducts();
+                    }
+                }// ImageButton
+                
+                // An ImageButton
+                ImageButton {
+                    id: creditsButton
+                    defaultImageSource: "asset:///images/menu/Credits.png"
+                    pressedImageSource: "asset:///images/menu/Credits.png"
+                    disabledImageSource: "asset:///images/menu/Credits.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        creditsSheet.open();
+                        creditsClass.loadCredits();
+                    }
+                }// ImageButton
+                
+                // An ImageButton
+                ImageButton {
+                    id: redeemButton
+                    defaultImageSource: "asset:///images/menu/Redeem.png"
+                    pressedImageSource: "asset:///images/menu/Redeem.png"
+                    disabledImageSource: "asset:///images/menu/Redeem.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        redeemSheet.open()
+                    }
+                }// ImageButton
+            }
+            
+            Container {
+                horizontalAlignment: HorizontalAlignment.Right
+                verticalAlignment: VerticalAlignment.Fill
+                
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                
+                // An ImageButton
+                ImageButton {
+                    id: auctionButton
+                    defaultImageSource: "asset:///images/menu/Auctions.png"
+                    pressedImageSource: "asset:///images/menu/Auctions.png"
+                    disabledImageSource: "asset:///images/menu/Auctions.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        auctionSheet.open();
+                        auctionClass.loadAuctions();;
+                    }
+                }// ImageButton
+                
+                // An ImageButton
+                ImageButton {
+                    id: friendsButton
+                    defaultImageSource: "asset:///images/menu/Friends.png"
+                    pressedImageSource: "asset:///images/menu/Friends.png"
+                    disabledImageSource: "asset:///images/menu/Friends.png"
+                    enabled: true
+                    
+                    onClicked: {
+                        friendsSheet.open();
+                        friendsClass.loadFriends();
+                    }
+                }// ImageButton
+            }
+        }
+        
+        Weather {
+            id: weatherContainer
+            visible: false
+            
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+        }
+        
+        News {
+            id: newsContainer
+            visible: false
+            
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
         }
     }
     
-    scaleX: 1
-    scaleY: 1
+    Container {
+        layout: StackLayout {
+	        orientation: LayoutOrientation.LeftToRight
+	    }
+	    
+        horizontalAlignment: HorizontalAlignment.Fill
+        verticalAlignment: VerticalAlignment.Bottom
+        
+	    // An ImageButton
+		ImageButton {
+		    id: headerCoreButton
+		    defaultImageSource: "asset:///images/header/crosslogo.png"
+		    pressedImageSource: "asset:///images/header/crosslogo.png"
+		    disabledImageSource: "asset:///images/header/crosslogo.png"
+		    enabled: true
+		    
+		    onClicked: {
+		        coreContainer.visible = true;
+		        weatherContainer.visible = false;
+		        newsContainer.visible = false;
+		    }
+		}// ImageButton
+		
+		// An ImageButton
+		ImageButton {
+		    id: headerWeatherButton
+		    defaultImageSource: "asset:///images/header/surfSection.png"
+		    pressedImageSource: "asset:///images/header/surfSection.png"
+		    disabledImageSource: "asset:///images/header/surfSection.png"
+		    enabled: true
+		    
+		    onClicked: {
+		        coreContainer.visible = false;
+		        weatherContainer.visible = true;
+		        newsContainer.visible = false;
+		    }
+	    }// ImageButton
+	    
+	    // An ImageButton
+		ImageButton {
+		    id: headerScoringButton
+		    defaultImageSource: "asset:///images/header/surfSection.png"
+		    pressedImageSource: "asset:///images/header/surfSection.png"
+		    disabledImageSource: "asset:///images/header/surfSection.png"
+		    enabled: true
+		    
+		    onClicked: {
+		        coreContainer.visible = false;
+		        weatherContainer.visible = false;
+		        newsContainer.visible = true;
+		    }
+	    }// ImageButton
+	    
+	    // An ImageButton
+		ImageButton {
+		    id: headerNewsButton
+		    defaultImageSource: "asset:///images/header/surfSection.png"
+		    pressedImageSource: "asset:///images/header/surfSection.png"
+		    disabledImageSource: "asset:///images/header/surfSection.png"
+		    enabled: true
+		    
+		    onClicked: {
+		        coreContainer.visible = false;
+		        weatherContainer.visible = true;
+		        newsContainer.visible = false;
+		    }
+	    }// ImageButton
+	    
+	    // An ImageButton
+		ImageButton {
+		    id: headerExitButton
+		    defaultImageSource: "asset:///images/header/surfSection.png"
+		    pressedImageSource: "asset:///images/header/surfSection.png"
+		    disabledImageSource: "asset:///images/header/surfSection.png"
+		    enabled: true
+		    
+		    onClicked: {
+		        coreContainer.visible = false;
+		        weatherContainer.visible = true;
+		        newsContainer.visible = false;
+		    }
+	    }// ImageButton
+    }
     
     attachedObjects: [
-        Sheet {
-            id: testSheet
-            
-            Page {
-                id: sheetPage
-                
-                signal cancel ()
-                
-                titleBar: TitleBar {
-                    id: addBar
-                    title: "Test Sheet"
-                    visibility: ChromeVisibility.Visible
-                    
-                    acceptAction: ActionItem {
-                        title: "Back"
-                        onTriggered: {
-                            sheetPage.cancel();
-                        }
-                    }
-                }
-                
-                onCancel: {
-                    testSheet.close();
-                }
-            }
-        },
-        
         Sheet {
             id: albumSheet
             
@@ -377,16 +347,6 @@ Container {
             Redeem{
                 onCancel: {
                     redeemSheet.close();
-                }
-            }
-        },
-                
-        Sheet {
-            id: weatherSheet
-            
-            Weather{
-                onCancel: {
-                    weatherSheet.close();
                 }
             }
         }

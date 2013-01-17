@@ -1,149 +1,131 @@
 import bb.cascades 1.0
 
-
-Page {
-    id: weatherPage
-    signal cancel ()
+Container {
+    layout: StackLayout {
+        orientation: LayoutOrientation.TopToBottom
+    }
     
-    titleBar: TitleBar {
-        title: "Weather"
-        visibility: ChromeVisibility.Visible
+    DropDown {
+        objectName: "locationDropDown"
         
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                weatherPage.cancel();
+        title : "Location"
+        enabled : true
+     
+        onSelectedIndexChanged : {
+            console.log("SelectedIndex was changed to " + selectedIndex);
+        }
+     
+        // text + description
+        Option {
+            text : "George"
+            value : "-33.97,22.45"
+            
+            onSelectedChanged : {
+                if (selected == true) {
+                    weatherClass.getWeather("-33.97,22.45");
+               }
+            }
+        }
+     
+        Option {
+            text : "Gordon's Bay"
+            value : "-34.15,18.87"
+      
+            onSelectedChanged : {
+                if (selected == true) {
+                    weatherClass.getWeather("-34.15,18.87");
+               }
+            }
+        }
+     
+        // text only
+        Option {
+            text : "Hermanus"
+            value : "-34.41,19.25"
+            
+            onSelectedChanged : {
+                if (selected == true) {
+                    weatherClass.getWeather("-34.41,19.25");
+                }
             }
         }
     }
     
     Container {
         layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+            orientation: LayoutOrientation.LeftToRight
         }
         
-        DropDown {
-            objectName: "locationDropDown"
-            
-            title : "Location"
-            enabled : true
-         
-            onSelectedIndexChanged : {
-                console.log("SelectedIndex was changed to " + selectedIndex);
-            }
-         
-            // text + description
-            Option {
-                text : "George"
-                value : "-33.97,22.45"
-                
-                onSelectedChanged : {
-                    if (selected == true) {
-                        weatherClass.getWeather("-33.97,22.45");
-                   }
-                }
-            }
-         
-            Option {
-	            text : "Gordon's Bay"
-	            value : "-34.15,18.87"
-	      
-	            onSelectedChanged : {
-	                if (selected == true) {
-	                    weatherClass.getWeather("-34.15,18.87");
-	               }
-	            }
-	        }
-         
-            // text only
-            Option {
-                text : "Hermanus"
-                value : "-34.41,19.25"
-                
-                onSelectedChanged : {
-                    if (selected == true) {
-                        weatherClass.getWeather("-34.41,19.25");
-                    }
-                }
-            }
+        Label {
+            text: "Date: "
         }
         
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Date: "
-            }
-            
-            Label {
-                objectName: "dateLabel"
-            }   
+        Label {
+            objectName: "dateLabel"
+        }   
+    }
+    
+    Container {
+        layout: StackLayout {
+            orientation: LayoutOrientation.LeftToRight
         }
         
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Time: "
-            }
-            
-            Label {
-	            objectName: "timeLabel"
-	        }   
+        Label {
+            text: "Time: "
         }
         
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Maximum Temperature: "
-            }
-            
-            Label {
-	            objectName: "maxTempLabel"
-	        }  
+        Label {
+            objectName: "timeLabel"
+        }   
+    }
+    
+    Container {
+        layout: StackLayout {
+            orientation: LayoutOrientation.LeftToRight
         }
         
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Minimum Temperature: "
-            }
-            
-            Label {
-	            objectName: "minTempLabel"
-	        }  
+        Label {
+            text: "Maximum Temperature: "
         }
         
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Current Temperature: "
-            }
-            
-            Label {
-	            objectName: "currentTempLabel"
-	        }  
+        Label {
+            objectName: "maxTempLabel"
+        }  
+    }
+    
+    Container {
+        layout: StackLayout {
+            orientation: LayoutOrientation.LeftToRight
         }
         
-        ActivityIndicator {
-            objectName: "weatherIndicator"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
+        Label {
+            text: "Minimum Temperature: "
         }
+        
+        Label {
+            objectName: "minTempLabel"
+        }  
+    }
+    
+    Container {
+        layout: StackLayout {
+            orientation: LayoutOrientation.LeftToRight
+        }
+        
+        Label {
+            text: "Current Temperature: "
+        }
+        
+        Label {
+            objectName: "currentTempLabel"
+        }  
+    }
+    
+    ActivityIndicator {
+        objectName: "weatherIndicator"
+        verticalAlignment: VerticalAlignment.Center
+        horizontalAlignment: HorizontalAlignment.Center
+        preferredWidth: 200
+        preferredHeight: 200
     }
 }
