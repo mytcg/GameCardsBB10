@@ -5,12 +5,16 @@
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/DropDown>
 #include <bb/cascades/Label>
+#include <bb/cascades/GroupDataModel>
+#include <bb/cascades/ListView>
 
 using namespace bb::cascades;
 using namespace bb::data;
 
 Weather::Weather(AbstractPane *root): root(root)
 {
+	mWeatherFactory = new WeatherItemFactory();
+
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
 	mNetworkAccessManager = new QNetworkAccessManager(this);
@@ -81,25 +85,38 @@ void Weather::requestFinished(QNetworkReply* reply)
 		qDebug() << "\n weather mintempC: " << weatherMap["mintempC"].value<QString>();
 
 		QVariantList qList = weatherMap["hourly"].value<QVariantList>();
+
+		GroupDataModel *model = new GroupDataModel(QStringList() << "id");
+		// Specify the type of grouping to use for the headers in the list
+		model->setGrouping(ItemGrouping::None);
+
+		QMap<QString, QVariant> weatherEntry;
 		for (int i = 0; i < qList.size(); i++) {
 			QVariantMap temp = qList[i].value<QVariantMap>();
 
+			weatherEntry["id"] = i;
+			weatherEntry["time"] = temp["time"].value<QString>();
+			weatherEntry["weatherIconUrl"] = temp["weatherIconUrl"].value<QString>();
+			weatherEntry["windspeedKmph"] = temp["windspeedKmph"].value<QString>();
+			weatherEntry["winddirDegree"] = temp["winddirDegree"].value<QString>();
+			weatherEntry["tempC"] = temp["tempC"].value<QString>();
+			weatherEntry["cloudcover"] = temp["cloudcover"].value<QString>();
+			weatherEntry["pressure"] = temp["pressure"].value<QString>();
+			weatherEntry["humidity"] = temp["humidity"].value<QString>();
+			weatherEntry["swellHeight_m"] = temp["swellHeight_m"].value<QString>();
+			weatherEntry["swellDir"] = temp["swellDir"].value<QString>();
+
+			model->insert(weatherEntry);
+
 			if ((temp["time"].value<QString>()).toInt() <= timeString.toInt()) {
 				(root->findChild<Label*>("dateLabel"))->setText(weatherMap["date"].value<QString>());
-				(root->findChild<Label*>("timeLabel"))->setText(time.toString("hh:mm"));
 				(root->findChild<Label*>("maxTempLabel"))->setText(weatherMap["maxtempC"].value<QString>());
 				(root->findChild<Label*>("minTempLabel"))->setText(weatherMap["mintempC"].value<QString>());
-				(root->findChild<Label*>("currentTempLabel"))->setText(temp["tempC"].value<QString>());
-
-
-				qDebug() << "\n weather time: " << temp["time"].value<QString>();
-				qDebug() << "\n weather tempC: " << temp["tempC"].value<QString>();
-				qDebug() << "\n weather swellPeriod_secs: " << temp["swellPeriod_secs"].value<QString>();
-				qDebug() << "\n weather weatherIconUrl: " << temp["weatherIconUrl"].value<QString>();
-
-				break;
 			}
 		}
+
+		(root->findChild<ListView*>("weatherListView"))->setDataModel(model);
+		(root->findChild<ListView*>("weatherListView"))->setListItemProvider(mWeatherFactory);
     }
     else {
         qDebug() << "\n Problem with the network";

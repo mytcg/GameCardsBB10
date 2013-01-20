@@ -1,23 +1,8 @@
 // Navigation pane project template
 import bb.cascades 1.0
 
-Page {
-    
-    titleBar: TitleBar {
-        title: "Surfing SA"
-        visibility: ChromeVisibility.Visible
-    }
-    
-    content: Container {
-        layout: DockLayout {}
-        
-	    MainMenu {
-            id: mainMenu
-            
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-        }
-    }
+MainMenu {
+    id: mainMenu
     
     function checkLoggedIn() {
         var loggedIn = app.loggedIn()
