@@ -8,6 +8,9 @@ Container {
     Container {
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
+        leftPadding: 20
+        rightPadding: 20
+        topPadding: 10
         
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
@@ -17,12 +20,11 @@ Container {
             objectName: "locationDropDown"
             
             title : "Location"
-            enabled : true
          
             onSelectedIndexChanged : {
                 console.log("SelectedIndex was changed to " + selectedIndex);
             }
-         
+            
             Option {
                 text : "George"
                 value : "-33.97,22.45"
@@ -67,104 +69,109 @@ Container {
                 }
             }
         }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Date: "
-            }
-            
-            Label {
-                objectName: "dateLabel"
-            }   
+        Label {
+            objectName: "dateLabel"
+            textStyle.fontSize: FontSize.Small
+            textStyle.color: Color.DarkGray
         }
-        
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            
+            horizontalAlignment: HorizontalAlignment.Right
+            leftPadding: 50
+            bottomMargin: 15
             Label {
-                text: "Maximum Temperature: "
+                text: "Max "
+                textStyle.fontSize: FontSize.Large
+                visible: false
+                objectName: "maxTempLabelHeader"
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+                verticalAlignment: VerticalAlignment.Bottom
             }
-            
             Label {
                 objectName: "maxTempLabel"
-            }  
-        }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
+                textStyle.fontSize: FontSize.XXLarge
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
             }
-            
             Label {
-                text: "Minimum Temperature: "
+                text: "Min "
+                textStyle.fontSize: FontSize.Large
+                visible: false
+                objectName: "minTempLabelHeader"
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+                verticalAlignment: VerticalAlignment.Bottom
             }
-            
             Label {
                 objectName: "minTempLabel"
-            }  
+                textStyle.fontSize: FontSize.XXLarge
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+            }
         }
-        
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            
             Container {
-                background: Color.Gray
-                            
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
-                Label { 
+                Label {
                     text: "Time"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
-                
                 Label {
                     text: "Conditions"
-                    textStyle.fontSize: FontSize.XSmall
-                    bottomMargin: 44.0
+                    textStyle.fontSize: FontSize.XXSmall
+                    bottomMargin: 50.0
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Wind Speed (Kmph)"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Wind Direction"
-                    textStyle.fontSize: FontSize.XSmall
-                    bottomMargin: 80.0
+                    textStyle.fontSize: FontSize.XXSmall
+                    bottomMargin: 34.0
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Temperature (C)"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Cloud Cover"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Pressure (hPa)"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Humidity (%)"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Swell Height (m)"
-                    textStyle.fontSize: FontSize.XSmall
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
                 }
                 Label {
                     text: "Swell Direction"
-                    textStyle.fontSize: FontSize.XSmall
-                    bottomMargin: 80.0
+                    textStyle.fontSize: FontSize.XXSmall
+                    bottomMargin: 36.0
+                    textStyle.color: Color.DarkGray
                 }
             }
             ListView {

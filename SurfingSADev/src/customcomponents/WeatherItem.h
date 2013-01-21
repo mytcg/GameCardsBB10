@@ -35,7 +35,7 @@ public:
 
     void setWindSpeed(const QString windSpeed);
 
-    void setTemperature(const QString temperature);
+    void setTemperature(QVariant temperature);
 
     void setCloudCover(const QString cloudCover);
 
@@ -71,8 +71,11 @@ public:
 private:
 
     // Item Controls
+	Container *mTemperatureBackground;
     ImageView *mWindDirection, *mConditions, *mSwellDirection;
     Label *mTime, *mWindSpeed, *mTemperature, *mCloudCover, *mPressure, *mHumidity, *mSwellHeight;
+	
+	QString getTempBackground(int temperature);
 };
 
 #endif // ifndef _WEATHERITEM_H_

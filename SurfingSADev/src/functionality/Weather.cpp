@@ -91,11 +91,19 @@ void Weather::requestFinished(QNetworkReply* reply)
 		model->setGrouping(ItemGrouping::None);
 
 		QMap<QString, QVariant> weatherEntry;
+		QString hString;
 		for (int i = 0; i < qList.size(); i++) {
 			QVariantMap temp = qList[i].value<QVariantMap>();
+			hString = temp["time"].value<QString>();
+			if (hString.length() <= 3) {
+				hString.prepend(QString("0"));
+			}
+			hString.remove(2, 2);
+			hString.append(QString("h"));
+
 
 			weatherEntry["id"] = i;
-			weatherEntry["time"] = temp["time"].value<QString>();
+			weatherEntry["time"] = hString;
 			weatherEntry["weatherIconUrl"] = temp["weatherIconUrl"].value<QString>();
 			weatherEntry["windspeedKmph"] = temp["windspeedKmph"].value<QString>();
 			weatherEntry["winddirDegree"] = temp["winddirDegree"].value<QString>();
@@ -114,6 +122,9 @@ void Weather::requestFinished(QNetworkReply* reply)
 				(root->findChild<Label*>("minTempLabel"))->setText(weatherMap["mintempC"].value<QString>());
 			}
 		}
+
+		(root->findChild<Label*>("maxTempLabelHeader"))->setVisible(true);
+		(root->findChild<Label*>("minTempLabelHeader"))->setVisible(true);
 
 		(root->findChild<ListView*>("weatherListView"))->setDataModel(model);
 		(root->findChild<ListView*>("weatherListView"))->setListItemProvider(mWeatherFactory);

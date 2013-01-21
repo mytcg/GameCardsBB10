@@ -5,6 +5,7 @@ TabbedPane {
     showTabsOnActionBar: true
     Tab {
         title: "Cards"
+        imageSource: "asset:///images/tabs/gamecards_tab.png"
         Page {
             titleBar: TitleBar {
                 title: "Surfing SA"
@@ -15,21 +16,10 @@ TabbedPane {
                 layout: DockLayout {
                 }
                 
-                topPadding: 10
+                topPadding: 30
         	    bottomPadding: 55
-        	    leftPadding: 10
-        	    rightPadding: 10
-            
-		        Container {
-		            leftPadding: 50
-		    	    rightPadding: 50
-		            id: coreContainer
-		            
-		            layout: DockLayout {
-		            }
-		            
-		            horizontalAlignment: HorizontalAlignment.Fill
-		            verticalAlignment: VerticalAlignment.Fill
+        	    leftPadding: 20
+        	    rightPadding: 20
 		            
 		            Container {
 		                horizontalAlignment: HorizontalAlignment.Left
@@ -70,14 +60,15 @@ TabbedPane {
 		                
 		                // An ImageButton
 		                ImageButton {
-		                    id: inviteButton
-		                    defaultImageSource: "asset:///images/menu/Invite.png"
-		                    pressedImageSource: "asset:///images/menu/Invite.png"
-		                    disabledImageSource: "asset:///images/menu/Invite.png"
+		                    id: friendsButton
+		                    defaultImageSource: "asset:///images/menu/Friends.png"
+		                    pressedImageSource: "asset:///images/menu/Friends.png"
+		                    disabledImageSource: "asset:///images/menu/Friends.png"
 		                    enabled: true
 		                    
 		                    onClicked: {
-		                        invitefriendSheet.open()
+		                        friendsSheet.open();
+		                        friendsClass.loadFriends();
 		                    }
 		                }// ImageButton
 		            }
@@ -120,14 +111,14 @@ TabbedPane {
 		                
 		                // An ImageButton
 		                ImageButton {
-		                    id: redeemButton
-		                    defaultImageSource: "asset:///images/menu/Redeem.png"
-		                    pressedImageSource: "asset:///images/menu/Redeem.png"
-		                    disabledImageSource: "asset:///images/menu/Redeem.png"
+		                    id: inviteButton
+		                    defaultImageSource: "asset:///images/menu/Invite.png"
+		                    pressedImageSource: "asset:///images/menu/Invite.png"
+		                    disabledImageSource: "asset:///images/menu/Invite.png"
 		                    enabled: true
 		                    
 		                    onClicked: {
-		                        redeemSheet.open()
+		                        invitefriendSheet.open()
 		                    }
 		                }// ImageButton
 		            }
@@ -156,25 +147,37 @@ TabbedPane {
 		                
 		                // An ImageButton
 		                ImageButton {
-		                    id: friendsButton
-		                    defaultImageSource: "asset:///images/menu/Friends.png"
-		                    pressedImageSource: "asset:///images/menu/Friends.png"
-		                    disabledImageSource: "asset:///images/menu/Friends.png"
+		                    id: profileButton
+		                    defaultImageSource: "asset:///images/menu/Profile.png"
+		                    pressedImageSource: "asset:///images/menu/Profile.png"
+		                    disabledImageSource: "asset:///images/menu/Profile.png"
 		                    enabled: true
 		                    
 		                    onClicked: {
-		                        friendsSheet.open();
-		                        friendsClass.loadFriends();
+		                    }
+		                }// ImageButton
+		                
+		                // An ImageButton
+		                ImageButton {
+		                    id: redeemButton
+		                    defaultImageSource: "asset:///images/menu/Redeem.png"
+		                    pressedImageSource: "asset:///images/menu/Redeem.png"
+		                    disabledImageSource: "asset:///images/menu/Redeem.png"
+		                    enabled: true
+		                    
+		                    onClicked: {
+		                        redeemSheet.open()
 		                    }
 		                }// ImageButton
 		            }
-		        }
 	        }
 	    }
     }
     
     Tab {
         title: "Weather"
+        imageSource: "asset:///images/tabs/weather_tab.png"
+        
         Page {
             titleBar: TitleBar {
                 title: "Surfing SA"
@@ -202,6 +205,8 @@ TabbedPane {
     
     Tab {
         title: "News"
+        imageSource: "asset:///images/tabs/news_tab.png"
+        
         Page {
             titleBar: TitleBar {
                 title: "Surfing SA"
@@ -229,6 +234,7 @@ TabbedPane {
     
     Tab {
         title: "Scores"
+        imageSource: "asset:///images/tabs/scoring_tab.png"
         Page {
             Container {
                 layout: DockLayout {

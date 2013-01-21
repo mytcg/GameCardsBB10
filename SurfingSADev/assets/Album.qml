@@ -22,9 +22,9 @@ Page {
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
         }
+        
         Label {
             id: albumLabel
             objectName: "albumLabel"
@@ -33,8 +33,8 @@ Page {
         }
         ListView {
             objectName: "albumView"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             
             listItemComponents: [
                 ListItemComponent {
@@ -73,6 +73,7 @@ Page {
             }
         }    
     }
+
     attachedObjects: [
         Sheet {
             id: albumViewSheet

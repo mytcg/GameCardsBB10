@@ -2,43 +2,59 @@ import bb.cascades 1.0
 
 Page {
     id: redeemPage
-        signal cancel ()
+    signal cancel ()
+    
+    titleBar: TitleBar {
+        title: "Redeem"
+        visibility: ChromeVisibility.Visible
         
-        titleBar: TitleBar {
-            title: "Redeem"
-            visibility: ChromeVisibility.Visible
-            
-            acceptAction: ActionItem {
-                title: "Back"
-                onTriggered: {
-                    redeemPage.cancel();
-                }
+        acceptAction: ActionItem {
+            title: "Back"
+            onTriggered: {
+                redeemPage.cancel();
             }
         }
+    }
+    
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
+            
         }
-        Label {
-            text: "Redeem Code:"
-            textStyle.fontSizeValue: 0.0
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 10
+            
+            Label {
+                text: "Redeem Code:"
+                textStyle.fontSizeValue: 0.0
+                textStyle.fontFamily: "SlatePro-Condensed"
+            }
+            TextField {
+                id: redeemText
+                objectName: "redeemText"
+                hintText: "Enter redeem code"
+            }
+            Label {
+                id: redeemLabel
+                objectName: "redeemLabel"
+                text: "0"
+                visible: false
+            }
+            Button {
+                id: redeem
+                text: "Redeem"
+                onClicked: redeemClass.redeem(redeemText.text)
+                horizontalAlignment: HorizontalAlignment.Center
+            }
         }
-        TextField {
-            id: redeemText
-            objectName: "redeemText"
-        }
-        Label {
-            id: redeemLabel
-            objectName: "redeemLabel"
-            text: "0"
-            visible: false
-        }
-        Button {
-            id: redeem
-            text: "Redeem"
-            onClicked: redeemClass.redeem(redeemText.text)
-        }
-      
+
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
@@ -52,7 +68,5 @@ Page {
                 //cancelScreen()
             }
         }
-
-        
     }
 }

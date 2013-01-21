@@ -16,8 +16,7 @@ Page {
             }
         }
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
         }
         Label {
             id: notificationsLabel
@@ -27,8 +26,8 @@ Page {
         }
         ListView {
             objectName: "notificationsView"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             
             layout: FlowListLayout {
             

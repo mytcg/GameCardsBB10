@@ -52,7 +52,7 @@ void WeatherItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *li
 
     weatherItem->setWindSpeed(map["windspeedKmph"].toString());
 
-    weatherItem->setTemperature(map["tempC"].toString());
+    weatherItem->setTemperature(map["tempC"]);
 
     weatherItem->setCloudCover(map["cloudcover"].toString());
 
