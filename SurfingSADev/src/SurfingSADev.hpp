@@ -14,6 +14,7 @@
 #include "functionality/Redeem.h"
 #include "functionality/Shop.h"
 #include "functionality/ImageLoader.h"
+#include "functionality/Registration.h"
 
 #include <QObject>
 
@@ -52,6 +53,7 @@ public:
     Redeem *mRedeem;
     Shop *mShop;
     ImageLoader *mImageLoader;
+    Registration *mRegistration;
 };
 
 #endif /* SurfingSADev_HPP_ */
