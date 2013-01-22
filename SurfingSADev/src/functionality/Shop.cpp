@@ -41,7 +41,7 @@ void Shop::loadProducts() {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?categoryproducts=2&categoryId=1"));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?categoryproducts=2&categoryId=52"));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 

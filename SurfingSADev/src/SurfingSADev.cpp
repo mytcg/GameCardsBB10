@@ -85,11 +85,11 @@ QString SurfingSADev::loggedIn() {
 
 		file->close();
 
-		/*if (str.length() > 0) {
+		if (str.length() > 0) {
 			return "true";
 		}
-		else {*/
+		else {
 			return "false";
-		//}
+		}
 	}
 }
