@@ -1,5 +1,65 @@
 #include "Util.h"
 
+#include <QFile>
+#include <QIODevice>
+#include <QTextStream>
+
+#include <bb/data/XmlDataAccess>
+
+using namespace bb::data;
+
+QString Util::getUsername() {
+	QFile *file = new QFile("data/userdata.xml");
+
+	if (!file->open(QIODevice::ReadOnly)) {
+		qDebug() << "\n Failed to open file";
+		return "Error reading file";
+	}
+	else {
+		QTextStream fileStream(file);
+
+		QString str = fileStream.readAll();
+
+		file->close();
+
+		XmlDataAccess xda;
+		QVariant userData = xda.loadFromBuffer(str, "/userdetails");
+
+		QVariantMap userMap = userData.value<QVariantMap>();
+
+		QString username = userMap["username"].value<QString>();
+
+		return username;
+	}
+	return "";
+}
+
+QString Util::getEncrypt() {
+	QFile *file = new QFile("data/userdata.xml");
+
+	if (!file->open(QIODevice::ReadOnly)) {
+		qDebug() << "\n Failed to open file";
+		return "Error reading file";
+	}
+	else {
+		QTextStream fileStream(file);
+
+		QString str = fileStream.readAll();
+
+		file->close();
+
+		XmlDataAccess xda;
+		QVariant userData = xda.loadFromBuffer(str, "/userdetails");
+
+		QVariantMap userMap = userData.value<QVariantMap>();
+
+		QString encrypt = userMap["encrypt"].value<QString>();
+
+		return encrypt;
+	}
+	return "";
+}
+
 string Util::base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len) {
 	string base64_chars =  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  //  0 to 25
 										"abcdefghijklmnopqrstuvwxyz"  // 26 to 51

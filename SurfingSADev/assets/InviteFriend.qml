@@ -19,47 +19,57 @@ Page {
             }
         }
     }
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
-        Label {
-            id: inviteFriendLabel
-            objectName: "inviteFriendLabel"
-            text: ""
-        }
-        Label {
-            text: "Invite by Username:"
-            textStyle.fontSizeValue: 0.0
-        }
-        TextField {
-            id: usernameText
-            objectName: "usernameText"
+        
+        Container {
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 10
             
-            text: ""
-        }
-        Label {
-            text: "Invite by Email:"
-        }
-        TextField {
-            id: emailText
-            objectName: "emailText"
-            
-            text: ""
-        }
-        Label {
-            text: "Invite by Phone Number:"
-        }
-        TextField {
-            id: numberText
-            objectName: "numberText"
-            
-            text: ""
-        }
-        Button {
-            id: invite
-            text: "Invite"
-            onClicked: invitefriendClass.inviteFriend(usernameText.text,emailText.text,numberText.text)
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            Label {
+                text: "Invite by Username:"
+                textStyle.fontSizeValue: 0.0
+            }
+            TextField {
+                id: usernameText
+                objectName: "usernameText"
+                
+                text: ""
+            }
+            Label {
+                text: "Invite by Email:"
+            }
+            TextField {
+                id: emailText
+                objectName: "emailText"
+                
+                text: ""
+            }
+            Label {
+                text: "Invite by Phone Number:"
+            }
+            TextField {
+                id: numberText
+                objectName: "numberText"
+                
+                text: ""
+            }
+            Label {
+                id: inviteFriendLabel
+                objectName: "inviteFriendLabel"
+                text: "0"
+                visible: false
+            }
+            Button {
+                id: invite
+                text: "Invite"
+                onClicked: invitefriendClass.inviteFriend(usernameText.text,emailText.text,numberText.text)
+                horizontalAlignment: HorizontalAlignment.Center
+            }
         }
         
         // The activity indicator has an object name set so that
@@ -75,7 +85,5 @@ Page {
                 //cancelScreen()
             }
         }
-    
-    
     }
 }

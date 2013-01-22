@@ -1,23 +1,17 @@
 import bb.cascades 1.0
 
-
-Page {
-    id: weatherPage
-    signal cancel ()
-    
-    titleBar: TitleBar {
-        title: "Weather"
-        visibility: ChromeVisibility.Visible
+Container {
+    layout: DockLayout {
         
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                weatherPage.cancel();
-            }
-        }
     }
     
     Container {
+        horizontalAlignment: HorizontalAlignment.Fill
+        verticalAlignment: VerticalAlignment.Fill
+        leftPadding: 20
+        rightPadding: 20
+        topPadding: 10
+        
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }
@@ -26,13 +20,11 @@ Page {
             objectName: "locationDropDown"
             
             title : "Location"
-            enabled : true
          
             onSelectedIndexChanged : {
                 console.log("SelectedIndex was changed to " + selectedIndex);
             }
-         
-            // text + description
+            
             Option {
                 text : "George"
                 value : "-33.97,22.45"
@@ -45,17 +37,16 @@ Page {
             }
          
             Option {
-	            text : "Gordon's Bay"
-	            value : "-34.15,18.87"
-	      
-	            onSelectedChanged : {
-	                if (selected == true) {
-	                    weatherClass.getWeather("-34.15,18.87");
-	               }
-	            }
-	        }
+                text : "Gordon's Bay"
+                value : "-34.15,18.87"
+          
+                onSelectedChanged : {
+                    if (selected == true) {
+                        weatherClass.getWeather("-34.15,18.87");
+                   }
+                }
+            }
          
-            // text only
             Option {
                 text : "Hermanus"
                 value : "-34.41,19.25"
@@ -66,84 +57,137 @@ Page {
                     }
                 }
             }
+            
+            Option {
+                text : "Knysna"
+                value : "-34.03,23.03"
+                
+                onSelectedChanged : {
+                    if (selected == true) {
+                        weatherClass.getWeather("-34.03,23.03");
+                    }
+                }
+            }
         }
-        
+        Label {
+            objectName: "dateLabel"
+            textStyle.fontSize: FontSize.Small
+            textStyle.color: Color.DarkGray
+        }
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            
+            horizontalAlignment: HorizontalAlignment.Right
+            leftPadding: 50
+            bottomMargin: 15
             Label {
-                text: "Date: "
+                text: "Max "
+                textStyle.fontSize: FontSize.Large
+                visible: false
+                objectName: "maxTempLabelHeader"
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+                verticalAlignment: VerticalAlignment.Bottom
             }
-            
             Label {
-                objectName: "dateLabel"
-            }   
+                objectName: "maxTempLabel"
+                textStyle.fontSize: FontSize.XXLarge
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+            }
+            Label {
+                text: "Min "
+                textStyle.fontSize: FontSize.Large
+                visible: false
+                objectName: "minTempLabelHeader"
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+                verticalAlignment: VerticalAlignment.Bottom
+            }
+            Label {
+                objectName: "minTempLabel"
+                textStyle.fontSize: FontSize.XXLarge
+                textStyle.fontWeight: FontWeight.W300
+                textStyle.color: Color.DarkGray
+            }
         }
-        
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            
-            Label {
-                text: "Time: "
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                Label {
+                    text: "Time"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Conditions"
+                    textStyle.fontSize: FontSize.XXSmall
+                    bottomMargin: 50.0
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Wind Speed (Kmph)"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Wind Direction"
+                    textStyle.fontSize: FontSize.XXSmall
+                    bottomMargin: 34.0
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Temperature (C)"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Cloud Cover"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Pressure (hPa)"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Humidity (%)"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Swell Height (m)"
+                    textStyle.fontSize: FontSize.XXSmall
+                    textStyle.color: Color.DarkGray
+                }
+                Label {
+                    text: "Swell Direction"
+                    textStyle.fontSize: FontSize.XXSmall
+                    bottomMargin: 36.0
+                    textStyle.color: Color.DarkGray
+                }
             }
-            
-            Label {
-	            objectName: "timeLabel"
-	        }   
+            ListView {
+                id: listView
+                objectName: "weatherListView"
+                layout: StackListLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+            }
         }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Maximum Temperature: "
-            }
-            
-            Label {
-	            objectName: "maxTempLabel"
-	        }  
-        }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Minimum Temperature: "
-            }
-            
-            Label {
-	            objectName: "minTempLabel"
-	        }  
-        }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            Label {
-                text: "Current Temperature: "
-            }
-            
-            Label {
-	            objectName: "currentTempLabel"
-	        }  
-        }
-        
-        ActivityIndicator {
-            objectName: "weatherIndicator"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
-        }
+    }
+    ActivityIndicator {
+        objectName: "weatherIndicator"
+        verticalAlignment: VerticalAlignment.Center
+        horizontalAlignment: HorizontalAlignment.Center
+        preferredWidth: 200
+        preferredHeight: 200
     }
 }

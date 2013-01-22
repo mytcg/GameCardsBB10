@@ -2,6 +2,8 @@
 #ifndef Weather_HPP_
 #define Weather_HPP_
 
+#include "../customcomponents/WeatherItemFactory.h"
+
 #include <QObject>
 
 #include <bb/cascades/AbstractPane>
@@ -42,6 +44,8 @@ private:
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
+
+    WeatherItemFactory *mWeatherFactory;
 };
 
 #endif /* Weather_HPP_ */

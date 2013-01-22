@@ -34,8 +34,8 @@ Page {
         }
         ListView {
             objectName: "auctionView"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             
             layout: FlowListLayout {
             

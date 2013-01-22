@@ -37,10 +37,10 @@ void Login::attemptLogin(QString username, QString password) {
 
 	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?userdetails=1"));
 
-	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(password.toStdString().c_str()), password.length());
+	encrypt = QString(Util::base64_encode(reinterpret_cast<const unsigned char*>(password.toStdString().c_str()), password.length()).c_str());
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), username.toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), encrypt.toUtf8());
 
 	mNetworkAccessManager->get(request);
 }
@@ -56,6 +56,9 @@ void Login::requestFinished(QNetworkReply* reply)
     		mLoggedIn->setText("0");
     	}
     	else {
+    		//should add the encrypted password to the xml right after <userdetails>
+    		result.insert(13, QString("<encrypt>"+encrypt+"</encrypt>"));
+
     		mLoggedIn->setText("1");
     		QFile *file = new QFile("data/userdata.xml");
 

@@ -45,6 +45,8 @@ private:
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
     Label *mLoggedIn;
+
+    QString encrypt;
 };
 
 #endif /* Login_HPP_ */

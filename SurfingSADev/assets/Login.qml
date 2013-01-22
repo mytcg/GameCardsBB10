@@ -32,45 +32,50 @@ Page {
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
-        Label {
-            text: "Username:"
-            textStyle.fontSizeValue: 0.0
-        }
-        TextField {
-            id: usernameText
-            objectName: "usernameText"
+        layout: DockLayout {
             
-            text: "jamess"
-        }
-        Label {
-            text: "Password:"
-        }
-        TextField {
-            id: passwordText
-            objectName: "passwordText"
-            
-            text: "aaaaaa"
         }
         
-        Label {
-            id: loggedLabel
-            objectName: "loggedLabel"
-            text: "0"
-            visible: false
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 10
+            
+            Label {
+                text: "Username:"
+                textStyle.fontSizeValue: 0.0
+            }
+            TextField {
+                id: usernameText
+                objectName: "usernameText"
+                
+                hintText: "Enter username"
+            }
+            Label {
+                text: "Password:"
+            }
+            TextField {
+                id: passwordText
+                objectName: "passwordText"
+                
+                hintText: "Enter password"
+                inputMode: TextFieldInputMode.Password
+            }
+            
+            Label {
+                id: loggedLabel
+                objectName: "loggedLabel"
+                text: "0"
+                visible: false
+            }
         }
-        /*Button {
-            id: login
-            text: "Log In"
-            //onClicked: app.initiateRequest()
-        }
-        Button {
-            text: "Back"
-        }*/
-        // The activity indicator has an object name set so that
-        // we can start and stop it from C++
+        
         ActivityIndicator {
             objectName: "loginIndicator"
             verticalAlignment: VerticalAlignment.Center
@@ -82,7 +87,5 @@ Page {
                 cancelScreen()
             }
         }
-
-        
     }
 }
