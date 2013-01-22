@@ -1,5 +1,7 @@
 #include "AuctionList.h"
 #include "../utils/Util.h"
+#include "../customcomponents/AlbumItem.h"
+#include "../customcomponents/AlbumItemFactory.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
@@ -38,10 +40,8 @@ void AuctionList::loadAuctionList(QString id) {
 	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360";
 	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360"));
 
-	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
-
-	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
 	mNetworkAccessManager->get(request);
 }
@@ -74,6 +74,8 @@ void AuctionList::requestFinished(QNetworkReply* reply)
 		model->insertList(tempList);
 
 		mListView->setDataModel(model);
+		AlbumItemFactory *itemfactory = new AlbumItemFactory();
+		mListView->setListItemProvider(itemfactory);
 	}
 	else
 	{

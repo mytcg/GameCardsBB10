@@ -42,10 +42,8 @@ void Purchase::purchase(QString id, QString type) {
 	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?buyproduct="+id+"&height=448&jpg=1&width=360&freebie=0&purchase="+purchase;
 	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?buyproduct="+id+"&height=448&jpg=1&width=360&freebie=0&purchase="+purchase));
 
-	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
-
-	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
 	mNetworkAccessManager->get(request);
 }

@@ -37,10 +37,8 @@ void AuctionInfo::placeBid(QString auctionId, QString username, QString bid) {
 	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId;
 	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId));
 
-	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
-
-	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
 	mNetworkAccessManager->get(request);
 }
@@ -60,10 +58,8 @@ void AuctionInfo::buyNow(QString auctionId, QString username, QString buynowpric
 	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?buyauctionnow=1&username="+username+"&buynowprice="+buynowprice+"&auctioncardid="+auctionId+"&usercardid="+usercardId;
 	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?buyauctionnow=1&username="+username+"&buynowprice="+buynowprice+"&auctioncardid="+auctionId+"&usercardid="+usercardId));
 
-	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
-
-	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
 	mNetworkAccessManager->get(request);
 }

@@ -1,5 +1,7 @@
 #include "OnAuctionList.h"
 #include "../utils/Util.h"
+#include "../customcomponents/AuctionItem.h"
+#include "../customcomponents/AuctionItemFactory.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
@@ -42,10 +44,8 @@ void OnAuctionList::loadOnAuctionList(QString id, QString type) {
 		qDebug() << "\n http://dev.mytcg.net/_phone/index.php?userauction=1&username=jamess&height=448&jpg=1&width=360";
 				request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?userauction=1&username=jamess&height=448&jpg=1&width=360"));
 	}
-	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
-
-	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
 	mNetworkAccessManager->get(request);
 }
@@ -78,6 +78,8 @@ void OnAuctionList::requestFinished(QNetworkReply* reply)
 		model->insertList(tempList);
 
 		mListView->setDataModel(model);
+		AuctionItemFactory *itemfactory = new AuctionItemFactory();
+		mListView->setListItemProvider(itemfactory);
 	}
 	else
 	{
