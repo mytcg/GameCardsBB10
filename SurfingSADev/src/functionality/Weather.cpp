@@ -33,6 +33,7 @@ Weather::Weather(AbstractPane *root): root(root)
 }
 
 void Weather::getWeather(QString coords) {
+	coords.remove("coords");
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
 	mActivityIndicator = root->findChild<ActivityIndicator*>("weatherIndicator");
@@ -46,8 +47,6 @@ void Weather::getWeather(QString coords) {
 	QString url = "http://free.worldweatheronline.com/feed/marine.ashx?q=";
 	url.append(coords);
 	url.append("&format=xml&key=b437e1f2f2090601121212");
-
-	qDebug() << "\n QString url: " << url;
 
 	request.setUrl(QUrl(url));
 
