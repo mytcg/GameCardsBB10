@@ -1,11 +1,9 @@
-#include "InviteFriend.h"
+#include "Card.h"
 #include "../utils/Util.h"
-
-#include <QFile>
 
 using namespace bb::cascades;
 
-InviteFriend::InviteFriend(AbstractPane *root): root(root)
+Card::Card(AbstractPane *root): root(root)
 {
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -22,36 +20,19 @@ InviteFriend::InviteFriend(AbstractPane *root): root(root)
 	Q_UNUSED(result);
 }
 
-void InviteFriend::inviteFriend(QString username, QString email, QString number) {
+void Card::save(QString cardId) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
-	mActivityIndicator = root->findChild<ActivityIndicator*>("inviteFriendIndicator");
-	mInviteFriend = root->findChild<Label*>("inviteFriendLabel");
+	mActivityIndicator = root->findChild<ActivityIndicator*>("cardIndicator");
+	mCard = root->findChild<Label*>("cardLabel");
 
-	QString friendDetail;
-	QString method;
-	if (username.length() > 0)
-	{
-		friendDetail = username;
-		method = "username";
-	}
-	else if (email.length() > 0)
-	{
-		friendDetail = email;
-		method = "email";
-	}
-	else if (number.length() > 0)
-	{
-		friendDetail = number;
-		method = "phone_number";
-	}
 	// Start the activity indicator
 	mActivityIndicator->start();
 
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?friendinvite=1&trademethod="+method+"&detail="+friendDetail));
+	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?savecard="+cardId));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 
@@ -61,15 +42,37 @@ void InviteFriend::inviteFriend(QString username, QString email, QString number)
 	mNetworkAccessManager->get(request);
 }
 
-void InviteFriend::requestFinished(QNetworkReply* reply)
+void Card::reject(QString cardId) {
+	// Retrieve the activity indicator from QML so that we can start
+	// and stop it from C++
+	mActivityIndicator = root->findChild<ActivityIndicator*>("cardIndicator");
+	mCard = root->findChild<Label*>("cardLabel");
+
+	// Start the activity indicator
+	mActivityIndicator->start();
+
+	// Create and send the network request
+	QNetworkRequest request = QNetworkRequest();
+
+	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?rejectcard="+cardId));
+
+	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
+
+	request.setRawHeader(QString("AUTH_USER").toUtf8(), QString("jamess").toUtf8());
+	request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
+
+	mNetworkAccessManager->get(request);
+}
+
+void Card::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
     	QString result = QString(reply->readAll());
-    	mInviteFriend->setText(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)));
+    	mCard->setText(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)));
     }
     else {
-    	mInviteFriend->setText("Problem with the network");
+    	mCard->setText("Problem with the network");
         qDebug() << "\n Problem with the network";
         qDebug() << "\n" << reply->errorString();
     }

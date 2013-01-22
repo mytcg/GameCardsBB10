@@ -11,16 +11,18 @@ Page {
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
+                inviteFriendLabel.text = "";
+                usernameText.text = "";
+                emailText.text = "";
+                numberText.text = "";
                 invitefriendPage.cancel();
             }
         }
     }
-    
-    Container {
-        layout: DockLayout {
-            
-        }
-        
+        Container {
+                layout: DockLayout {
+                    
+                }
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill

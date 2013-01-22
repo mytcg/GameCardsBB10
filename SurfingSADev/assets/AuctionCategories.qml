@@ -2,72 +2,65 @@ import bb.cascades 1.0
 
 
 Page {
-    id: albumPage
+    id: auctionCategoriesPage
     
     signal cancel ()
     
-    function loadAlbums(String) {
-        albumClass.loadAlbums(String);
+    function loadAuctionCategories(String) {
+        auctionCategoriesClass.loadAuctionCategories(String);
     }
     
     titleBar: TitleBar {
-        title: "Album"
+        title: "Auction Categories"
         visibility: ChromeVisibility.Visible
         
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
-                albumPage.cancel();
+                auctionCategoriesPage.cancel();
             }
         }
     }
     
     Container {
-        layout: DockLayout {
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
         }
-        
         Label {
             id: albumLabel
-            objectName: "albumLabel"
+            objectName: "auctionCategoriesLabel"
             text: "0"
             visible: false
         }
         ListView {
-            objectName: "albumView"
-            verticalAlignment: VerticalAlignment.Fill
-            horizontalAlignment: HorizontalAlignment.Fill
+            objectName: "auctionCategoriesList"
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
             
             listItemComponents: [
                 ListItemComponent {
                     type: "item"
                     StandardListItem {
-                        title: ListItemData.albumname 
+                        title: ListItemData.albumname
                         horizontalAlignment: HorizontalAlignment.Center
+                        visible: (ListItemData.collected=="0"?false:true)
                     }
-                    /*Container {
-                    id: itemRoot
-                    Label { text: ListItemData.albumname }
-                    }*/
                 }
             ]
             onTriggered: {
                 clearSelection();
                 if(dataModel.data (indexPath).hascards == "false"){
-                    albumPage.loadAlbums(dataModel.data (indexPath).albumid);
+                    auctionCategoriesPage.loadAuctionCategories(dataModel.data (indexPath).albumid)
                 }else{
-                    if(dataModel.data (indexPath).albumid=="-3"){
-                        albumView.newCards = true;
-                    }
-                    albumViewSheet.open();
-                    albumView.loadAlbum(dataModel.data (indexPath).albumid);
+                    auctionList.loadAuctionList(dataModel.data (indexPath).albumid)
+                    auctionListSheet.open();
                 }
             }
-        
         }
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
-            objectName: "loadIndicator"
+            objectName: "loadAuctionCategoriesIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 200
@@ -77,17 +70,16 @@ Page {
             }
         }    
     }
-
     attachedObjects: [
         Sheet {
-            id: albumViewSheet
+            id: auctionListSheet
             
-            AlbumView{
-                id: albumView
-                
-                onCancel: {
-                    albumViewSheet.close();
-                }
+            AuctionList{
+            id: auctionList
+            
+            onCancel: {
+            auctionListSheet.close();
+            }
             }
         }
     ]

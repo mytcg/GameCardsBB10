@@ -1,6 +1,6 @@
 // Navigation pane project template
-#ifndef Shop_HPP_
-#define Shop_HPP_
+#ifndef Card_HPP_
+#define Card_HPP_
 
 #include <QObject>
 
@@ -8,7 +8,6 @@
 #include <bb/cascades/ActivityIndicator>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/Label>
-#include <bb/cascades/ListView>
 
 using namespace bb::cascades;
 
@@ -16,8 +15,8 @@ namespace bb {
 	namespace cascades {
 		class ActivityIndicator;
 		class AbstractPane;
+		class QmlDocument;
 		class Label;
-		class ListView;
 	}
 }
 
@@ -26,14 +25,15 @@ namespace bb {
  *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
-class Shop : public QObject
+class Card : public QObject
 {
     Q_OBJECT
 public:
-    Shop(AbstractPane *root);
-    virtual ~Shop() {}
+    Card(AbstractPane *root);
+    virtual ~Card() {}
 
-    Q_INVOKABLE void loadProducts();
+    Q_INVOKABLE void save(QString cardId);
+    Q_INVOKABLE void reject(QString cardId);
 
 private slots:
 	/*!
@@ -45,8 +45,7 @@ private:
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
-    ListView *mListView;
-    Label *mShop;
+    Label *mCard;
 };
 
-#endif /* Shop_HPP_ */
+#endif /* Card_HPP_ */

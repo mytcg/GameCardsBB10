@@ -15,6 +15,14 @@
 #include "functionality/Shop.h"
 #include "functionality/ImageLoader.h"
 #include "functionality/Registration.h"
+#include "functionality/Card.h"
+#include "functionality/Purchase.h"
+#include "functionality/Booster.h"
+#include "functionality/AuctionCategories.h"
+#include "functionality/AuctionList.h"
+#include "functionality/AuctionCreate.h"
+#include "functionality/OnAuctionList.h"
+#include "functionality/AuctionInfo.h"
 
 #include <QObject>
 
@@ -54,6 +62,14 @@ public:
     Shop *mShop;
     ImageLoader *mImageLoader;
     Registration *mRegistration;
+    Card *mCard;
+    Purchase *mPurchase;
+    Booster *mBooster;
+    AuctionCategories *mAuctionCategories;
+    AuctionList *mAuctionList;
+    AuctionCreate *mAuctionCreate;
+    OnAuctionList *mOnAuctionList;
+    AuctionInfo *mAuctionInfo;
 };
 
 #endif /* SurfingSADev_HPP_ */

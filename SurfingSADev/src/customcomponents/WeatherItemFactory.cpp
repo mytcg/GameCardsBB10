@@ -45,7 +45,7 @@ void WeatherItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *li
     WeatherItem *weatherItem = static_cast<WeatherItem *>(listItem);
 
     ImageLoader *imloader = new ImageLoader();
-    imloader->loadImage(map["weatherIconUrl"].toString(), weatherItem->getConditionsImage());
+    imloader->loadImage(map["weatherIconUrl"].toString(), weatherItem->getConditionsImage(), "/wsymbols01_png_64/", ".png");
 
     //set labels
     weatherItem->setTime(map["time"].toString());

@@ -11,6 +11,9 @@ Page {
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
+                redeemLabel.text = "";
+                redeemText.text = "";
+
                 redeemPage.cancel();
             }
         }
@@ -18,7 +21,7 @@ Page {
     
     Container {
         layout: DockLayout {
-            
+     
         }
         
         Container {

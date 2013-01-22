@@ -1,6 +1,6 @@
 // Navigation pane project template
-#ifndef Shop_HPP_
-#define Shop_HPP_
+#ifndef AuctionList_HPP_
+#define AuctionList_HPP_
 
 #include <QObject>
 
@@ -26,14 +26,14 @@ namespace bb {
  *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
-class Shop : public QObject
+class AuctionList : public QObject
 {
     Q_OBJECT
 public:
-    Shop(AbstractPane *root);
-    virtual ~Shop() {}
+    AuctionList(AbstractPane *root);
+    virtual ~AuctionList() {}
 
-    Q_INVOKABLE void loadProducts();
+    Q_INVOKABLE void loadAuctionList(QString id);
 
 private slots:
 	/*!
@@ -46,7 +46,6 @@ private:
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
     ListView *mListView;
-    Label *mShop;
 };
 
-#endif /* Shop_HPP_ */
+#endif /* AuctionList_HPP_ */

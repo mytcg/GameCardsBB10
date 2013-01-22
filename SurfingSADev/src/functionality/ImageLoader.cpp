@@ -14,14 +14,16 @@ ImageLoader::ImageLoader(AbstractPane *root): root(root)
 
 }
 
-void ImageLoader::loadImage(QString imageUrl, ImageView * parent)
+void ImageLoader::loadImage(QString imageUrl, ImageView * parent, QString prefix, QString suffix)
 {
 	qDebug() << "\n loadImage "+imageUrl;
 	m_imageUrl = imageUrl;
 	mParent = parent;
+	mPrefix = prefix;
+	mSuffix = suffix;
 
-	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)))){
-		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)));
+	if(QFile::exists ("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf(prefix)+prefix.length(),m_imageUrl.indexOf(suffix)-(m_imageUrl.indexOf(prefix)+prefix.length())))){
+		QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf(prefix)+prefix.length(),m_imageUrl.indexOf(suffix)-(m_imageUrl.indexOf(prefix)+prefix.length())));
 
 		qDebug() << "\n loadImage file exists";
 		// Open the file and print an error if the file cannot be opened
@@ -70,13 +72,13 @@ void ImageLoader::onReplyFinished()
 	QString response;
 	if (reply) {
 		if (reply->error() == QNetworkReply::NoError) {
-			QString filename = "data/surfingsa_"+(m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)));
+			QString filename = "data/surfingsa_"+(m_imageUrl.mid(m_imageUrl.indexOf(mPrefix)+mPrefix.length(),m_imageUrl.indexOf(mSuffix)-(m_imageUrl.indexOf(mPrefix)+mPrefix.length())));
 			qDebug() << "\n Saving image "+filename;
 			const int available = reply->bytesAvailable();
 			if (available > 0) {
 				const QByteArray data(reply->readAll());
 				//save image
-				QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf("/products/")+10,m_imageUrl.indexOf(".png")-(m_imageUrl.indexOf("/products/")+10)));
+				QFile *file = new QFile("data/surfingsa_"+m_imageUrl.mid(m_imageUrl.indexOf(mPrefix)+mPrefix.length(),m_imageUrl.indexOf(mSuffix)-(m_imageUrl.indexOf(mPrefix)+mPrefix.length())));
 
 				// Open the file and print an error if the file cannot be opened
 				if (file->open(QIODevice::ReadWrite))

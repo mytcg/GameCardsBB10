@@ -2,41 +2,32 @@ import bb.cascades 1.0
 
 
 Page {
-    id: albumViewPage
+    id: purchasedPage
     
     property string newCards: "false"
     
     signal cancel ()
     
-    function loadAlbum(String) {
-        albumViewClass.loadAlbum(String);
-    }
-    
     titleBar: TitleBar {
-        title: "Album"
+        title: "Booster"
         visibility: ChromeVisibility.Visible
         
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
-                albumViewPage.cancel();
+                purchasedPage.cancel();
             }
         }
     }
     
     Container {
-        layout: DockLayout {
-        }
-        Label {
-            id: albumLabel
-            objectName: "albumViewLabel"
-            text: "0"
-            visible: false
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
         }
         ListView {
-            objectName: "albumViewView"
-            verticalAlignment: VerticalAlignment.Fill
-            horizontalAlignment: HorizontalAlignment.Fill
+            objectName: "purchasedList"
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
             
             listItemComponents: [
                 ListItemComponent {
@@ -46,9 +37,6 @@ Page {
                         horizontalAlignment: HorizontalAlignment.Center
                         imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
                         minHeight: 66
-                        onCreationCompleted: {
-                            imageloaderClass.loadImage(ListItemData.thumburl, this);
-                        }
                     }
                 }
             ]
@@ -56,7 +44,6 @@ Page {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
                     card.cardId = dataModel.data (indexPath).cardid;
-                    card.newCard = newCards;
                     cardSheet.open();
                 }
             }
@@ -64,7 +51,7 @@ Page {
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
-            objectName: "loadAlbumViewIndicator"
+            objectName: "loadPurchasedIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 200

@@ -1,17 +1,14 @@
-#include "Shop.h"
-
+#include "Purchase.h"
 #include "../utils/Util.h"
-#include "../customcomponents/ShopItem.h"
-#include "../customcomponents/ShopItemFactory.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
-#include <bb/cascades/Container>
+#include <QtXml/QDomDocument>
 
 using namespace bb::cascades;
 using namespace bb::data;
 
-Shop::Shop(AbstractPane *root): root(root)
+Purchase::Purchase(AbstractPane *root): root(root)
 {
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -28,20 +25,22 @@ Shop::Shop(AbstractPane *root): root(root)
 	Q_UNUSED(result);
 }
 
-void Shop::loadProducts() {
+void Purchase::purchase(QString id, QString type) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
-	qDebug() << "\n Loading Products";
-	mActivityIndicator = root->findChild<ActivityIndicator*>("loadProductsIndicator");
-	mShop = root->findChild<Label*>("shopLabel");
+	qDebug() << "\n Loading Booster";
+	mActivityIndicator = root->findChild<ActivityIndicator*>("loadPurchasedIndicator");
 
 	// Start the activity indicator
 	mActivityIndicator->start();
-
+	QString purchase = "3";
+	if(type.compare("2")==0){
+		purchase = "2";
+	}
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?categoryproducts=2&categoryId=1"));
+	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?buyproduct="+id+"&height=448&jpg=1&width=360&freebie=0&purchase="+purchase;
+	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?buyproduct="+id+"&height=448&jpg=1&width=360&freebie=0&purchase="+purchase));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 
@@ -51,19 +50,22 @@ void Shop::loadProducts() {
 	mNetworkAccessManager->get(request);
 }
 
-void Shop::requestFinished(QNetworkReply* reply)
+void Purchase::requestFinished(QNetworkReply* reply)
 {
-	qDebug() << "\n Got Products";
+	qDebug() << "\n Got Booster";
 	// Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
+		mListView = root->findChild<ListView*>("purchasedList");
 		QString xmldata = QString(reply->readAll());
-		GroupDataModel *model = new GroupDataModel(QStringList() << "productname");
 
+		qDebug() << "\nPurchase xml: " << xmldata;
+
+		GroupDataModel *model = new GroupDataModel(QStringList() << "description");
 		// Specify the type of grouping to use for the headers in the list
 		model->setGrouping(ItemGrouping::None);
 
 		XmlDataAccess xda;
-		QVariant list = xda.loadFromBuffer(xmldata, "/categoryproducts/product");
+		QVariant list = xda.loadFromBuffer(xmldata, "/cards/card");
 		QVariantMap tempMap = list.value<QVariantMap>();
 		QVariantList tempList;
 		if (tempMap.isEmpty()) {
@@ -75,14 +77,7 @@ void Shop::requestFinished(QNetworkReply* reply)
 
 		model->insertList(tempList);
 
-		ListView *shopContainer = root->findChild<ListView*>("shopList");
-		shopContainer->setDataModel(model);
-
-		ShopItemFactory *itemfactory = new ShopItemFactory();
-		shopContainer->setListItemProvider(itemfactory);
-
-		connect(shopContainer, SIGNAL(triggered(const QVariantList)), this,
-				SLOT(onNewFruitChanged(const QVariantList)));
+		mListView->setDataModel(model);
 	}
 	else
 	{

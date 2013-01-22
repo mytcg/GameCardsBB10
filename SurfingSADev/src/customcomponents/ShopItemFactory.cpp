@@ -17,7 +17,7 @@
 
 using namespace bb::cascades;
 
-ShopItemFactory::ShopItemFactory(ImageLoader *loader): imageLoader(loader)
+ShopItemFactory::ShopItemFactory()
 {
 }
 
@@ -43,7 +43,7 @@ void ShopItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *listI
     ShopItem *recipeItem = static_cast<ShopItem *>(listItem);
     //recipeItem->updateItem(map["fruit"].toString());
     ImageLoader *imloader = new ImageLoader();
-    imloader->loadImage(map["productthumb"].toString(), recipeItem->itemImage());
+    imloader->loadImage(map["productthumb"].toString(), recipeItem->itemImage(),"/products/",".png");
 
     //set labels
     recipeItem->setTitle(map["productname"].toString());

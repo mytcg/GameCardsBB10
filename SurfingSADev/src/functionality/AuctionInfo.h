@@ -1,14 +1,12 @@
 // Navigation pane project template
-#ifndef Shop_HPP_
-#define Shop_HPP_
+#ifndef AuctionInfo_HPP_
+#define AuctionInfo_HPP_
 
 #include <QObject>
 
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/ActivityIndicator>
-#include <bb/cascades/QmlDocument>
 #include <bb/cascades/Label>
-#include <bb/cascades/ListView>
 
 using namespace bb::cascades;
 
@@ -17,7 +15,6 @@ namespace bb {
 		class ActivityIndicator;
 		class AbstractPane;
 		class Label;
-		class ListView;
 	}
 }
 
@@ -26,14 +23,15 @@ namespace bb {
  *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
-class Shop : public QObject
+class AuctionInfo : public QObject
 {
     Q_OBJECT
 public:
-    Shop(AbstractPane *root);
-    virtual ~Shop() {}
+    AuctionInfo(AbstractPane *root);
+    virtual ~AuctionInfo() {}
 
-    Q_INVOKABLE void loadProducts();
+    Q_INVOKABLE void placeBid(QString auctionId, QString username, QString bid);
+    Q_INVOKABLE void buyNow(QString auctionId, QString username, QString buynowprice, QString usercardId);
 
 private slots:
 	/*!
@@ -45,8 +43,7 @@ private:
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
-    ListView *mListView;
-    Label *mShop;
+    Label *mAuctionInfo;
 };
 
-#endif /* Shop_HPP_ */
+#endif /* AuctionInfo_HPP_ */

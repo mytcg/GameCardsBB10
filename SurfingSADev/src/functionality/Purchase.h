@@ -1,6 +1,6 @@
 // Navigation pane project template
-#ifndef Shop_HPP_
-#define Shop_HPP_
+#ifndef Purchase_HPP_
+#define Purchase_HPP_
 
 #include <QObject>
 
@@ -26,14 +26,14 @@ namespace bb {
  *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
-class Shop : public QObject
+class Purchase : public QObject
 {
     Q_OBJECT
 public:
-    Shop(AbstractPane *root);
-    virtual ~Shop() {}
+    Purchase(AbstractPane *root);
+    virtual ~Purchase() {}
 
-    Q_INVOKABLE void loadProducts();
+    Q_INVOKABLE void purchase(QString id, QString type);
 
 private slots:
 	/*!
@@ -46,7 +46,6 @@ private:
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
     ListView *mListView;
-    Label *mShop;
 };
 
-#endif /* Shop_HPP_ */
+#endif /* Purchase_HPP_ */

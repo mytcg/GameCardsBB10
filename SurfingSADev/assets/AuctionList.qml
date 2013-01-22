@@ -2,41 +2,40 @@ import bb.cascades 1.0
 
 
 Page {
-    id: albumViewPage
-    
-    property string newCards: "false"
+    id: auctionListPage
     
     signal cancel ()
     
-    function loadAlbum(String) {
-        albumViewClass.loadAlbum(String);
+    function loadAuctionList(String) {
+        auctionListClass.loadAuctionList(String);
     }
     
     titleBar: TitleBar {
-        title: "Album"
+        title: "Auction Cards"
         visibility: ChromeVisibility.Visible
         
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
-                albumViewPage.cancel();
+                auctionListPage.cancel();
             }
         }
     }
     
     Container {
-        layout: DockLayout {
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
         }
         Label {
-            id: albumLabel
-            objectName: "albumViewLabel"
+            id: auctionListLabel
+            objectName: "auctionListLabel"
             text: "0"
             visible: false
         }
         ListView {
-            objectName: "albumViewView"
-            verticalAlignment: VerticalAlignment.Fill
-            horizontalAlignment: HorizontalAlignment.Fill
+            objectName: "auctionListList"
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
             
             listItemComponents: [
                 ListItemComponent {
@@ -46,25 +45,22 @@ Page {
                         horizontalAlignment: HorizontalAlignment.Center
                         imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
                         minHeight: 66
-                        onCreationCompleted: {
-                            imageloaderClass.loadImage(ListItemData.thumburl, this);
-                        }
+                        visible: (ListItemData.quantity=="0"?false:true)
                     }
                 }
             ]
             onTriggered: {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
-                    card.cardId = dataModel.data (indexPath).cardid;
-                    card.newCard = newCards;
-                    cardSheet.open();
+                    auctionCreate.cardId = dataModel.data (indexPath).cardid;
+                    auctionCreateSheet.open();
                 }
             }
         }
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
-            objectName: "loadAlbumViewIndicator"
+            objectName: "loadAuctionListIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 200
@@ -76,13 +72,13 @@ Page {
     }
     attachedObjects: [
         Sheet {
-            id: cardSheet
+            id: auctionCreateSheet
             
-            Card{
-            id: card
+            AuctionCreate{
+            id: auctionCreate
             
             onCancel: {
-            cardSheet.close();
+                auctionCreateSheet.close();
             }
             }
         }

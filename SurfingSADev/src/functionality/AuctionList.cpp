@@ -1,14 +1,13 @@
-#include "AlbumView.h"
+#include "AuctionList.h"
 #include "../utils/Util.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
-#include <QtXml/QDomDocument>
 
 using namespace bb::cascades;
 using namespace bb::data;
 
-AlbumView::AlbumView(AbstractPane *root): root(root)
+AuctionList::AuctionList(AbstractPane *root): root(root)
 {
 	// Create a network access manager and connect a custom slot to its
 	// finished signal
@@ -25,12 +24,11 @@ AlbumView::AlbumView(AbstractPane *root): root(root)
 	Q_UNUSED(result);
 }
 
-void AlbumView::loadAlbum(QString id) {
+void AuctionList::loadAuctionList(QString id) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
-	qDebug() << "\n Loading Album";
-	mActivityIndicator = root->findChild<ActivityIndicator*>("loadAlbumViewIndicator");
-	mAlbumView = root->findChild<Label*>("albumViewLabel");
+	qDebug() << "\n Loading Auction List";
+	mActivityIndicator = root->findChild<ActivityIndicator*>("loadAuctionListIndicator");
 
 	// Start the activity indicator
 	mActivityIndicator->start();
@@ -48,15 +46,15 @@ void AlbumView::loadAlbum(QString id) {
 	mNetworkAccessManager->get(request);
 }
 
-void AlbumView::requestFinished(QNetworkReply* reply)
+void AuctionList::requestFinished(QNetworkReply* reply)
 {
-	qDebug() << "\n Got Album";
-    // Check the network reply for errors
+	qDebug() << "\n Got Auction List";
+	// Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
-		mListView = root->findChild<ListView*>("albumViewView");
+		mListView = root->findChild<ListView*>("auctionListList");
 		QString xmldata = QString(reply->readAll());
 
-		qDebug() << "\nAlbumView xml: " << xmldata;
+		qDebug() << "\nAuctionList xml: " << xmldata;
 
 		GroupDataModel *model = new GroupDataModel(QStringList() << "description");
 		// Specify the type of grouping to use for the headers in the list
@@ -74,49 +72,7 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 		}
 
 		model->insertList(tempList);
-/*
-		QList<QMap<QString, QString> > albums;
 
-		QDomDocument doc("mydocument");
-		if (!doc.setContent(xmldata)) {
-		return;
-		}
-
-		//Get the root element
-		QDomElement docElem = doc.documentElement();
-
-		// you could check the root tag name here if it matters
-		QString rootTag = docElem.tagName(); // == persons
-
-		// get the node's interested in, this time only caring about person's
-		QDomNodeList nodeList = docElem.elementsByTagName("album");
-
-		//Check each node one by one.
-		QMap<QString, QVariant> album;
-		for (int ii = 0; ii < nodeList.count(); ii++) {
-
-		// get the current one as QDomElement
-		QDomElement el = nodeList.at(ii).toElement();
-
-		//get all data for the element, by looping through all child elements
-		QDomNode pEntries = el.firstChild();
-		while (!pEntries.isNull()) {
-		QDomElement peData = pEntries.toElement();
-		QString tagNam = peData.tagName();
-
-		if (tagNam == "albumname") {
-		album["albumname"] = peData.text();
-		} else if (tagNam == "albumid") {
-		album["albumid"] = peData.text();
-		} else if (tagNam == "hascards") {
-		album["hascards"] = peData.text();
-		} else if (tagNam == "website") {
-		album["website"] = peData.text();
-		}
-		pEntries = pEntries.nextSibling();
-		}
-		model->insert(album);
-		}*/
 		mListView->setDataModel(model);
 	}
 	else
@@ -125,5 +81,5 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 		qDebug() << "\n" << reply->errorString();
 	}
 
-    mActivityIndicator->stop();
+	mActivityIndicator->stop();
 }

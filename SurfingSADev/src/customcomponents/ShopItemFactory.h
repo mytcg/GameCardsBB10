@@ -26,7 +26,7 @@ namespace bb
 class ShopItemFactory: public bb::cascades::ListItemProvider
 {
 public:
-    ShopItemFactory(ImageLoader *loader);
+    ShopItemFactory();
 
     /**
      * Creates a VisualNode for list to be used as a list item.
@@ -52,8 +52,6 @@ public:
     void updateItem(ListView* list, VisualNode *listItem, const QString &type,
             const QVariantList &indexPath, const QVariant &data);
 
-private:
-    ImageLoader *imageLoader;
 };
 
 #endif // ifndef _SHOPITEMFACTORY_H_
