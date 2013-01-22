@@ -1,5 +1,7 @@
 #include "Weather.h"
 
+#include "../utils/Util.h"
+
 #include <QTime>
 
 #include <bb/data/XmlDataAccess>

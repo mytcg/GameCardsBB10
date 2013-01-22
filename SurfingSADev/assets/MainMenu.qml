@@ -147,18 +147,6 @@ TabbedPane {
 		                
 		                // An ImageButton
 		                ImageButton {
-		                    id: profileButton
-		                    defaultImageSource: "asset:///images/menu/Profile.png"
-		                    pressedImageSource: "asset:///images/menu/Profile.png"
-		                    disabledImageSource: "asset:///images/menu/Profile.png"
-		                    enabled: true
-		                    
-		                    onClicked: {
-		                    }
-		                }// ImageButton
-		                
-		                // An ImageButton
-		                ImageButton {
 		                    id: redeemButton
 		                    defaultImageSource: "asset:///images/menu/Redeem.png"
 		                    pressedImageSource: "asset:///images/menu/Redeem.png"

@@ -65,5 +65,5 @@ void WeatherItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *li
     //rotate arrows
     weatherItem->setWindDirection(180 + map["winddirDegree"].toFloat());
 
-    weatherItem->setSwellDirection(180 + map["winddirDegree"].toFloat());
+    weatherItem->setSwellDirection(180 + map["swellDir"].toFloat());
 }
