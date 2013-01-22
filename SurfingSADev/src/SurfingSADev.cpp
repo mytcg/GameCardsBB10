@@ -38,6 +38,13 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     mRedeem = new Redeem(root);
     mShop = new Shop(root);
     mCard = new Card(root);
+    mPurchase = new Purchase(root);
+    mBooster = new Booster(root);
+    mAuctionCategories = new AuctionCategories(root);
+    mAuctionList = new AuctionList(root);
+    mAuctionCreate = new AuctionCreate(root);
+    mOnAuctionList = new OnAuctionList(root);
+    mAuctionInfo = new AuctionInfo(root);
 
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
@@ -52,6 +59,13 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     qml->setContextProperty("redeemClass", mRedeem);
     qml->setContextProperty("shopClass", mShop);
     qml->setContextProperty("cardClass", mCard);
+    qml->setContextProperty("purchaseClass", mPurchase);
+    qml->setContextProperty("boosterClass", mBooster);
+    qml->setContextProperty("auctionCategoriesClass", mAuctionCategories);
+    qml->setContextProperty("auctionListClass", mAuctionList);
+    qml->setContextProperty("auctionCreateClass", mAuctionCreate);
+    qml->setContextProperty("onAuctionListClass", mOnAuctionList);
+    qml->setContextProperty("auctionInfoClass", mAuctionInfo);
 }
 
 QString SurfingSADev::loggedIn() {

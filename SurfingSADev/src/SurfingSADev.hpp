@@ -14,6 +14,13 @@
 #include "functionality/Redeem.h"
 #include "functionality/Shop.h"
 #include "functionality/Card.h"
+#include "functionality/Purchase.h"
+#include "functionality/Booster.h"
+#include "functionality/AuctionCategories.h"
+#include "functionality/AuctionList.h"
+#include "functionality/AuctionCreate.h"
+#include "functionality/OnAuctionList.h"
+#include "functionality/AuctionInfo.h"
 
 #include <QObject>
 
@@ -52,6 +59,13 @@ public:
     Redeem *mRedeem;
     Shop *mShop;
     Card *mCard;
+    Purchase *mPurchase;
+    Booster *mBooster;
+    AuctionCategories *mAuctionCategories;
+    AuctionList *mAuctionList;
+    AuctionCreate *mAuctionCreate;
+    OnAuctionList *mOnAuctionList;
+    AuctionInfo *mAuctionInfo;
 };
 
 #endif /* SurfingSADev_HPP_ */

@@ -56,6 +56,9 @@ Page {
                     console.log("onTriggered");
                     console.log("indexPath " + indexPath);
                     console.log("selectedItem.productname " + selectedItem.productname);
+                    purchase.productId = selectedItem.productid;
+                    purchase.purchaseType = (selectedItem.productpremium=="0"?"3":"2");
+                    purchaseSheet.open();
                 }
                 
                 layoutProperties: StackLayoutProperties {
@@ -67,34 +70,19 @@ Page {
                     cellAspectRatio: 1.6
                 }            
             }
-            
-            ListView {
-                objectName: "shopView"
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                
-                listItemComponents: [
-                    ListItemComponent {
-                        type: "item"
-                        StandardListItem {
-                            id: rootThingy
-                            title: ListItemData.productname 
-                            description: "Credits: " + ListItemData.productprice + "  Cards: "+ListItemData.productnumcards
-                            imageSpaceReserved: true
-                            imageSource: "asset:///images/loadingthumb.png"
-                            minHeight: 66
-                            onCreationCompleted: {
-                                //imageloaderClass.loadImage(ListItemData.productthumb);
-                            }
-                        }
-                        /*Container {
-                            Label { text: ListItemData.productname }
-                            Label { text: "Credits: " + ListItemData.productprice }
-                            Label { text: "Cards: " + ListItemData.productnumcards }
-                        }*/
-                    }
-                ]
-            }   
         }
+        attachedObjects: [
+                Sheet {
+                    id: purchaseSheet
+                    
+                    Purchase{
+                        id: purchase
+                        
+                        onCancel: {
+                            purchaseSheet.close();
+                        }
+                    }
+                }
+            ]
     }
 }

@@ -8,8 +8,6 @@
 #include <bb/cascades/GroupDataModel>
 #include <bb/cascades/Container>
 
-#include <QtXml/QDomDocument>
-
 using namespace bb::cascades;
 using namespace bb::data;
 
@@ -64,57 +62,20 @@ void Shop::requestFinished(QNetworkReply* reply)
 		// Specify the type of grouping to use for the headers in the list
 		model->setGrouping(ItemGrouping::None);
 
-		QList<QMap<QString, QString> > products;
-
-		QDomDocument doc("mydocument");
-		if (!doc.setContent(xmldata)) {
-			return;
+		XmlDataAccess xda;
+		QVariant list = xda.loadFromBuffer(xmldata, "/categoryproducts/product");
+		QVariantMap tempMap = list.value<QVariantMap>();
+		QVariantList tempList;
+		if (tempMap.isEmpty()) {
+			tempList = list.value<QVariantList>();
+		}
+		else {
+			tempList.append(tempMap);
 		}
 
-		//Get the root element
-		QDomElement docElem = doc.documentElement();
+		model->insertList(tempList);
 
-		// you could check the root tag name here if it matters
-		QString rootTag = docElem.tagName(); // == persons
-
-		// get the node's interested in, this time only caring about products
-		QDomNodeList nodeList = docElem.elementsByTagName("product");
-
-		// Container for products
 		ListView *shopContainer = root->findChild<ListView*>("shopList");
-		//ShopItem *productItem;
-
-		//Check each node one by one.
-		QMap<QString, QVariant> product;
-		for (int ii = 0; ii < nodeList.count(); ii++) {
-
-			// get the current one as QDomElement
-			QDomElement el = nodeList.at(ii).toElement();
-
-			//get all data for the element, by looping through all child elements
-			QDomNode pEntries = el.firstChild();
-			while (!pEntries.isNull()) {
-				QDomElement peData = pEntries.toElement();
-				QString tagNam = peData.tagName();
-
-				if (tagNam == "productname") {
-					product["productname"] = peData.text();
-				} else if (tagNam == "productprice") {
-					product["productprice"] = peData.text();
-				} else if (tagNam == "productnumcards") {
-					product["productnumcards"] = peData.text();
-				} else if (tagNam == "productid") {
-					product["productid"] = peData.text();
-				} else if (tagNam == "productthumb") {
-					product["productthumb"] = peData.text();
-				}
-				pEntries = pEntries.nextSibling();
-			}
-			model->insert(product);
-			//productItem = new ShopItem(shopContainer);
-			//product->updateItem();
-		}
-
 		shopContainer->setDataModel(model);
 
 		ShopItemFactory *itemfactory = new ShopItemFactory();
