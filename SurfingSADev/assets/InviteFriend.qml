@@ -19,7 +19,10 @@ Page {
             }
         }
     }
-        
+        Container {
+                layout: DockLayout {
+                    
+                }
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
