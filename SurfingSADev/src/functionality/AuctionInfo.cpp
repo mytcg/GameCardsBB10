@@ -34,8 +34,8 @@ void AuctionInfo::placeBid(QString auctionId, QString username, QString bid) {
 
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId;
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId));
+	qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId;
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId));
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
@@ -55,8 +55,8 @@ void AuctionInfo::buyNow(QString auctionId, QString username, QString buynowpric
 
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?buyauctionnow=1&username="+username+"&buynowprice="+buynowprice+"&auctioncardid="+auctionId+"&usercardid="+usercardId;
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?buyauctionnow=1&username="+username+"&buynowprice="+buynowprice+"&auctioncardid="+auctionId+"&usercardid="+usercardId));
+	qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?buyauctionnow=1&username="+username+"&buynowprice="+buynowprice+"&auctioncardid="+auctionId+"&usercardid="+usercardId;
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?buyauctionnow=1&username="+username+"&buynowprice="+buynowprice+"&auctioncardid="+auctionId+"&usercardid="+usercardId));
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());

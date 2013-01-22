@@ -60,7 +60,7 @@ void AuctionCreate::createAuction(QString cardId, QString bid, QString buynow, Q
 		// Create and send the network request
 		QNetworkRequest request = QNetworkRequest();
 
-		request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?createauction=1&cardid="+cardId+"&bid="+bid+"&buynow="+buynow+"&days="+duration));
+		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?createauction=1&cardid="+cardId+"&bid="+bid+"&buynow="+buynow+"&days="+duration));
 
 		request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 		request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());

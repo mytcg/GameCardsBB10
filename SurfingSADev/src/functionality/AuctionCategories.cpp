@@ -37,11 +37,11 @@ void AuctionCategories::loadAuctionCategories(QString id) {
 	QNetworkRequest request = QNetworkRequest();
 
 	if(id.compare(QString("0"))==0){
-		qDebug() << "\n http://dev.mytcg.net/_phone/index.php?usercategories=1";
-			request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?usercategories=1"));
+		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?usercategories=1";
+			request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?usercategories=1"));
 		}else{
-			qDebug() << "\n http://dev.mytcg.net/_phone/index.php?usersubcategories=1&category="+id;
-			request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?usersubcategories=1&category="+id));
+			qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?usersubcategories=1&category="+id;
+			request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?usersubcategories=1&category="+id));
 		}
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());

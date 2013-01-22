@@ -44,7 +44,7 @@ private:
     QNetworkAccessManager *mNetworkAccessManager;
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
-    Label *mLoggedIn;
+    Label *mLoggedIn, *mResponse;
 
     QString encrypt;
 };

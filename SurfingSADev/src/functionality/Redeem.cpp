@@ -32,7 +32,7 @@ void Redeem::redeem(QString redeemCode) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?redeemcode="+redeemCode));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?redeemcode="+redeemCode));
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());

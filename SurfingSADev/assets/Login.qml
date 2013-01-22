@@ -14,7 +14,9 @@ Page {
         if (loggedLabel.text == "1") {
             loginQml.cancel()
         }
-        else {
+        else if (loggedLabel.text == "2") {
+            dialogLabel.text = loggedResponseLabel.text
+            errorPopup.open()
         }
     }
     
@@ -47,13 +49,7 @@ Page {
     attachedObjects: [
         ImagePaintDefinition {
             id: backgroundPaint
-            imageSource: "asset:///images/customcomponents/white_photo.png"
-            repeatPattern: RepeatPattern.XY
-        },
-        
-        ImagePaintDefinition {
-            id: backgroundPaint2
-            imageSource: "asset:///images/customcomponents/header.png"
+            imageSource: "asset:///images/customcomponents/popup.png"
             repeatPattern: RepeatPattern.XY
         },
         
@@ -68,43 +64,29 @@ Page {
                verticalAlignment: VerticalAlignment.Fill
                
                Container {
-                   layout: StackLayout {
-                       orientation: LayoutOrientation.TopToBottom
-                   }
-                   background: backgroundPaint2.imagePaint
-                   horizontalAlignment: HorizontalAlignment.Center
-                   verticalAlignment: VerticalAlignment.Center
-                   
                    topPadding: 15
                    rightPadding: 15
                    bottomPadding: 15
                    leftPadding: 15
-                   
-                   Container {
-                       topPadding: 15
-                       rightPadding: 15
-                       bottomPadding: 15
-                       leftPadding: 15
-                       background: backgroundPaint.imagePaint
-                       layout: StackLayout {
-                           orientation: LayoutOrientation.TopToBottom
-                       }
-                       horizontalAlignment: HorizontalAlignment.Center
-                       verticalAlignment: VerticalAlignment.Center
-                       
-                       Label {
-                           id: dialogLabel
-   	                       horizontalAlignment: HorizontalAlignment.Center
-   	                       text: ""
-   	                       multiline: true
-       	               }
-       	                  
-       	               Button {
-       	                   horizontalAlignment: HorizontalAlignment.Center
-       	                   text: "ok"
-       	                   onClicked: errorPopup.close()
-       	               }
+                   background: backgroundPaint.imagePaint
+                   layout: StackLayout {
+                       orientation: LayoutOrientation.TopToBottom
                    }
+                   horizontalAlignment: HorizontalAlignment.Center
+                   verticalAlignment: VerticalAlignment.Center
+                   
+                   Label {
+                       id: dialogLabel
+                       horizontalAlignment: HorizontalAlignment.Center
+                       text: ""
+                       multiline: true
+   	               }
+   	                  
+   	               Button {
+   	                   horizontalAlignment: HorizontalAlignment.Center
+   	                   text: "ok"
+   	                   onClicked: errorPopup.close()
+   	               }
                }
            }
        }
@@ -174,10 +156,17 @@ Page {
                     inputMode: TextFieldInputMode.Password
                 }
                 
+                //0 for nothing, 1 for success, 2 for error
                 Label {
                     id: loggedLabel
                     objectName: "loggedLabel"
                     text: "0"
+                    visible: false
+                }
+                Label {
+                    id: loggedResponseLabel
+                    objectName: "loggedResponseLabel"
+                    text: ""
                     visible: false
                 }
                 

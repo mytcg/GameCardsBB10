@@ -37,8 +37,8 @@ void AuctionList::loadAuctionList(QString id) {
 
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-	qDebug() << "\n http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360";
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360"));
+	qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360";
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?cardsincategory="+id+"&height=448&jpg=1&width=360"));
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());

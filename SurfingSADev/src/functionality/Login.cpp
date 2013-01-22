@@ -28,14 +28,29 @@ void Login::attemptLogin(QString username, QString password) {
 	// and stop it from C++
 	mActivityIndicator = root->findChild<ActivityIndicator*>("loginIndicator");
 	mLoggedIn = root->findChild<Label*>("loggedLabel");
+	mResponse = root->findChild<Label*>("loggedResponseLabel");
 
 	// Start the activity indicator
 	mActivityIndicator->start();
 
+	//check that the submitted info meets the minimum requirements
+	if (username.length() == 0) {
+		mLoggedIn->setText("2");
+		mResponse->setText("Please enter a username.");
+		mActivityIndicator->stop();
+		return;
+	}
+	else if (password.length() == 0) {
+		mLoggedIn->setText("2");
+		mResponse->setText("Please enter a password.");
+		mActivityIndicator->stop();
+		return;
+	}
+
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?userdetails=1"));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?userdetails=1"));
 
 	encrypt = QString(Util::base64_encode(reinterpret_cast<const unsigned char*>(password.toStdString().c_str()), password.length()).c_str());
 
@@ -53,7 +68,8 @@ void Login::requestFinished(QNetworkReply* reply)
     	QString result(reply->readAll());
 
     	if (result.compare("<user><result>Invalid User Details</result></user>") == 0) {
-    		mLoggedIn->setText("0");
+    		mLoggedIn->setText("2");
+			mResponse->setText("Invalid User Details.");
     	}
     	else {
     		//should add the encrypted password to the xml right after <userdetails>
