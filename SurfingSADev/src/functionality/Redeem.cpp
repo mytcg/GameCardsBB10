@@ -32,7 +32,7 @@ void Redeem::redeem(QString redeemCode) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?redeemcode="+redeemCode));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?redeemcode="+redeemCode));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 

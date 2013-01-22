@@ -77,7 +77,7 @@ void Registration::attemptRegistration(QString username, QString password, QStri
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	QString url = "http://dev.mytcg.net/_phone/index.php?registeruser=1&username="+username+"&password="+password+"&email="+email;
+	QString url = "http://www.mytcg.net/_phone/ssa/index.php?registeruser=1&username="+username+"&password="+password+"&email="+email;
 
 	if (referrer.length() > 0) {
 		url.append("&referer=");

@@ -38,9 +38,9 @@ void Album::loadAlbums(QString id) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 	if(id.compare(QString("0"))==0){
-		request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?usercategories=1"));
+		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?usercategories=1"));
 	}else{
-		request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?usersubcategories=1&category="+id));
+		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?usersubcategories=1&category="+id));
 	}
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 

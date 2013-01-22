@@ -32,7 +32,7 @@ void Card::save(QString cardId) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?savecard="+cardId));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?savecard="+cardId));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 
@@ -54,7 +54,7 @@ void Card::reject(QString cardId) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?rejectcard="+cardId));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?rejectcard="+cardId));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 

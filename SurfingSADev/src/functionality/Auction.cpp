@@ -38,7 +38,7 @@ void Auction::loadAuctions() {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 
-	request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?auctioncategories=1"));
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?auctioncategories=1"));
 
 	string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(QString("aaaaaa").toStdString().c_str()), 6);
 
