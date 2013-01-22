@@ -39,7 +39,7 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
                 text: "Create new Auction"   
                 onClicked: {
-                    auctionCategories.loadAuctionCategories("10");
+                    auctionCategories.loadAuctionCategories("0");
                     auctionCategoriesSheet.open();
                 }
             }

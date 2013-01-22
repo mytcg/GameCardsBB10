@@ -141,7 +141,7 @@ TabbedPane {
 		                    
 		                    onClicked: {
 		                        auctionSheet.open();
-		                        auctionClass.loadAuctions();;
+		                        auctionClass.loadAuctions();
 		                    }
 		                }// ImageButton
 		                
