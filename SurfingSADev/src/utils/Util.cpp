@@ -33,7 +33,6 @@ QString Util::getUsername() {
 
 		return username;
 	}
-	return "";
 }
 
 QString Util::getEncrypt() {
@@ -59,7 +58,6 @@ QString Util::getEncrypt() {
 
 		return encrypt;
 	}
-	return "";
 }
 
 QString Util::getHeight() {

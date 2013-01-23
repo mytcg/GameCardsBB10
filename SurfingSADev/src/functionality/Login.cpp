@@ -83,7 +83,10 @@ void Login::requestFinished(QNetworkReply* reply)
 			{
 				QTextStream fileStream(file);
 
+
 				fileStream << result;
+
+				QFile::resize("data/userdata.xml", result.length());
 
 				file->close();
 			}

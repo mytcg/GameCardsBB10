@@ -21,30 +21,43 @@ Page {
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
-        Label {
-            id: albumLabel
-            objectName: "onAuctionListLabel"
-            text: "0"
-            visible: false
-        }
-        ListView {
-            objectName: "onAuctionListList"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+        layout: DockLayout {
             
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
-                    StandardListItem {
-                        title: ListItemData.description
-                        horizontalAlignment: HorizontalAlignment.Center
-                        imageSource: "asset:///images/loadingthumb.png"
-                        minHeight: 66
+        }
+        
+        Container {
+            topPadding: 10
+            leftPadding: 10
+            rightPadding: 10
+            bottomPadding: 10
+            
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            Label {
+                id: albumLabel
+                objectName: "onAuctionListLabel"
+                text: "0"
+                visible: false
+            }
+            ListView {
+                objectName: "onAuctionListList"
+                verticalAlignment: VerticalAlignment.Fill
+                horizontalAlignment: HorizontalAlignment.Fill
+                
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "item"
+                        StandardListItem {
+                            title: ListItemData.description
+                            horizontalAlignment: HorizontalAlignment.Center
+                            imageSource: "asset:///images/loadingthumb.png"
+                            minHeight: 66
+                        }
                     }
-                }
+                
             ]
             onTriggered: {
                 clearSelection();
@@ -64,19 +77,20 @@ Page {
                 auctionInfoSheet.open();
             }
         }
+        
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
             objectName: "loadOnAuctionListIndicator"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 200
             preferredHeight: 200
-            
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
             onStopped: {
             }
-        }    
+        }
     }
+    
     attachedObjects: [
         Sheet {
             id: auctionInfoSheet
