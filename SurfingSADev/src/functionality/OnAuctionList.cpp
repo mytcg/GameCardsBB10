@@ -38,11 +38,11 @@ void OnAuctionList::loadOnAuctionList(QString id, QString type) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 	if(type.compare("0")== 0){
-		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?categoryauction=1&category_id="+id+"&height=448&jpg=1&width=360";
-		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?categoryauction=1&category_id="+id+"&height=448&jpg=1&width=360"));
+		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?categoryauction=1&category_id="+id+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth();
+		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?categoryauction=1&category_id="+id+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()));
 	}else{
-		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username=jamess&height=448&jpg=1&width=360";
-				request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username=jamess&height=448&jpg=1&width=360"));
+		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username="+Util::getUsername()+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth();
+				request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username="+Util::getUsername()+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()));
 	}
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());

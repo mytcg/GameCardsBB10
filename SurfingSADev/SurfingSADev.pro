@@ -6,5 +6,6 @@ LIBS += -lbb
 LIBS += -lQtXml
 LIBS += -lbbplatformbbm
 LIBS += -lbbsystem
+LIBS += -lbbdevice
 
 include(config.pri)

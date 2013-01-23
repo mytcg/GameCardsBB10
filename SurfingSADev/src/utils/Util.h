@@ -16,6 +16,8 @@ class Util
 
 	static QString getUsername();
 	static QString getEncrypt();
+	static QString getHeight();
+	static QString getWidth();
 };
 
 #endif //_UTIL_H_
