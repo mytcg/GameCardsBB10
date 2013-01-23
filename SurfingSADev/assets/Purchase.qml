@@ -21,15 +21,38 @@ Page {
     }
     
     Container {
-        layout: DockLayout {
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
         }
-        ImageView {
-            id: boosterView
-            objectName: "boosterView"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            imageSource: "asset:///images/loading.png"
-        
+        Container{
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            ImageView {
+                id: boosterView
+                objectName: "boosterView"
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+                imageSource: "asset:///images/loadingthumb.png"
+            
+            }
+            Container{
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                Label{
+                    id: productNameLabel
+                }
+                Label{
+                    id: productCostLabel
+                }
+                Label{
+                    id: productNumCardsLabel
+                }
+                Label{
+                    id: productTypeLabel
+                }
+            }
         }
         Button{
             horizontalAlignment: HorizontalAlignment.Left

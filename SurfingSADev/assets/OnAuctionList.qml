@@ -89,8 +89,7 @@ Page {
             onStopped: {
             }
         }
-	}
-    
+    }
     attachedObjects: [
         Sheet {
             id: auctionInfoSheet
@@ -105,3 +104,4 @@ Page {
         }
     ]
 }
+
