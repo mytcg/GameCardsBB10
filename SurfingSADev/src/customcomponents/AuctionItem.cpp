@@ -10,6 +10,7 @@
 #include <bb/cascades/Color>
 #include <bb/cascades/StackLayout>
 #include <bb/cascades/StackLayoutProperties>
+#include <bb/cascades/ImagePaint>
 
 using namespace bb::cascades;
 
@@ -20,20 +21,19 @@ AuctionItem::AuctionItem(Container *parent) :
     Container *itemContainer = new Container();
     DockLayout *itemLayout = new DockLayout();
     itemContainer->setLayout(itemLayout);
+    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/customcomponents/title_gui_buffet_empty_box.amd"), RepeatPattern::XY));
+	itemContainer->setHorizontalAlignment(HorizontalAlignment::Center);
+	itemContainer->setMinHeight(180);
+	itemContainer->setPreferredWidth(740);
 
     // Sub item container
 	Container *subItemContainer = Container::create();
 	subItemContainer->setLayout(new DockLayout());
-	subItemContainer->setTopPadding(25);
+	subItemContainer->setTopPadding(10);
 	subItemContainer->setLeftPadding(25);
 	subItemContainer->setRightPadding(25);
 	subItemContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
 	subItemContainer->setVerticalAlignment(VerticalAlignment::Fill);
-
-    // The white background item image with drop shadow
-    ImageView *bkgImage = ImageView::create("asset:///images/customcomponents/title_gui_buffet_empty_box.amd");
-    bkgImage->setHorizontalAlignment(HorizontalAlignment::Fill);
-    bkgImage->setVerticalAlignment(VerticalAlignment::Fill);
 
     // A Colored Container will be used to show if an item is highlighted
     mHighlighContainer = Container::create().background(Color::fromARGB(0xff75b5d3)).opacity(0.0);
@@ -43,7 +43,7 @@ AuctionItem::AuctionItem(Container *parent) :
     // The list item image, the actual image is set in updateItem
     mItemImage = ImageView::create("asset:///images/loadingthumb.png");
     mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
-    mItemImage->setVerticalAlignment(VerticalAlignment::Top);
+    mItemImage->setVerticalAlignment(VerticalAlignment::Center);
 
     mItemTitle = Label::create("Title");
     mItemTitle->setLayoutProperties(StackLayoutProperties::create().spaceQuota(1));
@@ -62,7 +62,6 @@ AuctionItem::AuctionItem(Container *parent) :
     subItemContainer->add(mItemDescription);
 
     // Add the background image and the content to the full item container.
-    itemContainer->add(bkgImage);
     itemContainer->add(mHighlighContainer);
     itemContainer->add(subItemContainer);
 

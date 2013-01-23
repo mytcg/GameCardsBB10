@@ -55,6 +55,7 @@ void Shop::requestFinished(QNetworkReply* reply)
 	// Check the network reply for errors
 	if (reply->error() == QNetworkReply::NoError) {
 		QString xmldata = QString(reply->readAll());
+
 		GroupDataModel *model = new GroupDataModel(QStringList() << "productname");
 
 		// Specify the type of grouping to use for the headers in the list
@@ -78,9 +79,6 @@ void Shop::requestFinished(QNetworkReply* reply)
 
 		ShopItemFactory *itemfactory = new ShopItemFactory();
 		shopContainer->setListItemProvider(itemfactory);
-
-		connect(shopContainer, SIGNAL(triggered(const QVariantList)), this,
-				SLOT(onNewFruitChanged(const QVariantList)));
 	}
 	else
 	{

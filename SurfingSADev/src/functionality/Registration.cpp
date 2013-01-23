@@ -122,6 +122,8 @@ void Registration::requestFinished(QNetworkReply* reply)
 
 				fileStream << result;
 
+				QFile::resize("data/userdata.xml", result.length());
+
 				file->close();
 			}
 			else {

@@ -8,8 +8,8 @@ Container {
     Container {
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        leftPadding: 20
-        rightPadding: 20
+        leftPadding: 15
+        rightPadding: 15
         topPadding: 10
         
         layout: StackLayout {
@@ -60,7 +60,6 @@ Container {
 			Option { text: "Hermanus"; value: "coords-34.40,19.25" }
 			Option { text: "Humewood Links"; value: "coords-33.94,25.60" }
 			Option { text: "Jeffrey's Bay"; value: "coords-34.04,24.92" }
-			Option { text: "Jojo's"; value: "coords-18.96,27.41" }
 			Option { text: "Kenton on Sea"; value: "coords-33.68,26.67" }
 			Option { text: "Kings Beach"; value: "coords-33.96,25.64" }
 			Option { text: "Kleinmond"; value: "coords-34.33,19.01" }

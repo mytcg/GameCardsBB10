@@ -27,40 +27,52 @@ Page {
     Container {
         layout: DockLayout {
         }
-        Label {
-            id: albumLabel
-            objectName: "albumViewLabel"
-            text: "0"
-            visible: false
-        }
-        ListView {
-            objectName: "albumViewView"
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            topPadding: 10
+            leftPadding: 10
+            rightPadding: 10
+            bottomPadding: 10
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
             
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
-                    StandardListItem {
-                        title: ListItemData.description +" ("+ListItemData.quantity+")"
-                        horizontalAlignment: HorizontalAlignment.Center
-                        imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
-                        minHeight: 66
-                        onCreationCompleted: {
-                            imageloaderClass.loadImage(ListItemData.thumburl, this);
+            Label {
+                id: albumLabel
+                objectName: "albumViewLabel"
+                text: "0"
+                visible: false
+            }
+            ListView {
+                objectName: "albumViewView"
+                horizontalAlignment: HorizontalAlignment.Fill
+                
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "item"
+                        StandardListItem {
+                            title: ListItemData.description +" ("+ListItemData.quantity+")"
+                            horizontalAlignment: HorizontalAlignment.Center
+                            imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
+                            minHeight: 66
+                            onCreationCompleted: {
+                                imageloaderClass.loadImage(ListItemData.thumburl, this);
+                            }
                         }
                     }
-                }
-            ]
-            onTriggered: {
-                clearSelection();
-                if(dataModel.data (indexPath).quantity!="0"){
-                    card.cardId = dataModel.data (indexPath).cardid;
-                    card.newCard = newCards;
-                    card.fronturl = dataModel.data (indexPath).fronturl;
-                    card.backurl = dataModel.data (indexPath).backurl;
-                    card.loadImage(dataModel.data (indexPath).fronturl);
-                    cardSheet.open();
+                ]
+                onTriggered: {
+                    clearSelection();
+                    if(dataModel.data (indexPath).quantity!="0"){
+                        card.cardId = dataModel.data (indexPath).cardid;
+                        card.newCard = newCards;
+                        card.fronturl = dataModel.data (indexPath).fronturl;
+                        card.backurl = dataModel.data (indexPath).backurl;
+                        card.loadImage(dataModel.data (indexPath).fronturl);
+                        cardSheet.open();
+                    }
                 }
             }
         }
