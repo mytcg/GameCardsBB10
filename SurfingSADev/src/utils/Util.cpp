@@ -5,8 +5,10 @@
 #include <QTextStream>
 
 #include <bb/data/XmlDataAccess>
+#include <bb/device/DisplayInfo>
 
 using namespace bb::data;
+using namespace bb::device;
 
 QString Util::getUsername() {
 	QFile *file = new QFile("data/userdata.xml");
@@ -56,6 +58,20 @@ QString Util::getEncrypt() {
 
 		return encrypt;
 	}
+}
+
+QString Util::getHeight() {
+	DisplayInfo display;
+	//qDebug() << "\n height" << display.pixelSize().height();
+	int height  = display.pixelSize().height();
+	return QString::number(height);
+}
+
+QString Util::getWidth() {
+	DisplayInfo display;
+	//qDebug() << "\n width" << display.pixelSize().width();
+	int width = display.pixelSize().width();
+	return QString::number(width);
 }
 
 string Util::base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len) {

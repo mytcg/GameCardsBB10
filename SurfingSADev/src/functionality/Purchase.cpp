@@ -39,8 +39,8 @@ void Purchase::purchase(QString id, QString type) {
 	}
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
-	qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?buyproduct="+id+"&height=448&jpg=1&width=360&freebie=0&purchase="+purchase;
-	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?buyproduct="+id+"&height=448&jpg=1&width=360&freebie=0&purchase="+purchase));
+	qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?buyproduct="+id+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()+"&freebie=0&purchase="+purchase;
+	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?buyproduct="+id+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()+"&freebie=0&purchase="+purchase));
 
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
