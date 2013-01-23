@@ -58,10 +58,11 @@ Page {
                     console.log("selectedItem.productname " + selectedItem.productname);
                     purchase.productId = selectedItem.productid;
                     purchase.purchaseType = (selectedItem.productpremium=="0"?"3":"2");
-                    //purchase.productNameLabel.text = selectedItem.productname;
-                    //purchase.productCostLabel.text = selectedItem.productname;
-                    //purchase.productNumCardsLabel.text = selectedItem.productname;
-                    //purchase.productTypeLabel.text = selectedItem.productname;
+                    
+                    purchase.productNameLabeltext = selectedItem.productname;
+                    purchase.productCostLabeltext = "Price: " + selectedItem.productprice;
+                    purchase.productNumCardsLabeltext = "Number of cards: " + selectedItem.productnumcards;
+                    purchase.productTypeLabeltext = "Product type: " + selectedItem.producttype;
                     purchaseSheet.open();
                 }
                 

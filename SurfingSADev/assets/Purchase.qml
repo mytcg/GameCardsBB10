@@ -8,6 +8,11 @@ Page {
     property string productId: "0";
     property string purchaseType: "3";
     
+    property alias productNameLabeltext: productNameLabel.text
+    property alias productCostLabeltext: productCostLabel.text
+    property alias productNumCardsLabeltext: productNumCardsLabel.text
+    property alias productTypeLabeltext: productTypeLabel.text
+    
     titleBar: TitleBar {
         title: "Shop"
         visibility: ChromeVisibility.Visible
@@ -21,58 +26,54 @@ Page {
     }
     
     Container {
+        leftPadding: 20
+        rightPadding: 20
+        topPadding: 10
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }
-        Container{
+        
+        Label{
+            id: productNameLabel
+        }
+        Label{
+            id: productCostLabel
+        }
+        Label{
+            id: productNumCardsLabel
+        }
+        Label{
+            id: productTypeLabel
+            bottomMargin: 20
+        }
+        
+        Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            ImageView {
-                id: boosterView
-                objectName: "boosterView"
-                verticalAlignment: VerticalAlignment.Center
-                horizontalAlignment: HorizontalAlignment.Center
-                imageSource: "asset:///images/loadingthumb.png"
             
-            }
-            Container{
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
-                Label{
-                    id: productNameLabel
-                }
-                Label{
-                    id: productCostLabel
-                }
-                Label{
-                    id: productNumCardsLabel
-                }
-                Label{
-                    id: productTypeLabel
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+            
+            Button{
+                horizontalAlignment: HorizontalAlignment.Left
+                verticalAlignment: VerticalAlignment.Bottom
+                text: "Purchase"  
+                onClicked: {
+                    purchasedSheet.open();
+                    purchaseClass.purchase(productId,purchaseType);
                 }
             }
-        }
-        Button{
-            horizontalAlignment: HorizontalAlignment.Left
-            verticalAlignment: VerticalAlignment.Bottom
-            text: "Purchase"  
-            onClicked: {
-                purchasedSheet.open();
-                purchaseClass.purchase(productId,purchaseType);
+            Button{
+                horizontalAlignment: HorizontalAlignment.Right
+                verticalAlignment: VerticalAlignment.Bottom
+                text: "Cards"
+                onClicked: {
+                    boosterSheet.open();
+                    boosterClass.booster(productId);
+                } 
             }
         }
-        Button{
-            horizontalAlignment: HorizontalAlignment.Right
-            verticalAlignment: VerticalAlignment.Bottom
-            text: "Cards"
-            onClicked: {
-                boosterSheet.open();
-                boosterClass.booster(productId);
-            } 
-        }
-    
     }
     attachedObjects: [
         Sheet {
