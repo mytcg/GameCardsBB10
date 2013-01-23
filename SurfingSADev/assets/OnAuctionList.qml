@@ -90,7 +90,7 @@ Page {
             }
         }
     }
-    
+}
     attachedObjects: [
         Sheet {
             id: auctionInfoSheet
@@ -105,3 +105,4 @@ Page {
         }
     ]
 }
+
