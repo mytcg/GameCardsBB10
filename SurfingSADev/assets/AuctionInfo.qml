@@ -92,6 +92,7 @@ Page {
                 }
                 verticalAlignment: VerticalAlignment.Top
                 Button {
+                    objectName: "bidAuctionButton"
                     horizontalAlignment: HorizontalAlignment.Left
                     //verticalAlignment: VerticalAlignment.Bottom
                     text: "Bid"
@@ -101,6 +102,7 @@ Page {
                     }
                 }
                 Button {
+                    objectName: "buyAuctionButton"
                     horizontalAlignment: HorizontalAlignment.Right
                     //verticalAlignment: VerticalAlignment.Bottom
                     text: "Buy Now"

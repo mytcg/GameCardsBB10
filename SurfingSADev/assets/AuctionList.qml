@@ -6,6 +6,8 @@ Page {
     
     signal cancel ()
     
+    property string albumid: "0";
+    
     function loadAuctionList(String) {
         auctionListClass.loadAuctionList(String);
     }
@@ -53,6 +55,7 @@ Page {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
                     auctionCreate.cardId = dataModel.data (indexPath).cardid;
+                    auctionCreate.createAuction.visible = true;
                     auctionCreateSheet.open();
                 }
             }
@@ -79,6 +82,7 @@ Page {
             
             onCancel: {
                 auctionCreateSheet.close();
+                auctionListPage.loadAuctionList(albumid);
             }
             }
         }

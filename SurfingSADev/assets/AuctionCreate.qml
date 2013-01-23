@@ -60,6 +60,7 @@ Page {
             inputMode: TextFieldInputMode.NumbersAndPunctuation
         }
         Button {
+            objectName: "createAuction"
             id: createAuction
             text: "Auction"
             onClicked: {

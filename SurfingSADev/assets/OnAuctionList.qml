@@ -7,6 +7,7 @@ Page {
     signal cancel ()
     
     property string type: "0"
+    property string albumid: "0"
     
     titleBar: TitleBar {
         title: "On Auction"
@@ -99,6 +100,7 @@ Page {
 	            
 	            onCancel: {
 	                auctionInfoSheet.close();
+	                onAuctionListClass.loadOnAuctionList(albumid,type);
 	            }
             }
         }

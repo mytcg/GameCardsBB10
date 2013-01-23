@@ -64,9 +64,11 @@ Page {
                     clearSelection();
                     if(dataModel.data (indexPath).albumid=="-2"){
                         onAuctionList.type = "1";
+                        onAuctionList.albumid = dataModel.data (indexPath).albumid;
                         onAuctionListClass.loadOnAuctionList(dataModel.data (indexPath).albumid,"1");
                     }else {
                         onAuctionList.type = "0";
+                        onAuctionList.albumid = dataModel.data (indexPath).albumid;
                         onAuctionListClass.loadOnAuctionList(dataModel.data (indexPath).albumid,"0");
                     }
                     onAuctionListSheet.open();
@@ -97,6 +99,7 @@ Page {
                 
                 onCancel: {
                     auctionCategoriesSheet.close();
+                    auctionClass.loadAuctions();
                 }
             }
         },Sheet {
@@ -107,6 +110,7 @@ Page {
                 
                 onCancel: {
                     onAuctionListSheet.close();
+                    auctionClass.loadAuctions();
                 }
             }
         }
