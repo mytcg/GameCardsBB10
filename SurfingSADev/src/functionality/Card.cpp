@@ -1,5 +1,6 @@
 #include "Card.h"
 #include "../utils/Util.h"
+#include "../functionality/ImageLoader.h"
 
 using namespace bb::cascades;
 
@@ -38,6 +39,13 @@ void Card::save(QString cardId) {
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
 	mNetworkAccessManager->get(request);
+}
+
+void Card::loadImage(QString image) {
+	mCardView = root->findChild<ImageView*>("cardView");
+
+	ImageLoader *imloader = new ImageLoader();
+	imloader->loadImage(image, mCardView,"/cards/",".jpg");
 }
 
 void Card::reject(QString cardId) {

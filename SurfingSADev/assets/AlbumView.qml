@@ -57,6 +57,9 @@ Page {
                 if(dataModel.data (indexPath).quantity!="0"){
                     card.cardId = dataModel.data (indexPath).cardid;
                     card.newCard = newCards;
+                    card.fronturl = dataModel.data (indexPath).fronturl;
+                    card.backurl = dataModel.data (indexPath).backurl;
+                    card.loadImage(dataModel.data (indexPath).fronturl);
                     cardSheet.open();
                 }
             }

@@ -8,6 +8,7 @@
 #include <bb/cascades/ActivityIndicator>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/Label>
+#include <bb/cascades/ImageView>
 
 using namespace bb::cascades;
 
@@ -34,6 +35,7 @@ public:
 
     Q_INVOKABLE void save(QString cardId);
     Q_INVOKABLE void reject(QString cardId);
+    Q_INVOKABLE void loadImage(QString image);
 
 private slots:
 	/*!
@@ -46,6 +48,7 @@ private:
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
     Label *mCard;
+    ImageView * mCardView;
 };
 
 #endif /* Card_HPP_ */

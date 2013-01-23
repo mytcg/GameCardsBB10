@@ -7,9 +7,12 @@ Page {
     
     property string cardId: "0";
     property string newCard: "false";
+    property string fronturl: "";
+    property string backurl: "";
+    property string flip: "1";
     
-    function loadAlbums(String) {
-        albumClass.loadAlbums(String);
+    function loadImage(String) {
+        cardClass.loadImage(String);
     }
     
     titleBar: TitleBar {
@@ -19,6 +22,7 @@ Page {
         acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
+                cardView.setImageSource("asset:///images/loading.png");
                 cardPage.cancel();
             }
         }
@@ -34,6 +38,7 @@ Page {
             visible: false
         }
         ImageView {
+            id: cardView
             objectName: "cardView"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
@@ -47,6 +52,14 @@ Page {
             onClicked: {
                 if(newCard=="true"){
                     cardClass.save(cardId);
+                }else{
+                    if(flip=="0"){
+                        cardPage.loadImage(fronturl);
+                        flip = "1";
+                    }else{
+                        cardPage.loadImage(backurl);
+                        flip = "0";
+                    }
                 }
             }
         }
