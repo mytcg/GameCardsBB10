@@ -10,6 +10,8 @@ Page {
     property string username: "";
     property string usercardid: "0";
     property string buynowprice: "0";
+    property string price: "";
+    property string openingbid: "0";
     
     titleBar: TitleBar {
         title: "Auction Info"
@@ -32,10 +34,35 @@ Page {
             objectName: "auctionInfoLabel"
             text: ""
         }
-        ImageView {
-            id: auctionInfoCardView
-            objectName: "auctionInfoCardView"
-            imageSource: "asset:///images/loadingthumb.png"
+        Container{
+            layout: StackLayout {
+                orientation: LayoutOrientation.LeftToRight
+            }
+            ImageView {
+                id: auctionInfoCardView
+                objectName: "auctionInfoCardView"
+                imageSource: "asset:///images/loadingthumb.png"
+            }
+            Container{
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                Label{
+                    id: auctionCardLabel
+                }
+                Label{
+                    id: auctionBidLabel
+                }
+                Label{
+                    id: auctionBuyNowLabel
+                }
+                Label{
+                    id: sellerLabel
+                }
+                Label{
+                    id: auctionBidDurationLabel
+                }
+            }
         }
         Label {
             text: "Place Bid"
@@ -59,7 +86,7 @@ Page {
                 text: "Bid"
                 visible: (type=="0"?true:false)
                 onClicked: {
-                    auctionInfoClass.placeBid(auctionid, username, placeBidText.text);
+                    auctionInfoClass.placeBid(auctionid, username, placeBidText.text, price, openingbid);
                 }
             }
             Button {

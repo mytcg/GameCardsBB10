@@ -29,11 +29,8 @@ void AuctionCreate::createAuction(QString cardId, QString bid, QString buynow, Q
 	buynow.toInt(&buyok);
 	bool durationok = false;
 	duration.toInt(&durationok);
-	qDebug() << "\n Creating auction derp";
 	if (bid.length() == 0) {
-		qDebug() << "\n Creating auction derp2";
 		mAuctionCreate->setText("Please enter an opening bid.");
-		qDebug() << "\n Creating auction derp3";
 	} else if (buynow.length() == 0) {
 		mAuctionCreate->setText("Please enter a buy now price.");
 	} else if (duration.length() == 0) {

@@ -22,25 +22,40 @@ AuctionInfo::AuctionInfo(AbstractPane *root): root(root)
 	Q_UNUSED(result);
 }
 
-void AuctionInfo::placeBid(QString auctionId, QString username, QString bid) {
+void AuctionInfo::placeBid(QString auctionId, QString username, QString bid, QString price, QString openingbid) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
 	qDebug() << "\n Placing bid";
 	mActivityIndicator = root->findChild<ActivityIndicator*>("auctionInfoIndicator");
 	mAuctionInfo = root->findChild<Label*>("auctionInfoLabel");
+	bool bidok = false;
+	bool priceok = false;
+	bool openingbidok = false;
+	int newbid = bid.toInt(&bidok);
+	int pricenum = price.toInt(&priceok);
+	int openingbidnum = openingbid.toInt(&openingbidok);
+	if (bid.length() == 0) {
+		mAuctionInfo->setText("Please enter a bid.");
+	}else if(!bidok) {
+		mAuctionInfo->setText("Please enter a numeric value.");
+	}else if(price.compare("")==0&&newbid<openingbidnum){
+		mAuctionInfo->setText("Your bid needs to equal or exceed the opening bid.");
+	}else if(price.compare("")!=0&&newbid<=pricenum){
+		mAuctionInfo->setText("Your bid needs to be higher than the current bid.");
+	}else{
+		// Start the activity indicator
+		mActivityIndicator->start();
 
-	// Start the activity indicator
-	mActivityIndicator->start();
+		// Create and send the network request
+		QNetworkRequest request = QNetworkRequest();
+		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId;
+		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId));
 
-	// Create and send the network request
-	QNetworkRequest request = QNetworkRequest();
-	qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId;
-	request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?auctionbid=1&username="+username+"&bid="+bid+"&auctioncardid="+auctionId));
+		request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
+		request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
 
-	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
-	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
-
-	mNetworkAccessManager->get(request);
+		mNetworkAccessManager->get(request);
+	}
 }
 
 void AuctionInfo::buyNow(QString auctionId, QString username, QString buynowprice, QString usercardId) {

@@ -53,6 +53,14 @@ Page {
                 auctionInfo.usercardid = dataModel.data (indexPath).usercardid;
                 auctionInfo.buynowprice = dataModel.data (indexPath).buynowprice;
                 auctionInfo.username = dataModel.data (indexPath).username;
+                auctionInfo.price = dataModel.data (indexPath).price;
+                auctionInfo.openingbid = dataModel.data (indexPath).openingbid;
+                //auctionInfo.auctionCardLabel.text = dataModel.data (indexPath).description;
+                //auctionInfo.auctionBidLabel.text = "Opening Bid: "+dataModel.data (indexPath).openingbid;
+               // auctionInfo.auctionBuyNowLabel.text = "Buy Out: "+dataModel.data (indexPath).buynowprice;
+                //auctionInfo.sellerLabel.text = "Seller: "+dataModel.data (indexPath).username;
+               // auctionInfo.auctionBidDurationLabel.text = "End Date: "+dataModel.data (indexPath).endDate;
+                //auctionInfo.auctionInfoCardView.image = dataModel.data (indexPath).image;
                 auctionInfoSheet.open();
             }
         }

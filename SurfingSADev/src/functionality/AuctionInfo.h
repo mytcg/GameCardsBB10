@@ -30,7 +30,7 @@ public:
     AuctionInfo(AbstractPane *root);
     virtual ~AuctionInfo() {}
 
-    Q_INVOKABLE void placeBid(QString auctionId, QString username, QString bid);
+    Q_INVOKABLE void placeBid(QString auctionId, QString username, QString bid, QString price, QString openingbid);
     Q_INVOKABLE void buyNow(QString auctionId, QString username, QString buynowprice, QString usercardId);
 
 private slots:

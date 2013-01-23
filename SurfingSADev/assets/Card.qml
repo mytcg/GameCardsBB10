@@ -66,11 +66,10 @@ Page {
         Button{
             horizontalAlignment: HorizontalAlignment.Right
             verticalAlignment: VerticalAlignment.Bottom
-            text: newCard=="false"?"Options":"Reject" 
+            text: "Reject" 
+            visible: (newCard=="true"?true:false)
             onClicked: {
-                if(newCard=="true"){
-                    cardClass.reject(cardId); 
-                }               
+                cardClass.reject(cardId);         
             } 
         }
         // The activity indicator has an object name set so that
@@ -86,17 +85,4 @@ Page {
             }
         }    
     }
-    attachedObjects: [
-        Sheet {
-            id: optionsSheet
-            
-            /*AlbumView{
-            id: albumView
-            
-            onCancel: {
-            albumViewSheet.close();
-            }
-            }*/
-        }
-    ]
 }
