@@ -1,12 +1,11 @@
-// Default empty project template
+// Navigation pane project template
+#include "SurfingSA.hpp"
+
 #include <bb/cascades/Application>
-#include <bb/cascades/QmlDocument>
-#include <bb/cascades/AbstractPane>
 
 #include <QLocale>
 #include <QTranslator>
 #include <Qt/qdeclarativedebug.h>
-#include "SurfingSA.hpp"
 
 using namespace bb::cascades;
 
@@ -18,11 +17,12 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     // localization support
     QTranslator translator;
     QString locale_string = QLocale().name();
-    QString filename = QString( "SurfingSA_%1" ).arg( locale_string );
+    QString filename = QString( "SurfingSADev_%1" ).arg( locale_string );
     if (translator.load(filename, "app/native/qm")) {
         app.installTranslator( &translator );
     }
 
+    // create the application pane object to init UI etc.
     new SurfingSA(&app);
 
     // we complete the transaction started in the app constructor and start the client event loop here
