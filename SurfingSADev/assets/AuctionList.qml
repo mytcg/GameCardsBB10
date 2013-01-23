@@ -55,7 +55,7 @@ Page {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
                     auctionCreate.cardId = dataModel.data (indexPath).cardid;
-                    auctionCreate.createAuction.visible = true;
+                    auctionCreate.createAuctionButtonvisible = true;
                     auctionCreateSheet.open();
                 }
             }
