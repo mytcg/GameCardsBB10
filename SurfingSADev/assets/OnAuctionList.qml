@@ -58,27 +58,27 @@ Page {
                         }
                     }
                 
-            ]
-            onTriggered: {
-                clearSelection();
-                auctionInfo.type = type;
-                auctionInfo.auctionid = dataModel.data (indexPath).auctioncardid;
-                auctionInfo.usercardid = dataModel.data (indexPath).usercardid;
-                auctionInfo.buynowprice = dataModel.data (indexPath).buynowprice;
-                auctionInfo.username = dataModel.data (indexPath).username;
-                auctionInfo.price = dataModel.data (indexPath).price;
-                auctionInfo.openingbid = dataModel.data (indexPath).openingbid;
-                //auctionInfo.auctionCardLabel.text = dataModel.data (indexPath).description;
-                //auctionInfo.auctionBidLabel.text = "Opening Bid: "+dataModel.data (indexPath).openingbid;
-               // auctionInfo.auctionBuyNowLabel.text = "Buy Out: "+dataModel.data (indexPath).buynowprice;
-                //auctionInfo.sellerLabel.text = "Seller: "+dataModel.data (indexPath).username;
-               // auctionInfo.auctionBidDurationLabel.text = "End Date: "+dataModel.data (indexPath).endDate;
-                //auctionInfo.auctionInfoCardView.image = dataModel.data (indexPath).image;
-                auctionInfoSheet.open();
-            }
-        }
-        
-        // The activity indicator has an object name set so that
+	            ]
+	            onTriggered: {
+	                clearSelection();
+	                auctionInfo.type = type;
+	                auctionInfo.auctionid = dataModel.data (indexPath).auctioncardid;
+	                auctionInfo.usercardid = dataModel.data (indexPath).usercardid;
+	                auctionInfo.buynowprice = dataModel.data (indexPath).buynowprice;
+	                auctionInfo.username = dataModel.data (indexPath).username;
+	                auctionInfo.price = dataModel.data (indexPath).price;
+	                auctionInfo.openingbid = dataModel.data (indexPath).openingbid;
+	                auctionInfo.auctionCardLabeltext = dataModel.data (indexPath).description;
+	                auctionInfo.auctionBidLabeltext = "Opening Bid: "+dataModel.data (indexPath).openingbid;
+	                auctionInfo.auctionBuyNowLabeltext = "Buy Out: "+dataModel.data (indexPath).buynowprice;
+	                auctionInfo.sellerLabeltext = "Seller: "+dataModel.data (indexPath).username;
+	                auctionInfo.auctionBidDurationLabeltext = "End Date: "+dataModel.data (indexPath).endDate;
+	                auctionInfoSheet.open();
+	            }
+	        }
+	    }
+	    
+	    // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
             objectName: "loadOnAuctionListIndicator"
@@ -89,18 +89,18 @@ Page {
             onStopped: {
             }
         }
-    }
+	}
     
     attachedObjects: [
         Sheet {
             id: auctionInfoSheet
             
             AuctionInfo{
-            id: auctionInfo
-            
-            onCancel: {
-                auctionInfoSheet.close();
-            }
+	            id: auctionInfo
+	            
+	            onCancel: {
+	                auctionInfoSheet.close();
+	            }
             }
         }
     ]
