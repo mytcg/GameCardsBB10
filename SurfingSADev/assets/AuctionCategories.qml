@@ -53,6 +53,7 @@ Page {
                     auctionCategoriesPage.loadAuctionCategories(dataModel.data (indexPath).albumid)
                 }else{
                     auctionList.loadAuctionList(dataModel.data (indexPath).albumid)
+                    auctionList.albumid = dataModel.data (indexPath).albumid;
                     auctionListSheet.open();
                 }
             }
@@ -79,6 +80,7 @@ Page {
             
             onCancel: {
             auctionListSheet.close();
+            auctionCategoriesPage.loadAuctionCategories("0");
             }
             }
         }

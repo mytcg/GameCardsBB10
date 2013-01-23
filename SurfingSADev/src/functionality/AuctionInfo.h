@@ -7,6 +7,7 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/ActivityIndicator>
 #include <bb/cascades/Label>
+#include <bb/cascades/Button>
 
 using namespace bb::cascades;
 
@@ -15,6 +16,7 @@ namespace bb {
 		class ActivityIndicator;
 		class AbstractPane;
 		class Label;
+		class Button;
 	}
 }
 

@@ -5,6 +5,8 @@ Page {
     signal cancel ()
     property string cardId: "0"
     
+    property alias createAuctionButtonvisible: createAuction.visible
+    
     titleBar: TitleBar {
         title: "Create Auction"
         visibility: ChromeVisibility.Visible
@@ -60,6 +62,7 @@ Page {
             inputMode: TextFieldInputMode.NumbersAndPunctuation
         }
         Button {
+            objectName: "createAuction"
             id: createAuction
             text: "Auction"
             onClicked: {

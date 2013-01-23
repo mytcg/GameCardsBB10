@@ -87,6 +87,10 @@ void AuctionInfo::requestFinished(QNetworkReply* reply)
     	qDebug() << "\n Result "+result;
     	if(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)).compare("1")==0){
     		mAuctionInfo->setText("Successfully bought Auction!");
+    		Button * buyAuction = root->findChild<Button*>("buyAuctionButton");
+    		buyAuction->setVisible(false);
+    		Button * bidAuction = root->findChild<Button*>("bidAuctionButton");
+    		bidAuction->setVisible(false);
     	}else{
     		mAuctionInfo->setText(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)));
     	}

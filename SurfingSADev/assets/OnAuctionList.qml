@@ -7,6 +7,7 @@ Page {
     signal cancel ()
     
     property string type: "0"
+    property string albumid: "0"
     
     titleBar: TitleBar {
         title: "On Auction"
@@ -83,7 +84,11 @@ Page {
 	                auctionInfo.price = dataModel.data (indexPath).price;
 	                auctionInfo.openingbid = dataModel.data (indexPath).openingbid;
 	                auctionInfo.auctionCardLabeltext = dataModel.data (indexPath).description;
-	                auctionInfo.auctionBidLabeltext = "Opening Bid: "+dataModel.data (indexPath).openingbid;
+	                if(dataModel.data (indexPath).lastBidUser==""){
+	                    auctionInfo.auctionBidLabeltext = "Opening Bid: "+dataModel.data (indexPath).openingbid;
+	                }else{
+	                    auctionInfo.auctionBidLabeltext = "Current Bid: "+dataModel.data (indexPath).price;
+	                }
 	                auctionInfo.auctionBuyNowLabeltext = "Buy Out: "+dataModel.data (indexPath).buynowprice;
 	                auctionInfo.sellerLabeltext = "Seller: "+dataModel.data (indexPath).username;
 	                auctionInfo.auctionBidDurationLabeltext = "End Date: "+dataModel.data (indexPath).endDate;
@@ -118,6 +123,7 @@ Page {
 	            
 	            onCancel: {
 	                auctionInfoSheet.close();
+	                onAuctionListClass.loadOnAuctionList(albumid,type);
 	            }
             }
         }
