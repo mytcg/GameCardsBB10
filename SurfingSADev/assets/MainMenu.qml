@@ -229,9 +229,13 @@ TabbedPane {
                 }
                 
                 topPadding: 10
-        	    bottomPadding: 55
+        	    bottomPadding: 10
         	    leftPadding: 10
         	    rightPadding: 10
+        	    
+        	    ImageView {
+        	        imageSource: "asset:///images/comingsoon/coming_soon.jpg"
+        	    }
 	        }
         }
     }
