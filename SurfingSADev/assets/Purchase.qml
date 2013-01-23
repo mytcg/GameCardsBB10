@@ -12,6 +12,8 @@ Page {
     property alias productCostLabeltext: productCostLabel.text
     property alias productNumCardsLabeltext: productNumCardsLabel.text
     property alias productTypeLabeltext: productTypeLabel.text
+    property alias productUserCreditsLabeltext: productUserCreditsLabel.text
+    
     
     titleBar: TitleBar {
         title: "Shop"
@@ -31,6 +33,12 @@ Page {
         topPadding: 10
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
+        }
+        
+        Label{
+            id: productUserCreditsLabel
+            
+            horizontalAlignment: HorizontalAlignment.Center
         }
         
         Label{

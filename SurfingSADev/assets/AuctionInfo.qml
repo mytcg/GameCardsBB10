@@ -18,6 +18,7 @@ Page {
     property alias auctionBuyNowLabeltext: auctionBuyNowLabel.text
     property alias sellerLabeltext: sellerLabel.text
     property alias auctionBidDurationLabeltext: auctionBidDurationLabel.text
+    property alias auctionUserCreditsLabeltext: auctionUserCreditsLabel.text
     
     titleBar: TitleBar {
         title: "Auction Info"
@@ -45,6 +46,12 @@ Page {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
+            Label{
+                id: auctionUserCreditsLabel
+                
+                horizontalAlignment: HorizontalAlignment.Center
+            }
+            
             Label {
                 id: auctionInfoLabel
                 objectName: "auctionInfoLabel"

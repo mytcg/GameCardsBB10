@@ -38,11 +38,13 @@ void OnAuctionList::loadOnAuctionList(QString id, QString type) {
 	// Create and send the network request
 	QNetworkRequest request = QNetworkRequest();
 	if(type.compare("0")== 0){
+		mUserAuctions = false;
 		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?categoryauction=1&category_id="+id+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth();
 		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?categoryauction=1&category_id="+id+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()));
 	}else{
+		mUserAuctions = true;
 		qDebug() << "\n http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username="+Util::getUsername()+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth();
-				request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username="+Util::getUsername()+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()));
+		request.setUrl(QUrl("http://www.mytcg.net/_phone/ssa/index.php?userauction=1&username="+Util::getUsername()+"&height="+Util::getHeight()+"&jpg=1&width="+Util::getWidth()));
 	}
 	request.setRawHeader(QString("AUTH_USER").toUtf8(), Util::getUsername().toUtf8());
 	request.setRawHeader(QString("AUTH_PW").toUtf8(), Util::getEncrypt().toUtf8());
@@ -65,14 +67,38 @@ void OnAuctionList::requestFinished(QNetworkReply* reply)
 		model->setGrouping(ItemGrouping::None);
 
 		XmlDataAccess xda;
-		QVariant list = xda.loadFromBuffer(xmldata, "/auctionsincategory/auction");
-		QVariantMap tempMap = list.value<QVariantMap>();
+		QVariant list = xda.loadFromBuffer(xmldata, (mUserAuctions)?"/auctionsincategory/auction":"/auctionsincategory");
+
 		QVariantList tempList;
-		if (tempMap.isEmpty()) {
-			tempList = list.value<QVariantList>();
+		QVariantMap tempMap;
+		if (!mUserAuctions) {
+			QVariantMap allMap = list.value<QVariantMap>();
+			QString credits = allMap["credits"].value<QString>();
+			QString premium = allMap["premium"].value<QString>();
+
+			(root->findChild<Label*>("auctionCreditsLabel"))->setText(credits);
+			(root->findChild<Label*>("auctionPremiumLabel"))->setText(premium);
+
+			tempMap = allMap["auction"].value<QVariantMap>();
+			if (tempMap.isEmpty()) {
+				tempList = allMap["auction"].value<QVariantList>();
+			}
+			else {
+				tempList.append(tempMap);
+			}
 		}
 		else {
-			tempList.append(tempMap);
+			(root->findChild<Label*>("auctionCreditsLabel"))->setText("");
+			(root->findChild<Label*>("auctionPremiumLabel"))->setText("");
+
+			tempMap = list.value<QVariantMap>();
+
+			if (tempMap.isEmpty()) {
+				tempList = list.value<QVariantList>();
+			}
+			else {
+				tempList.append(tempMap);
+			}
 		}
 
 		model->insertList(tempList);

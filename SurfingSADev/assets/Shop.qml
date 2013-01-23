@@ -37,6 +37,9 @@ Page {
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 10
             
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
@@ -44,6 +47,20 @@ Page {
             Label {
                 id: shopLabel
                 objectName: "shopLabel"
+                text: "0"
+                visible: false
+            }
+            
+            Label {
+                id: creditsLabel
+                objectName: "shopCreditsLabel"
+                text: "0"
+                visible: false
+            }
+            
+            Label {
+                id: premiumLabel
+                objectName: "shopPremiumLabel"
                 text: "0"
                 visible: false
             }
@@ -63,31 +80,27 @@ Page {
                     purchase.productCostLabeltext = "Price: " + selectedItem.productprice;
                     purchase.productNumCardsLabeltext = "Number of cards: " + selectedItem.productnumcards;
                     purchase.productTypeLabeltext = "Product type: " + selectedItem.producttype;
+                    purchase.productUserCreditsLabeltext = "Credits: " + creditsLabel.text + "      Premium: " + premiumLabel.text;
                     purchaseSheet.open();
                 }
                 
                 layoutProperties: StackLayoutProperties {
                     spaceQuota: 1
-                }
-                
-                layout: GridListLayout {
-                    columnCount: 2
-                    cellAspectRatio: 1.6
-                }            
+                }        
             }
         }
         attachedObjects: [
-                Sheet {
-                    id: purchaseSheet
+            Sheet {
+                id: purchaseSheet
+                
+                Purchase{
+                    id: purchase
                     
-                    Purchase{
-                        id: purchase
-                        
-                        onCancel: {
-                            purchaseSheet.close();
-                        }
+                    onCancel: {
+                        purchaseSheet.close();
                     }
                 }
-            ]
+            }
+        ]
     }
 }

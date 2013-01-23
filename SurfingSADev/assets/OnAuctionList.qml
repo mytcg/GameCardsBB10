@@ -42,6 +42,20 @@ Page {
                 text: "0"
                 visible: false
             }
+            Label {
+                id: creditsLabel
+                objectName: "auctionCreditsLabel"
+                text: ""
+                visible: false
+            }
+            
+            Label {
+                id: premiumLabel
+                objectName: "auctionPremiumLabel"
+                text: ""
+                visible: false
+            }
+            
             ListView {
                 objectName: "onAuctionListList"
                 verticalAlignment: VerticalAlignment.Fill
@@ -73,6 +87,11 @@ Page {
 	                auctionInfo.auctionBuyNowLabeltext = "Buy Out: "+dataModel.data (indexPath).buynowprice;
 	                auctionInfo.sellerLabeltext = "Seller: "+dataModel.data (indexPath).username;
 	                auctionInfo.auctionBidDurationLabeltext = "End Date: "+dataModel.data (indexPath).endDate;
+	                
+	                if (creditsLabel.text != "") {
+	                    auctionInfo.auctionUserCreditsLabeltext = "Credits: " + creditsLabel.text + "      Premium: " + premiumLabel.text;
+	                }
+	                
 	                auctionInfoSheet.open();
 	            }
 	        }

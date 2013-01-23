@@ -56,17 +56,24 @@ void Shop::requestFinished(QNetworkReply* reply)
 	if (reply->error() == QNetworkReply::NoError) {
 		QString xmldata = QString(reply->readAll());
 
+		XmlDataAccess xda;
+		QVariant allList = xda.loadFromBuffer(xmldata, "/categoryproducts");
+		QVariantMap allMap = allList.value<QVariantMap>();
+		QString credits = allMap["credits"].value<QString>();
+		QString premium = allMap["premium"].value<QString>();
+
+		(root->findChild<Label*>("shopCreditsLabel"))->setText(credits);
+		(root->findChild<Label*>("shopPremiumLabel"))->setText(premium);
+
 		GroupDataModel *model = new GroupDataModel(QStringList() << "productname");
 
 		// Specify the type of grouping to use for the headers in the list
 		model->setGrouping(ItemGrouping::None);
 
-		XmlDataAccess xda;
-		QVariant list = xda.loadFromBuffer(xmldata, "/categoryproducts/product");
-		QVariantMap tempMap = list.value<QVariantMap>();
+		QVariantMap tempMap = allMap["product"].value<QVariantMap>();
 		QVariantList tempList;
 		if (tempMap.isEmpty()) {
-			tempList = list.value<QVariantList>();
+			tempList = allMap["product"].value<QVariantList>();
 		}
 		else {
 			tempList.append(tempMap);

@@ -46,6 +46,8 @@ private:
     AbstractPane *root;
     ActivityIndicator *mActivityIndicator;
     ListView *mListView;
+
+    bool mUserAuctions;
 };
 
 #endif /* OnAuctionList_HPP_ */
