@@ -22,54 +22,70 @@ Page {
             }
         }
     }
+    
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
+            
         }
-        Label {
-            id: auctionCreateLabel
-            objectName: "auctionCreateLabel"
-            text: ""
-        }
-        Label {
-            text: "Opening Bid:"
-            textStyle.fontSizeValue: 0.0
-        }
-        TextField {
-            id: openingBidText
-            objectName: "openingBidText"
-            text: ""
-            inputMode: TextFieldInputMode.NumbersAndPunctuation
-        }
-        Label {
-            text: "Buy Now Price:"
-            textStyle.fontSizeValue: 0.0
-        }
-        TextField {
-            id: buyNowText
-            objectName: "buyNowText"
-            text: ""
-            inputMode: TextFieldInputMode.NumbersAndPunctuation
-        }
-        Label {
-            text: "Auction duration(days):"
-            textStyle.fontSizeValue: 0.0
-        }
-        TextField {
-            id: durationText
-            objectName: "durationText"
-            text: ""
-            inputMode: TextFieldInputMode.NumbersAndPunctuation
-        }
-        Button {
-            objectName: "createAuction"
-            id: createAuction
-            text: "Auction"
-            onClicked: {
-                auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
+        
+        Container {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 10
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            Label {
+                id: auctionCreateLabel
+                objectName: "auctionCreateLabel"
+                text: ""
+            }
+            Label {
+                text: "Opening Bid:"
+                textStyle.fontSizeValue: 0.0
+            }
+            TextField {
+                id: openingBidText
+                objectName: "openingBidText"
+                text: ""
+                inputMode: TextFieldInputMode.NumbersAndPunctuation
+            }
+            Label {
+                text: "Buy Now Price:"
+                textStyle.fontSizeValue: 0.0
+            }
+            TextField {
+                id: buyNowText
+                objectName: "buyNowText"
+                text: ""
+                inputMode: TextFieldInputMode.NumbersAndPunctuation
+            }
+            Label {
+                text: "Auction duration(days):"
+                textStyle.fontSizeValue: 0.0
+            }
+            TextField {
+                id: durationText
+                objectName: "durationText"
+                text: ""
+                inputMode: TextFieldInputMode.NumbersAndPunctuation
+            }
+            Button {
+                objectName: "createAuction"
+                id: createAuction
+                text: "Auction"
+                horizontalAlignment: HorizontalAlignment.Center
+                onClicked: {
+                    auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
+                }
             }
         }
+        
         ActivityIndicator {
+            // The activity indicator has an object name set so that
+            // we can start and stop it from C++
             objectName: "createAuctionIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
@@ -79,8 +95,5 @@ Page {
                 //cancelScreen()
             }
         }
-
-        // The activity indicator has an object name set so that
-        // we can start and stop it from C++
     }
 }

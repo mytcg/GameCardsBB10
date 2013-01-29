@@ -23,41 +23,50 @@ Page {
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
+     
         }
-        Label {
-            id: albumLabel
-            objectName: "auctionCategoriesLabel"
-            text: "0"
-            visible: false
-        }
-        ListView {
-            objectName: "auctionCategoriesList"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
-                    StandardListItem {
-                        title: ListItemData.albumname
-                        horizontalAlignment: HorizontalAlignment.Center
-                        visible: (ListItemData.collected=="0"?false:true)
+        
+        Container {
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            Label {
+                id: albumLabel
+                objectName: "auctionCategoriesLabel"
+                text: "0"
+                visible: false
+            }
+            ListView {
+                objectName: "auctionCategoriesList"
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+                
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "item"
+                        StandardListItem {
+                            title: ListItemData.albumname
+                            horizontalAlignment: HorizontalAlignment.Center
+                            visible: (ListItemData.collected=="0"?false:true)
+                        }
                     }
-                }
-            ]
-            onTriggered: {
-                clearSelection();
-                if(dataModel.data (indexPath).hascards == "false"){
-                    auctionCategoriesPage.loadAuctionCategories(dataModel.data (indexPath).albumid)
-                }else{
-                    auctionList.loadAuctionList(dataModel.data (indexPath).albumid)
-                    auctionList.albumid = dataModel.data (indexPath).albumid;
-                    auctionListSheet.open();
+                ]
+                onTriggered: {
+                    clearSelection();
+                    if(dataModel.data (indexPath).hascards == "false"){
+                        auctionCategoriesPage.loadAuctionCategories(dataModel.data (indexPath).albumid)
+                    }else{
+                        auctionList.loadAuctionList(dataModel.data (indexPath).albumid)
+                        auctionList.albumid = dataModel.data (indexPath).albumid;
+                        auctionListSheet.open();
+                    }
                 }
             }
         }
+        
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
@@ -69,8 +78,9 @@ Page {
             
             onStopped: {
             }
-        }    
+        } 
     }
+    
     attachedObjects: [
         Sheet {
             id: auctionListSheet
