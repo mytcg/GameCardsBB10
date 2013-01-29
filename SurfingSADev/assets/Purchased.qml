@@ -21,13 +21,14 @@ Page {
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
+            
         }
+        
         ListView {
             objectName: "purchasedList"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             
             listItemComponents: [
                 ListItemComponent {
