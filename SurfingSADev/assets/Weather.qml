@@ -165,6 +165,8 @@ Container {
             }
         }
         Container {
+            visible: false
+            objectName: "weatherTitleList"
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }

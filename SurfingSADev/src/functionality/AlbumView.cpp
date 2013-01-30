@@ -77,7 +77,7 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 
 		QVariantList newList;
 
-		qDebug() << "\nAlbumView looping";
+		//qDebug() << "\nAlbumView looping";
 		for (int i = 0; i < tempList.size(); i++) {
 			QVariantMap card = tempList[i].value<QVariantMap>();
 			//qDebug() << "\nAlbumView card[\"description\"]: " << card["description"].value<QString>();
