@@ -6,6 +6,8 @@
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
 
+#include "QList"
+
 using namespace bb::cascades;
 using namespace bb::data;
 
@@ -71,6 +73,34 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 		}
 		else {
 			tempList.append(tempMap);
+		}
+
+		qDebug() << "\nAlbumView looping";
+		for (int i = 0; i < tempList.size(); i++) {
+			QVariantMap card = tempList[i].value<QVariantMap>();
+			qDebug() << "\nAlbumView card[\"description\"]: " << card["description"].value<QString>();
+			QVariantMap statMap = card["stats"].value<QVariantMap>();
+			QVariantList statList;
+			if (statMap.isEmpty()) {
+				statList = card["stats"].value<QVariantList>();
+			}
+			else {
+				statList.append(statMap["stat"].value<QVariantMap>());
+			}
+			//statList = card["stats"].value<QVariantList>();
+			qDebug() << "\nAlbumView statList.size(): " << statList.size();
+			for (int j = 0; j < statList.size(); j++) {
+				QVariantMap stat = statList[j].value<QVariantMap>();
+
+				qDebug() << "\nAlbumView stat.Size(): " << stat.size();
+
+				QList<QString> statKeyList = stat.keys();
+
+				for (int k = 0; k < statKeyList.size(); k++) {
+					qDebug() << "\nAlbumView statKeyList[" << k << "]: " << statKeyList[k];
+					qDebug() << "\nAlbumView stat[" << statKeyList[k] << "].value<QString>(): " << stat[statKeyList[k]].value<QString>();
+				}
+			}
 		}
 
 		model->insertList(tempList);
