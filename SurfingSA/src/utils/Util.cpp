@@ -1,5 +1,79 @@
 #include "Util.h"
 
+#include <QFile>
+#include <QIODevice>
+#include <QTextStream>
+
+#include <bb/data/XmlDataAccess>
+#include <bb/device/DisplayInfo>
+
+using namespace bb::data;
+using namespace bb::device;
+
+QString Util::getUsername() {
+	QFile *file = new QFile("data/userdata.xml");
+
+	if (!file->open(QIODevice::ReadOnly)) {
+		qDebug() << "\n Failed to open file";
+		return "Error reading file";
+	}
+	else {
+		QTextStream fileStream(file);
+
+		QString str = fileStream.readAll();
+
+		file->close();
+
+		XmlDataAccess xda;
+		QVariant userData = xda.loadFromBuffer(str, "/userdetails");
+
+		QVariantMap userMap = userData.value<QVariantMap>();
+
+		QString username = userMap["username"].value<QString>();
+
+		return username;
+	}
+}
+
+QString Util::getEncrypt() {
+	QFile *file = new QFile("data/userdata.xml");
+
+	if (!file->open(QIODevice::ReadOnly)) {
+		qDebug() << "\n Failed to open file";
+		return "Error reading file";
+	}
+	else {
+		QTextStream fileStream(file);
+
+		QString str = fileStream.readAll();
+
+		file->close();
+
+		XmlDataAccess xda;
+		QVariant userData = xda.loadFromBuffer(str, "/userdetails");
+
+		QVariantMap userMap = userData.value<QVariantMap>();
+
+		QString encrypt = userMap["encrypt"].value<QString>();
+
+		return encrypt;
+	}
+}
+
+QString Util::getHeight() {
+	DisplayInfo display;
+	//qDebug() << "\n height" << display.pixelSize().height();
+	int height  = display.pixelSize().height();
+	return QString::number(height);
+}
+
+QString Util::getWidth() {
+	DisplayInfo display;
+	//qDebug() << "\n width" << display.pixelSize().width();
+	int width = display.pixelSize().width();
+	return QString::number(width);
+}
+
 string Util::base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len) {
 	string base64_chars =  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  //  0 to 25
 										"abcdefghijklmnopqrstuvwxyz"  // 26 to 51

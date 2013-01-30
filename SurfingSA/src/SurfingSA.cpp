@@ -1,11 +1,12 @@
-// Default empty project template
+// Navigation pane project template
 #include "SurfingSA.hpp"
-#include "utils/Util.h"
+
+#include <QFile>
+#include <QTextStream>
 
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
-#include <bb/cascades/TextField>
 
 using namespace bb::cascades;
 
@@ -17,77 +18,78 @@ SurfingSA::SurfingSA(bb::cascades::Application *app)
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
     // Expose this class to QML so that we can call its functions from there
-    qml->setContextProperty("app", this);
+	qml->setContextProperty("app", this);
 
     // create root object for the UI
-	AbstractPane *root = qml->createRootObject<AbstractPane>();
-	// set created root object as a scene
-	app->setScene(root);
-
-    /*// create root object for the UI
-    mPrimaryPane = qml->createRootObject<AbstractPane>();
+    AbstractPane *root = qml->createRootObject<AbstractPane>();
     // set created root object as a scene
-    app->setScene(mPrimaryPane);
+    app->setScene(root);
 
+    //create the functionality classes
+    mLogin = new Login(root);
+    mAlbum = new Album(root);
+    mAlbumView = new AlbumView(root);
+    mWeather = new Weather(root);
+    mAuction = new Auction(root);
+    mCredits = new Credits(root);
+    mFriends = new Friends(root);
+    mInviteFriend = new InviteFriend(root);
+    mNotifications = new Notifications(root);
+    mRedeem = new Redeem(root);
+    mRegistration = new Registration(root);
+    mShop = new Shop(root);
+    mCard = new Card(root);
+    mPurchase = new Purchase(root);
+    mBooster = new Booster(root);
+    mAuctionCategories = new AuctionCategories(root);
+    mAuctionList = new AuctionList(root);
+    mAuctionCreate = new AuctionCreate(root);
+    mOnAuctionList = new OnAuctionList(root);
+    mAuctionInfo = new AuctionInfo(root);
 
-    // Retrieve the activity indicator from QML so that we can start
-    // and stop it from C++
-    mActivityIndicator = mPrimaryPane->findChild<ActivityIndicator*>("indicator");
-
-    mUsernameText = mPrimaryPane->findChild<TextField*>("usernameText");
-	mPasswordText = mPrimaryPane->findChild<TextField*>("passwordText");
-
-    // Create a network access manager and connect a custom slot to its
-	// finished signal
-	mNetworkAccessManager = new QNetworkAccessManager(this);
-
-	bool result = connect(mNetworkAccessManager,
-			SIGNAL(finished(QNetworkReply*)),
-			this, SLOT(requestFinished(QNetworkReply*)));
-
-	// Displays a warning message if there's an issue connecting the signal
-	// and slot. This is a good practice with signals and slots as it can
-	// be easier to mistype a slot or signal definition
-	Q_ASSERT(result);
-	Q_UNUSED(result);*/
+    //set the functionality classes to the context
+    qml->setContextProperty("loginClass", mLogin);
+    qml->setContextProperty("albumClass", mAlbum);
+    qml->setContextProperty("albumViewClass", mAlbumView);
+    qml->setContextProperty("weatherClass", mWeather);
+    qml->setContextProperty("auctionClass", mAuction);
+    qml->setContextProperty("creditsClass", mCredits);
+    qml->setContextProperty("friendsClass", mFriends);
+    qml->setContextProperty("invitefriendClass", mInviteFriend);
+    qml->setContextProperty("notificationsClass", mNotifications);
+    qml->setContextProperty("redeemClass", mRedeem);
+    qml->setContextProperty("shopClass", mShop);
+    qml->setContextProperty("imageloaderClass", mImageLoader);
+    qml->setContextProperty("registerClass", mRegistration);
+    qml->setContextProperty("cardClass", mCard);
+    qml->setContextProperty("purchaseClass", mPurchase);
+    qml->setContextProperty("boosterClass", mBooster);
+    qml->setContextProperty("auctionCategoriesClass", mAuctionCategories);
+    qml->setContextProperty("auctionListClass", mAuctionList);
+    qml->setContextProperty("auctionCreateClass", mAuctionCreate);
+    qml->setContextProperty("onAuctionListClass", mOnAuctionList);
+    qml->setContextProperty("auctionInfoClass", mAuctionInfo);
 }
 
-void SurfingSA::initiateRequest()
-{
-	/*// Start the activity indicator
-	mActivityIndicator->start();
+QString SurfingSA::loggedIn() {
+	QFile *file = new QFile("data/userdata.xml");
 
-    // Create and send the network request
-    QNetworkRequest request = QNetworkRequest();
+	if (!file->open(QIODevice::ReadWrite)) {
+		qDebug() << "\n Failed to open file";
+		return "Error reading file";
+	}
+	else {
+		QTextStream fileStream(file);
 
-    request.setUrl(QUrl("http://dev.mytcg.net/_phone/index.php?userdetails=1"));
+		QString str = fileStream.readAll();
 
-    QString password = mPasswordText->text();
-    string encoded = Util::base64_encode(reinterpret_cast<const unsigned char*>(password.toStdString().c_str()), password.length());
+		file->close();
 
-    request.setRawHeader(QString("AUTH_USER").toUtf8(), mUsernameText->text().toUtf8());
-    request.setRawHeader(QString("AUTH_PW").toUtf8(), QString(encoded.c_str()).toUtf8());
-
-    mNetworkAccessManager->get(request);*/
-}
-
-void SurfingSA::requestFinished(QNetworkReply* reply)
-{
-    /*// Check the network reply for errors
-    if (reply->error() == QNetworkReply::NoError)
-    {
-    	qDebug() << "\n Printing return data";
-		//qDebug() << "\n" << reply->readAll();
-		//qDebug() << "\n" << reply->url();
-
-    	mUsernameText->setText(reply->readAll());
-    }
-    else
-    {
-        qDebug() << "\n Problem with the network";
-        qDebug() << "\n" << reply->errorString();
-    }
-    mActivityIndicator->stop();
-
-    reply->deleteLater();*/
+		if (str.length() > 0) {
+			return "true";
+		}
+		else {
+			return "false";
+		}
+	}
 }

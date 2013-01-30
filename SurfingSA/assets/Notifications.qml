@@ -1,15 +1,69 @@
 import bb.cascades 1.0
 
 Page {
+    id: notificationsPage
+        signal cancel ()
+        
+        titleBar: TitleBar {
+            title: "Notifications"
+            visibility: ChromeVisibility.Visible
+            
+            acceptAction: ActionItem {
+                title: "Back"
+                onTriggered: {
+                    notificationsPage.cancel();
+                }
+            }
+        }
     Container {
+        layout: DockLayout {
+        }
         Label {
-            text: "Notifications"
+            id: notificationsLabel
+            objectName: "notificationsLabel"
+            text: "0"
+            visible: false
         }
         ListView {
-            id: lstNotifications
+            objectName: "notificationsView"
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+            
+            layout: FlowListLayout {
+            
+            }
+            
+            listItemComponents: [
+                ListItemComponent {
+                    type: "item"
+                    Container{
+                        touchPropagationMode: TouchPropagationMode.Full
+                        rightPadding: 5.0
+                        topPadding: 5.0
+                        bottomPadding: 5.0
+                        leftPadding: 5.0
+                        Label{
+                            text:  ListItemData.desc
+                        }
+                        Divider {
+                            verticalAlignment: VerticalAlignment.Bottom
+                            horizontalAlignment: HorizontalAlignment.Center  
+                        }
+                    }
+                }
+            ]
         }
-        Button {
-            text: "Back"
-        }
+        // The activity indicator has an object name set so that
+        // we can start and stop it from C++
+        ActivityIndicator {
+            objectName: "loadNotificationsIndicator"
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
+            preferredWidth: 200
+            preferredHeight: 200
+            
+            onStopped: {
+            }
+        }    
     }
 }
