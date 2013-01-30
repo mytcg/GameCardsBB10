@@ -75,6 +75,8 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 			tempList.append(tempMap);
 		}
 
+		QVariantList newList;
+
 		qDebug() << "\nAlbumView looping";
 		for (int i = 0; i < tempList.size(); i++) {
 			QVariantMap card = tempList[i].value<QVariantMap>();
@@ -92,18 +94,26 @@ void AlbumView::requestFinished(QNetworkReply* reply)
 			for (int j = 0; j < statList.size(); j++) {
 				QVariantMap stat = statList[j].value<QVariantMap>();
 
+				stat["stringValue"] = stat[".data"];
+
 				qDebug() << "\nAlbumView stat.Size(): " << stat.size();
 
-				QList<QString> statKeyList = stat.keys();
+				/*QList<QString> statKeyList = stat.keys();
 
 				for (int k = 0; k < statKeyList.size(); k++) {
 					qDebug() << "\nAlbumView statKeyList[" << k << "]: " << statKeyList[k];
 					qDebug() << "\nAlbumView stat[" << statKeyList[k] << "].value<QString>(): " << stat[statKeyList[k]].value<QString>();
-				}
+				}*/
+
+				statList.replace(j, stat);
 			}
+
+			card["stats"] = statList;
+
+			newList.append(card);
 		}
 
-		model->insertList(tempList);
+		model->insertList(newList);
 
 		mListView->setDataModel(model);
 		AlbumItemFactory *itemfactory = new AlbumItemFactory();
