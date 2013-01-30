@@ -71,6 +71,7 @@ Page {
                         card.fronturl = dataModel.data (indexPath).fronturl;
                         card.backurl = dataModel.data (indexPath).backurl;
                         card.loadImage(dataModel.data (indexPath).fronturl);
+                        card.statView.statModel.insertList(dataModel.data (indexPath).stats);
                         cardSheet.open();
                     }
                 }

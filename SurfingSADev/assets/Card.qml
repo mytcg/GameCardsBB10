@@ -45,6 +45,46 @@ Page {
             imageSource: "asset:///images/loading.png"
         
         }
+        Container{
+            layout: AbsoluteLayout{
+            }
+            ListView {
+                objectName: "statView"
+                id: statView
+                verticalAlignment: VerticalAlignment.Fill
+                horizontalAlignment: HorizontalAlignment.Fill
+                dataModel: GroupDataModel { 
+                    id: statModel 
+                    grouping: ItemGrouping.None
+                }
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "item"
+                        Container {
+                            layout: AbsoluteLayout{
+                            }
+                            Button{
+                                text: "lol"
+                                visible: (ListItemData.selectable == "1" & ListItemData.frontorback==flip)
+                                preferredHeight: ListItemData.height
+                                preferredWidth: ListItemData.width
+                                layoutProperties: AbsoluteLayoutProperties {
+                                    positionX: (DisplayInfo.width/2)+ListItemData.left
+                                    positionY: (DisplayInfo.height/2)+ListItemData.top
+                                }
+                            }            
+                        
+                        }
+                    }
+                ]
+                onTriggered: {
+                    clearSelection();
+                    if(dataModel.data (indexPath).hascards == "false"){
+                    
+                    }
+                }
+            }
+        }
         Button{
             horizontalAlignment: HorizontalAlignment.Left
             verticalAlignment: VerticalAlignment.Bottom
