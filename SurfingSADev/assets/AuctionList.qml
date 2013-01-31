@@ -25,9 +25,11 @@ Page {
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
         }
+        
+        background: Color.create("#ededed");
+        
         Label {
             id: auctionListLabel
             objectName: "auctionListLabel"
@@ -36,8 +38,8 @@ Page {
         }
         ListView {
             objectName: "auctionListList"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             
             listItemComponents: [
                 ListItemComponent {

@@ -16,6 +16,8 @@ TabbedPane {
                 layout: DockLayout {
                 }
                 
+                background: Color.create("#ededed");
+                
                 topPadding: 30
         	    bottomPadding: 55
         	    leftPadding: 20
@@ -176,6 +178,8 @@ TabbedPane {
                 layout: DockLayout {
                 }
                 
+                background: Color.create("#ededed");
+                
                 topPadding: 10
         	    bottomPadding: 55
         	    leftPadding: 10
@@ -205,6 +209,8 @@ TabbedPane {
                 layout: DockLayout {
                 }
                 
+                background: Color.create("#ededed");
+                
                 topPadding: 10
         	    bottomPadding: 55
         	    leftPadding: 10
@@ -227,6 +233,8 @@ TabbedPane {
             Container {
                 layout: DockLayout {
                 }
+                
+                background: Color.create("#ededed");
                 
                 topPadding: 10
         	    bottomPadding: 10

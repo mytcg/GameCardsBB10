@@ -28,6 +28,8 @@ Page {
             
         }
         
+        background: Color.create("#ededed");
+        
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill

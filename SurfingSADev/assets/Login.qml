@@ -117,6 +117,8 @@ Page {
             orientation: LayoutOrientation.LeftToRight
         }
         
+        background: Color.create("#ededed");
+        
         Container {
             id: loginContainer
             

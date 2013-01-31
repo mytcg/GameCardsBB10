@@ -31,6 +31,7 @@ Page {
         leftPadding: 20
         rightPadding: 20
         topPadding: 10
+        background: Color.create("#ededed");
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }
