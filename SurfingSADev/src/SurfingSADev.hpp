@@ -23,16 +23,21 @@
 #include "functionality/AuctionCreate.h"
 #include "functionality/OnAuctionList.h"
 #include "functionality/AuctionInfo.h"
+#include "functionality/Scoring.h"
+#include "functionality/HeatScores.h"
+
+#include <bb/cascades/ActivityIndicator>
+#include <bb/cascades/AbstractPane>
 
 #include <QObject>
 
 namespace bb {
 	namespace cascades {
 		class Application;
+		class AbstractPane;
+		class ActivityIndicator;
 	}
 }
-
-
 
 /*!
  * @brief Application pane object
@@ -70,6 +75,11 @@ public:
     AuctionCreate *mAuctionCreate;
     OnAuctionList *mOnAuctionList;
     AuctionInfo *mAuctionInfo;
+    Scoring *mScoring;
+    HeatScores *mHeatScores;
+
+private:
+	AbstractPane *root;
 };
 
 #endif /* SurfingSADev_HPP_ */

@@ -16,7 +16,7 @@ Page {
     }
     
     titleBar: TitleBar {
-        title: "Album"
+        title: "Card"
         visibility: ChromeVisibility.Visible
         
         acceptAction: ActionItem {
@@ -32,8 +32,8 @@ Page {
         layout: DockLayout {
         }
         
-        background: Color.create("#ededed");
-        
+        background: Color.create("#ededed")
+
         Label {
             id: cardLabel
             objectName: "cardLabel"
@@ -43,31 +43,31 @@ Page {
         ImageView {
             id: cardView
             objectName: "cardView"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            preferredHeight: 700
+            preferredWidth: 500
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             imageSource: "asset:///images/loading.png"
-        
-        }
-        Button{
-            horizontalAlignment: HorizontalAlignment.Left
-            verticalAlignment: VerticalAlignment.Bottom
-            text: newCard=="false"?"Flip":"Accept"  
-            onClicked: {
-                if(newCard=="true"){
-                    cardClass.save(cardId);
-                }else{
-                    if(flip=="0"){
-                        cardPage.loadImage(fronturl);
-                        flip = "1";
-                    }else{
-                        cardPage.loadImage(backurl);
-                        flip = "0";
+            gestureHandlers: [
+                TapHandler {
+                    onTapped: {
+                        if (newCard == "true") {
+                            cardClass.save(cardId);
+                        } else {
+                            if (flip == "0") {
+                                cardPage.loadImage(fronturl);
+                                flip = "1";
+                            } else {
+                                cardPage.loadImage(backurl);
+                                flip = "0";
+                            }
+                        }
                     }
                 }
-            }
+            ]
         }
         Button{
-            horizontalAlignment: HorizontalAlignment.Right
+            horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Bottom
             text: "Reject" 
             visible: (newCard=="true"?true:false)

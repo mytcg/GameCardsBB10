@@ -24,6 +24,8 @@
 
 -->
 
+	<cascadesTheme>light</cascadesTheme>
+
     <!-- A universally unique application identifier. Must be unique across all BlackBerry Tablet OS applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
     <id>com.example.SurfingSADev</id>
@@ -64,20 +66,20 @@
     
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.games</category>
-    <configuration id="com.qnx.qcc.toolChain.1122848957" name="Device-Debug">
+    <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/SurfingSADev" entry="true" type="Qnx/Elf">SurfingSADev</asset>
     </configuration>
-    <configuration id="com.qnx.qcc.toolChain.927509138" name="Device-Release">
+    <configuration name="Device-Release">
        <entryPointType>Qnx/Cascades</entryPointType>
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7/SurfingSADev.so" entry="true" type="Qnx/Elf">SurfingSADev.so</asset>
     </configuration>
-    <configuration id="com.qnx.qcc.toolChain.1793621484" name="Device-Profile">
+    <configuration name="Device-Profile">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm-p/o.le-v7-g/SurfingSADev" entry="true" type="Qnx/Elf">SurfingSADev</asset>
     </configuration>
-    <configuration id="com.qnx.qcc.toolChain.1372992660" name="Simulator-Debug">
+    <configuration name="Simulator-Debug">
        <platformArchitecture>x86</platformArchitecture>
        <asset path="x86/o-g/SurfingSADev" entry="true" type="Qnx/Elf">SurfingSADev</asset>
     </configuration>

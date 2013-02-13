@@ -181,7 +181,7 @@ TabbedPane {
                 background: Color.create("#ededed");
                 
                 topPadding: 10
-        	    bottomPadding: 55
+        	    bottomPadding: 10
         	    leftPadding: 10
         	    rightPadding: 10
             
@@ -212,7 +212,7 @@ TabbedPane {
                 background: Color.create("#ededed");
                 
                 topPadding: 10
-        	    bottomPadding: 55
+        	    bottomPadding: 10
         	    leftPadding: 10
         	    rightPadding: 10
 	            
@@ -229,23 +229,12 @@ TabbedPane {
     Tab {
         title: "Scores"
         imageSource: "asset:///images/tabs/scoring_tab.png"
-        Page {
-            Container {
-                layout: DockLayout {
-                }
-                
-                background: Color.create("#ededed");
-                
-                topPadding: 10
-        	    bottomPadding: 10
-        	    leftPadding: 10
-        	    rightPadding: 10
-        	    
-        	    ImageView {
-        	        imageSource: "asset:///images/comingsoon/coming_soon.jpg"
-        	    }
-	        }
+	    
+	    Scoring {
+            id: scoreContainer
         }
+        
+        onTriggered: scoreContainer.loadEvents()
     }
     
     attachedObjects: [

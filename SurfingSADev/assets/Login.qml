@@ -144,8 +144,10 @@ Page {
                 TextField {
                     id: usernameText
                     objectName: "usernameText"
-                    
+
                     hintText: "Enter username"
+                    inputMode: TextFieldInputMode.Text
+
                 }
                 Label {
                     text: "Password:"
@@ -153,11 +155,12 @@ Page {
                 TextField {
                     id: passwordText
                     objectName: "passwordText"
-                    
+
                     hintText: "Enter password"
                     inputMode: TextFieldInputMode.Password
+
                 }
-                
+
                 //0 for nothing, 1 for success, 2 for error
                 Label {
                     id: loggedLabel
@@ -171,67 +174,67 @@ Page {
                     text: ""
                     visible: false
                 }
-                
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
                     }
                     topPadding: 20
-                    
+
                     Label {
                         text: "Not a member?"
                         verticalAlignment: VerticalAlignment.Center
                     }
-                    
+
                     Button {
                         text: "Register!"
-                        
+
                         onClicked: {
                             showRegister()
                         }
                     }
                 }
             }
-            
+
             ActivityIndicator {
                 objectName: "loginIndicator"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
                 preferredWidth: 200
                 preferredHeight: 200
-                
+
                 onStopped: {
                     cancelLoginScreen()
                 }
             }
         }
-        
+
         Container {
             id: registerContainer
             visible: false
-            
+
             layout: DockLayout {
-                
+
             }
-            
+
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
+
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 leftPadding: 20
                 rightPadding: 20
                 topPadding: 10
-                
+
                 Label {
                     text: "Username:"
                     textStyle.fontSizeValue: 0.0
                 }
                 TextField {
                     id: regUsernameText
-                    
+
                     hintText: "Enter username"
                 }
                 Label {
@@ -239,7 +242,7 @@ Page {
                 }
                 TextField {
                     id: regPasswordText
-                    
+
                     hintText: "Enter password"
                     inputMode: TextFieldInputMode.Password
                 }
@@ -248,7 +251,7 @@ Page {
                 }
                 TextField {
                     id: emailText
-                    
+
                     hintText: "Enter email"
                     inputMode: TextFieldInputMode.EmailAddress
                 }
@@ -257,30 +260,30 @@ Page {
                 }
                 TextField {
                     id: referrerText
-                    
+
                     hintText: "Enter referrer (optional)"
                 }
-                
+
                 Container {
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
                     }
                     topPadding: 20
-                    
+
                     Label {
                         text: "Already a member?"
                         verticalAlignment: VerticalAlignment.Center
                     }
-                    
+
                     Button {
                         text: "Log in!"
-                        
+
                         onClicked: {
                             showLogin()
                         }
                     }
                 }
-                
+
                 //0 for nothing, 1 for success, 2 for error
                 Label {
                     id: registeredLabel
@@ -295,7 +298,7 @@ Page {
                     visible: false
                 }
             }
-            
+
             ActivityIndicator {
                 objectName: "registerIndicator"
                 verticalAlignment: VerticalAlignment.Center

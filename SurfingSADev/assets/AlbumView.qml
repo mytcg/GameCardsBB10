@@ -94,7 +94,7 @@ Page {
     attachedObjects: [
         Sheet {
             id: cardSheet
-            
+            peekEnabled: false
             Card{
             id: card
             

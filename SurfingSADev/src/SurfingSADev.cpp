@@ -4,11 +4,14 @@
 #include <QFile>
 #include <QTextStream>
 
+#include <bb/data/XmlDataAccess>
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
+#include <bb/cascades/DropDown>
 
 using namespace bb::cascades;
+using namespace bb::data;
 
 SurfingSADev::SurfingSADev(bb::cascades::Application *app)
 : QObject(app)
@@ -21,7 +24,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
 	qml->setContextProperty("app", this);
 
     // create root object for the UI
-    AbstractPane *root = qml->createRootObject<AbstractPane>();
+	root = qml->createRootObject<AbstractPane>();
     // set created root object as a scene
     app->setScene(root);
 
@@ -46,6 +49,8 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     mAuctionCreate = new AuctionCreate(root);
     mOnAuctionList = new OnAuctionList(root);
     mAuctionInfo = new AuctionInfo(root);
+    mScoring = new Scoring(root);
+    mHeatScores = new HeatScores(root);
 
     //set the functionality classes to the context
     qml->setContextProperty("loginClass", mLogin);
@@ -69,6 +74,8 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     qml->setContextProperty("auctionCreateClass", mAuctionCreate);
     qml->setContextProperty("onAuctionListClass", mOnAuctionList);
     qml->setContextProperty("auctionInfoClass", mAuctionInfo);
+    qml->setContextProperty("scoringClass", mScoring);
+    qml->setContextProperty("heatScoreClass", mHeatScores);
 }
 
 QString SurfingSADev::loggedIn() {
