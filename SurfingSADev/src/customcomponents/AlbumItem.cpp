@@ -28,10 +28,13 @@ AlbumItem::AlbumItem(Container *parent) :
 
     // Sub item container
 	Container *subItemContainer = Container::create();
-	subItemContainer->setLayout(new DockLayout());
-	subItemContainer->setTopPadding(25);
-	subItemContainer->setLeftPadding(25);
-	subItemContainer->setRightPadding(25);
+	StackLayout *stackLayout = new StackLayout();
+	stackLayout->setOrientation( LayoutOrientation::LeftToRight );
+	subItemContainer->setLayout(stackLayout);
+	subItemContainer->setTopPadding(10);
+	subItemContainer->setLeftPadding(10);
+	subItemContainer->setRightPadding(10);
+	subItemContainer->setBottomPadding(13);
 	subItemContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
 	subItemContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
@@ -42,13 +45,15 @@ AlbumItem::AlbumItem(Container *parent) :
 
     // The list item image, the actual image is set in updateItem
     mItemImage = ImageView::create("asset:///images/loadingthumb.png");
-    mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
-    mItemImage->setVerticalAlignment(VerticalAlignment::Top);
+    //mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
+    mItemImage->setVerticalAlignment(VerticalAlignment::Center);
+    mItemImage->setPreferredSize(92.0, 128.0);
 
     mItemTitle = Label::create("Title");
     mItemTitle->setLayoutProperties(StackLayoutProperties::create().spaceQuota(1));
-    mItemTitle->setHorizontalAlignment(HorizontalAlignment::Center);
-    mItemTitle->setVerticalAlignment(VerticalAlignment::Top);
+    mItemTitle->textStyle()->setColor(Color::Black);
+    //mItemTitle->setHorizontalAlignment(HorizontalAlignment::Center);
+    mItemTitle->setVerticalAlignment(VerticalAlignment::Center);
 
     mItemDescription = Label::create("Description");
     mItemDescription->textStyle()->setBase(SystemDefaults::TextStyles::subtitleText());

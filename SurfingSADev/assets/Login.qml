@@ -200,8 +200,8 @@ Page {
                 objectName: "loginIndicator"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-                preferredWidth: 200
-                preferredHeight: 200
+                preferredWidth: 100
+                preferredHeight: 100
 
                 onStopped: {
                     cancelLoginScreen()
@@ -303,8 +303,8 @@ Page {
                 objectName: "registerIndicator"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-                preferredWidth: 200
-                preferredHeight: 200
+                preferredWidth: 100
+                preferredHeight: 100
                 
                 onStopped: {
                     cancelRegScreen()

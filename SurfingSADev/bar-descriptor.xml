@@ -24,7 +24,7 @@
 
 -->
 
-	<cascadesTheme>light</cascadesTheme>
+	<cascadesTheme>dark</cascadesTheme>
 
     <!-- A universally unique application identifier. Must be unique across all BlackBerry Tablet OS applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
@@ -66,6 +66,9 @@
     
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.games</category>
+    <splashScreens>
+       <image>splash.jpg</image>
+    </splashScreens>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/SurfingSADev" entry="true" type="Qnx/Elf">SurfingSADev</asset>
@@ -96,6 +99,7 @@
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
+    <asset path="assets/images/splash.jpg">splash.jpg</asset>
     
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>

@@ -7,16 +7,6 @@ Page {
     titleBar: TitleBar {
         title: "Redeem"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                redeemLabel.text = "";
-                redeemText.text = "";
-
-                redeemPage.cancel();
-            }
-        }
     }
     
     Container {
@@ -51,12 +41,6 @@ Page {
                 text: "0"
                 visible: false
             }
-            Button {
-                id: redeem
-                text: "Redeem"
-                onClicked: redeemClass.redeem(redeemText.text)
-                horizontalAlignment: HorizontalAlignment.Center
-            }
         }
 
         // The activity indicator has an object name set so that
@@ -65,12 +49,21 @@ Page {
             objectName: "redeemIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
+            preferredWidth: 100
+            preferredHeight: 100
             
             onStopped: {
                 //cancelScreen()
             }
         }
     }
+    actions: [
+        ActionItem {
+            title: "Redeem"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                redeemClass.redeem(redeemText.text)
+            }
+        }
+    ]
 }

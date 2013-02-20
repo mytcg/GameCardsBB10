@@ -107,8 +107,8 @@ Page {
         // we can start and stop it from C++
         ActivityIndicator {
             objectName: "loadOnAuctionListIndicator"
-            preferredWidth: 200
-            preferredHeight: 200
+            preferredWidth: 100
+            preferredHeight: 100
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             onStopped: {

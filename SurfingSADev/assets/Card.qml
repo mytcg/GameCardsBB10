@@ -15,19 +15,6 @@ Page {
         cardClass.loadImage(String);
     }
     
-    titleBar: TitleBar {
-        title: "Card"
-        visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                cardView.setImageSource("asset:///images/loading.png");
-                cardPage.cancel();
-            }
-        }
-    }
-    
     Container {
         layout: DockLayout {
         }
@@ -81,8 +68,8 @@ Page {
             objectName: "loadCardIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
+            preferredWidth: 100
+            preferredHeight: 100
             
             onStopped: {
             }
