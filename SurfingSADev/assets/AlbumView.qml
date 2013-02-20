@@ -23,13 +23,23 @@ Page {
         layout: DockLayout {
         }
 
-        ImageView {
+        /*ImageView {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
             imageSource: "asset:///images/backgrounds/bg.jpg"
-        }
+        }*/
         //background: Color.create("#ededed");
-        
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom

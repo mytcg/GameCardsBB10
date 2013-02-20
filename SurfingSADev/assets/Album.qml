@@ -24,11 +24,22 @@ Page {
         }
         
         //background: Color.create("#ededed");
-        ImageView {
+        /*ImageView {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
             imageSource: "asset:///images/backgrounds/bg.jpg"
-        }
+        }*/
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
         Label {
             id: albumLabel
             objectName: "albumLabel"

@@ -14,12 +14,15 @@ Page {
         layout: DockLayout {
         }
 
-        //background: Color.create("#ededed");
-        ImageView {
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-            imageSource: "asset:///images/backgrounds/home_bg.jpg"
-        }
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/home_bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
 
         Container {
             layout: DockLayout {
