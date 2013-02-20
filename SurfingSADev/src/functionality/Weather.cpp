@@ -9,6 +9,7 @@
 #include <bb/cascades/Label>
 #include <bb/cascades/GroupDataModel>
 #include <bb/cascades/ListView>
+#include <bb/cascades/Container>
 
 using namespace bb::cascades;
 using namespace bb::data;
@@ -126,6 +127,7 @@ void Weather::requestFinished(QNetworkReply* reply)
 
 		(root->findChild<Label*>("maxTempLabelHeader"))->setVisible(true);
 		(root->findChild<Label*>("minTempLabelHeader"))->setVisible(true);
+		(root->findChild<Container*>("weatherTitleList"))->setVisible(true);
 
 		(root->findChild<ListView*>("weatherListView"))->setDataModel(model);
 		(root->findChild<ListView*>("weatherListView"))->setListItemProvider(mWeatherFactory);

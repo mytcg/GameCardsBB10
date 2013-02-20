@@ -27,6 +27,8 @@ Page {
      
         }
         
+        background: Color.create("#ededed");
+        
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom

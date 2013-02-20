@@ -23,6 +23,7 @@ Page {
         layout: DockLayout {
      
         }
+        background: Color.create("#ededed");
         
         Container {
             layout: StackLayout {

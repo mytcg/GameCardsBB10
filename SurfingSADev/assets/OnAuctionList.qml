@@ -25,6 +25,7 @@ Page {
         layout: DockLayout {
             
         }
+        background: Color.create("#ededed");
         
         Container {
             topPadding: 10

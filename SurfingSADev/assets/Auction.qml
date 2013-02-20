@@ -20,6 +20,8 @@ Page {
             
         }
         
+        background: Color.create("#ededed");
+        
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill

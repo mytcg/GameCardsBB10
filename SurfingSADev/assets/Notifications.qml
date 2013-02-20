@@ -18,6 +18,8 @@ Page {
     Container {
         layout: DockLayout {
         }
+        background: Color.create("#ededed");
+        
         Label {
             id: notificationsLabel
             objectName: "notificationsLabel"

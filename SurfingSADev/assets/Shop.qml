@@ -20,6 +20,7 @@ Page {
         layout: DockLayout {
             
         }
+        background: Color.create("#ededed");
         
         // The activity indicator has an object name set so that
         // we can start and stop it from C++

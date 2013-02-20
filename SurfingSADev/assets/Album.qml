@@ -26,6 +26,8 @@ Page {
         layout: DockLayout {
         }
         
+        background: Color.create("#ededed");
+        
         Label {
             id: albumLabel
             objectName: "albumLabel"

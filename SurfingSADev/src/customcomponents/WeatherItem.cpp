@@ -96,9 +96,6 @@ void WeatherItem::setWindSpeed(const QString windSpeed) {
 }
 
 void WeatherItem::setTemperature(QVariant temperature) {
-	qDebug() << "\n WeatherItem temperature.toInt(): " << temperature.toInt();
-	qDebug() << "\n WeatherItem getTempBackground: " << getTempBackground(temperature.toInt());
-
 	mTemperature->setText(temperature.toString());
 	
 	ImagePaint paint(QUrl(getTempBackground(temperature.toInt())));

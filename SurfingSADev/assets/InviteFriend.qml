@@ -19,10 +19,12 @@ Page {
             }
         }
     }
-        Container {
-                layout: DockLayout {
-                    
-                }
+    Container {
+        layout: DockLayout {
+            
+        }
+        background: Color.create("#ededed");
+        
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill

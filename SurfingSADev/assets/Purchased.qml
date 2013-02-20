@@ -24,6 +24,7 @@ Page {
         layout: DockLayout {
             
         }
+        background: Color.create("#ededed");
         
         ListView {
             objectName: "purchasedList"

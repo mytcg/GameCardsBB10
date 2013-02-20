@@ -28,6 +28,8 @@ Page {
         layout: DockLayout {
         }
         
+        background: Color.create("#ededed");
+        
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
@@ -93,7 +95,7 @@ Page {
     attachedObjects: [
         Sheet {
             id: cardSheet
-            
+            peekEnabled: false
             Card{
             id: card
             
