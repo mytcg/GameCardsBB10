@@ -1,45 +1,20 @@
 // Navigation pane project template
 import bb.cascades 1.0
 
-MainMenu {
-    id: mainMenu
-    
+Home {
+	id: home
     function checkLoggedIn() {
         var loggedIn = app.loggedIn()
-        
+
         if (loggedIn == "false") {
             // show detail page when the button is clicked
-            loginSheet.open()
+            home.loggedIn = false
+        } else {
+            home.loggedIn = true
         }
     }
-    
-    attachedObjects: [
-        Sheet {
-            id: loginSheet
-            Login {
-                objectName: "loginPage"
-                
-                onCancel: {
-                    loginSheet.close();
-                }
-            }
-        },
 
-        Sheet {
-            id: homeSheet
-            peekEnabled: false
-            Home {
-            	id: home
-                onCancel: {
-                	mainMenu.selectTab(home.index)
-                    homeSheet.close();
-                }
-            }
-        }
-    ]
-    
     onCreationCompleted: {
         checkLoggedIn()
-        homeSheet.open()
     }
 }

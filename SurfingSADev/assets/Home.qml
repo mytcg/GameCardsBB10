@@ -2,9 +2,13 @@ import bb.cascades 1.0
 
 Page {
     id: homePage
-    signal cancel()
+    property bool loggedIn: false
     
-    property int index: -1
+    function openMenu(index) {
+        mainMenu.showLoggin = !loggedIn;
+        mainMenu.selectTab(index);
+        mainMenuSheet.open();
+    }
     
     Container {
         layout: DockLayout {
@@ -72,8 +76,7 @@ Page {
                     pressedImageSource: "asset:///images/customcomponents/home_label_selected.png"
                     
                     onClicked: {
-                        homePage.index = 0;
-                        homePage.cancel();
+                        openMenu(0);
                     }
                 }
 
@@ -136,8 +139,7 @@ Page {
                     pressedImageSource: "asset:///images/customcomponents/home_label_selected.png"
 
                     onClicked: {
-                        homePage.index = 1;
-                        homePage.cancel();
+                        openMenu(1);
                     }
                 }
 
@@ -200,8 +202,7 @@ Page {
                     pressedImageSource: "asset:///images/customcomponents/home_label_selected.png"
 
                     onClicked: {
-                        homePage.index = 2;
-                        homePage.cancel();
+                        openMenu(2);
                     }
                 }
 
@@ -265,8 +266,7 @@ Page {
                     pressedImageSource: "asset:///images/customcomponents/home_label_selected.png"
 
                     onClicked: {
-                        homePage.index = 3;
-                        homePage.cancel();
+                        openMenu(3);
                     }
                 }
                 Container {
@@ -313,4 +313,14 @@ Page {
             imageSource: "asset:///images/header/footer.png"
         }
     }
+    
+    attachedObjects: [
+        Sheet {
+            peekEnabled: false
+            id: mainMenuSheet
+            MainMenu {
+                id: mainMenu
+            }
+        }
+    ]
 }
