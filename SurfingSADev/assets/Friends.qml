@@ -73,8 +73,8 @@ Page {
             objectName: "loadFriendsIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
+            preferredWidth: 100
+            preferredHeight: 100
             
             onStopped: {
             }

@@ -160,8 +160,8 @@ Page {
             // we can start and stop it from C++
             ActivityIndicator {
                 objectName: "heatScoreIndicator"
-                preferredWidth: 200
-                preferredHeight: 200
+                preferredWidth: 100
+                preferredHeight: 100
 
                 onStopped: {
                     //cancelScreen()

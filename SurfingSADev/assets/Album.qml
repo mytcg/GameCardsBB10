@@ -3,7 +3,11 @@ import bb.cascades 1.0
 
 Page {
     id: albumPage
-    
+    property NavigationPane navParent: null
+
+    //vars for pages
+    property Page albumViewPage: null
+
     signal cancel ()
     
     function loadAlbums(String) {
@@ -13,13 +17,6 @@ Page {
     titleBar: TitleBar {
         title: "Album"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                albumPage.cancel();
-            }
-        }
     }
     
     Container {
@@ -27,7 +24,6 @@ Page {
         }
         
         background: Color.create("#ededed");
-        
         Label {
             id: albumLabel
             objectName: "albumLabel"
@@ -57,11 +53,18 @@ Page {
                 if(dataModel.data (indexPath).hascards == "false"){
                     albumPage.loadAlbums(dataModel.data (indexPath).albumid);
                 }else{
-                    if(dataModel.data (indexPath).albumid=="-3"){
-                        albumView.newCards = true;
+
+                    if (albumPage.albumViewPage == null) {
+                        albumPage.albumViewPage = albumViewDefinition.createObject();
+
+                        albumPage.albumViewPage.navParent = corePane;
                     }
-                    albumViewSheet.open();
-                    albumView.loadAlbum(dataModel.data (indexPath).albumid);
+
+                    if(dataModel.data (indexPath).albumid=="-3"){
+                        albumPage.albumViewPage.newCards = true;
+                    }
+                    navParent.push(albumPage.albumViewPage);
+                    albumPage.albumViewPage.loadAlbum(dataModel.data (indexPath).albumid);
                 }
             }
         
@@ -72,8 +75,8 @@ Page {
             objectName: "loadIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
+            preferredWidth: 100
+            preferredHeight: 100
             
             onStopped: {
             }
@@ -81,7 +84,7 @@ Page {
     }
 
     attachedObjects: [
-        Sheet {
+        /*Sheet {
             id: albumViewSheet
             
             AlbumView{
@@ -91,6 +94,10 @@ Page {
                     albumViewSheet.close();
                 }
             }
+        }*/
+        ComponentDefinition {
+            id: albumViewDefinition
+            source: "AlbumView.qml"
         }
     ]
 }

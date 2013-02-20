@@ -46,7 +46,7 @@ void AlbumItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *list
     	recipeItem->updateItem("asset:///images/emptythumb.png");
     }else{
     	ImageLoader *imloader = new ImageLoader();
-    	imloader->loadImage(map["thumburl"].toString(), recipeItem->itemImage(),"/cards/",".jpg");
+    	imloader->loadImage(map["fronturl"].toString(), recipeItem->itemImage(),"/cards/",".jpg");
     }
     //set labels
     recipeItem->setTitle(map["description"].toString()+" ("+map["quantity"].toString()+")");

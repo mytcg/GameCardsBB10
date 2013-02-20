@@ -69,7 +69,6 @@ Page {
             horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 100
             preferredHeight: 100
-
             onStopped: {
             }
         }

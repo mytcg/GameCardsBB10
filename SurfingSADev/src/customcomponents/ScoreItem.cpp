@@ -31,6 +31,7 @@ ScoreItem::ScoreItem(Container *parent) :
     mHeader = Label::create("Name!!!");
     mHeader->textStyle()->setFontSize(FontSize::XSmall);
     mHeader->textStyle()->setTextAlign(TextAlign::Center);
+    mHeader->textStyle()->setColor(Color::Black);
     mHeader->setHorizontalAlignment(HorizontalAlignment::Center);
     mHeader->setMultiline(true);
 
@@ -56,6 +57,7 @@ void ScoreItem::setScores(QVariantList scoreList) {
 	for (int i = 0; i < scoreList.size(); i++) {
 		Label *waveLabel = Label::create(scoreList[i].toString());
 		waveLabel->textStyle()->setFontSize(FontSize::XSmall);
+		waveLabel->textStyle()->setColor(Color::Black);
 		waveLabel->setHorizontalAlignment(HorizontalAlignment::Center);
 
 		mScoresContainer->add(waveLabel);
