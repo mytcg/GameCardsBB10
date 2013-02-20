@@ -2,18 +2,12 @@ import bb.cascades 1.0
 
 Page {
     id: friendsPage
+    property NavigationPane navParent: null
     signal cancel ()
     
     titleBar: TitleBar {
         title: "Friends"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                friendsPage.cancel();
-            }
-        }
     }
     Container {
         layout: DockLayout {

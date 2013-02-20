@@ -2,13 +2,14 @@ import bb.cascades 1.0
 
 Page {
     id: invitefriendPage
+    property NavigationPane navParent: null
     signal cancel ()
     
     titleBar: TitleBar {
         title: "Invite Friend"
         visibility: ChromeVisibility.Visible
         
-        acceptAction: ActionItem {
+        /*acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
                 inviteFriendLabel.text = "";
@@ -17,7 +18,7 @@ Page {
                 numberText.text = "";
                 invitefriendPage.cancel();
             }
-        }
+        }*/
     }
     Container {
         layout: DockLayout {

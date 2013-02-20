@@ -2,18 +2,12 @@ import bb.cascades 1.0
 
 Page {
     id: notificationsPage
-        signal cancel ()
+    property NavigationPane navParent: null
+    signal cancel ()
         
         titleBar: TitleBar {
             title: "Notifications"
             visibility: ChromeVisibility.Visible
-            
-            acceptAction: ActionItem {
-                title: "Back"
-                onTriggered: {
-                    notificationsPage.cancel();
-                }
-            }
         }
     Container {
         layout: DockLayout {

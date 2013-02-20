@@ -2,18 +2,12 @@ import bb.cascades 1.0
 
 Page {
     id: creditsPage
+    property NavigationPane navParent: null
     signal cancel ()
     
     titleBar: TitleBar {
         title: "Credits"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                creditsPage.cancel();
-            }
-        }
     }
     Container {
         layout: DockLayout {

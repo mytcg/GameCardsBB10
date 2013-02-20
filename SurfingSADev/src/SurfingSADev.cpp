@@ -13,6 +13,7 @@
 
 using namespace bb::cascades;
 using namespace bb::data;
+using namespace bb::device;
 
 SurfingSADev::SurfingSADev(bb::cascades::Application *app)
 : QObject(app)

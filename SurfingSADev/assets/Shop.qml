@@ -2,18 +2,12 @@ import bb.cascades 1.0
 
 Page {
     id: shopPage
+    property NavigationPane navParent: null
     signal cancel ()
     
     titleBar: TitleBar {
         title: "Shop"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                shopPage.cancel();
-            }
-        }
     }
     
     Container {

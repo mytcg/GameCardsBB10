@@ -10,6 +10,8 @@ device {
                  $$quote($$BASEDIR/src/customcomponents/AlbumItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItem.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItemFactory.cpp) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItem.cpp) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItem.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/WeatherItem.cpp) \
@@ -25,6 +27,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Card.cpp) \
                  $$quote($$BASEDIR/src/functionality/Credits.cpp) \
                  $$quote($$BASEDIR/src/functionality/Friends.cpp) \
+                 $$quote($$BASEDIR/src/functionality/HeatScores.cpp) \
                  $$quote($$BASEDIR/src/functionality/ImageLoader.cpp) \
                  $$quote($$BASEDIR/src/functionality/InviteFriend.cpp) \
                  $$quote($$BASEDIR/src/functionality/Login.cpp) \
@@ -33,6 +36,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Purchase.cpp) \
                  $$quote($$BASEDIR/src/functionality/Redeem.cpp) \
                  $$quote($$BASEDIR/src/functionality/Registration.cpp) \
+                 $$quote($$BASEDIR/src/functionality/Scoring.cpp) \
                  $$quote($$BASEDIR/src/functionality/Shop.cpp) \
                  $$quote($$BASEDIR/src/functionality/Weather.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
@@ -43,6 +47,8 @@ device {
                  $$quote($$BASEDIR/src/customcomponents/AlbumItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItem.h) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItemFactory.h) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItem.h) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItem.h) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/WeatherItem.h) \
@@ -58,6 +64,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Card.h) \
                  $$quote($$BASEDIR/src/functionality/Credits.h) \
                  $$quote($$BASEDIR/src/functionality/Friends.h) \
+                 $$quote($$BASEDIR/src/functionality/HeatScores.h) \
                  $$quote($$BASEDIR/src/functionality/ImageLoader.h) \
                  $$quote($$BASEDIR/src/functionality/InviteFriend.h) \
                  $$quote($$BASEDIR/src/functionality/Login.h) \
@@ -66,6 +73,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Purchase.h) \
                  $$quote($$BASEDIR/src/functionality/Redeem.h) \
                  $$quote($$BASEDIR/src/functionality/Registration.h) \
+                 $$quote($$BASEDIR/src/functionality/Scoring.h) \
                  $$quote($$BASEDIR/src/functionality/Shop.h) \
                  $$quote($$BASEDIR/src/functionality/Weather.h) \
                  $$quote($$BASEDIR/src/utils/Util.h)
@@ -80,6 +88,8 @@ device {
                  $$quote($$BASEDIR/src/customcomponents/AlbumItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItem.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItemFactory.cpp) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItem.cpp) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItem.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/WeatherItem.cpp) \
@@ -95,6 +105,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Card.cpp) \
                  $$quote($$BASEDIR/src/functionality/Credits.cpp) \
                  $$quote($$BASEDIR/src/functionality/Friends.cpp) \
+                 $$quote($$BASEDIR/src/functionality/HeatScores.cpp) \
                  $$quote($$BASEDIR/src/functionality/ImageLoader.cpp) \
                  $$quote($$BASEDIR/src/functionality/InviteFriend.cpp) \
                  $$quote($$BASEDIR/src/functionality/Login.cpp) \
@@ -103,6 +114,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Purchase.cpp) \
                  $$quote($$BASEDIR/src/functionality/Redeem.cpp) \
                  $$quote($$BASEDIR/src/functionality/Registration.cpp) \
+                 $$quote($$BASEDIR/src/functionality/Scoring.cpp) \
                  $$quote($$BASEDIR/src/functionality/Shop.cpp) \
                  $$quote($$BASEDIR/src/functionality/Weather.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
@@ -113,6 +125,8 @@ device {
                  $$quote($$BASEDIR/src/customcomponents/AlbumItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItem.h) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItemFactory.h) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItem.h) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItem.h) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/WeatherItem.h) \
@@ -128,6 +142,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Card.h) \
                  $$quote($$BASEDIR/src/functionality/Credits.h) \
                  $$quote($$BASEDIR/src/functionality/Friends.h) \
+                 $$quote($$BASEDIR/src/functionality/HeatScores.h) \
                  $$quote($$BASEDIR/src/functionality/ImageLoader.h) \
                  $$quote($$BASEDIR/src/functionality/InviteFriend.h) \
                  $$quote($$BASEDIR/src/functionality/Login.h) \
@@ -136,6 +151,7 @@ device {
                  $$quote($$BASEDIR/src/functionality/Purchase.h) \
                  $$quote($$BASEDIR/src/functionality/Redeem.h) \
                  $$quote($$BASEDIR/src/functionality/Registration.h) \
+                 $$quote($$BASEDIR/src/functionality/Scoring.h) \
                  $$quote($$BASEDIR/src/functionality/Shop.h) \
                  $$quote($$BASEDIR/src/functionality/Weather.h) \
                  $$quote($$BASEDIR/src/utils/Util.h)
@@ -153,6 +169,8 @@ simulator {
                  $$quote($$BASEDIR/src/customcomponents/AlbumItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItem.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItemFactory.cpp) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItem.cpp) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItem.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItemFactory.cpp) \
                  $$quote($$BASEDIR/src/customcomponents/WeatherItem.cpp) \
@@ -168,6 +186,7 @@ simulator {
                  $$quote($$BASEDIR/src/functionality/Card.cpp) \
                  $$quote($$BASEDIR/src/functionality/Credits.cpp) \
                  $$quote($$BASEDIR/src/functionality/Friends.cpp) \
+                 $$quote($$BASEDIR/src/functionality/HeatScores.cpp) \
                  $$quote($$BASEDIR/src/functionality/ImageLoader.cpp) \
                  $$quote($$BASEDIR/src/functionality/InviteFriend.cpp) \
                  $$quote($$BASEDIR/src/functionality/Login.cpp) \
@@ -176,6 +195,7 @@ simulator {
                  $$quote($$BASEDIR/src/functionality/Purchase.cpp) \
                  $$quote($$BASEDIR/src/functionality/Redeem.cpp) \
                  $$quote($$BASEDIR/src/functionality/Registration.cpp) \
+                 $$quote($$BASEDIR/src/functionality/Scoring.cpp) \
                  $$quote($$BASEDIR/src/functionality/Shop.cpp) \
                  $$quote($$BASEDIR/src/functionality/Weather.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
@@ -186,6 +206,8 @@ simulator {
                  $$quote($$BASEDIR/src/customcomponents/AlbumItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItem.h) \
                  $$quote($$BASEDIR/src/customcomponents/AuctionItemFactory.h) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItem.h) \
+                 $$quote($$BASEDIR/src/customcomponents/ScoreItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItem.h) \
                  $$quote($$BASEDIR/src/customcomponents/ShopItemFactory.h) \
                  $$quote($$BASEDIR/src/customcomponents/WeatherItem.h) \
@@ -201,6 +223,7 @@ simulator {
                  $$quote($$BASEDIR/src/functionality/Card.h) \
                  $$quote($$BASEDIR/src/functionality/Credits.h) \
                  $$quote($$BASEDIR/src/functionality/Friends.h) \
+                 $$quote($$BASEDIR/src/functionality/HeatScores.h) \
                  $$quote($$BASEDIR/src/functionality/ImageLoader.h) \
                  $$quote($$BASEDIR/src/functionality/InviteFriend.h) \
                  $$quote($$BASEDIR/src/functionality/Login.h) \
@@ -209,6 +232,7 @@ simulator {
                  $$quote($$BASEDIR/src/functionality/Purchase.h) \
                  $$quote($$BASEDIR/src/functionality/Redeem.h) \
                  $$quote($$BASEDIR/src/functionality/Registration.h) \
+                 $$quote($$BASEDIR/src/functionality/Scoring.h) \
                  $$quote($$BASEDIR/src/functionality/Shop.h) \
                  $$quote($$BASEDIR/src/functionality/Weather.h) \
                  $$quote($$BASEDIR/src/utils/Util.h)
