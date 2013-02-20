@@ -13,8 +13,14 @@ Page {
         layout: DockLayout {
      
         }
-        background: Color.create("#ededed");
-        
+        //background: Color.create("#ededed");
+
+        ImageView {
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+            imageSource: "asset:///images/backgrounds/bg.jpg"
+        }
+
         Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom

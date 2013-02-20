@@ -34,7 +34,7 @@ Page {
             preferredWidth: 500
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
-            imageSource: "asset:///images/loading.png"
+            imageSource: "asset:///images/loading.jpg"
             gestureHandlers: [
                 TapHandler {
                     onTapped: {

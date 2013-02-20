@@ -43,7 +43,7 @@ void AlbumItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *list
     AlbumItem *recipeItem = static_cast<AlbumItem *>(listItem);
     //recipeItem->updateItem(map["fruit"].toString());
     if(map["quantity"].toString().compare("0")==0){
-    	recipeItem->updateItem("asset:///images/emptythumb.png");
+    	recipeItem->updateItem("asset:///images/empty card.jpg");
     }else{
     	ImageLoader *imloader = new ImageLoader();
     	imloader->loadImage(map["fronturl"].toString(), recipeItem->itemImage(),"/cards/",".jpg");

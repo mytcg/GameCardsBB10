@@ -23,10 +23,23 @@ MainMenu {
                     loginSheet.close();
                 }
             }
+        },
+
+        Sheet {
+            id: homeSheet
+            peekEnabled: false
+            Home {
+            	id: home
+                onCancel: {
+                	mainMenu.selectTab(home.index)
+                    homeSheet.close();
+                }
+            }
         }
     ]
     
     onCreationCompleted: {
         checkLoggedIn()
+        homeSheet.open()
     }
 }

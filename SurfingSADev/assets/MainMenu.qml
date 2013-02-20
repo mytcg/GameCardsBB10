@@ -2,7 +2,21 @@ import bb.cascades 1.0
 
 // The root container for the custom component
 TabbedPane {
+	id: menuPane
     showTabsOnActionBar: true
+
+    function selectTab(index) {
+    	if (index == 0) {
+            menuPane.activeTab = tabCards
+        } else if (index == 1) {
+            menuPane.activeTab = tabWeather
+        } else if (index == 2) {
+            menuPane.activeTab = tabNews
+        } else if (index == 3) {
+            menuPane.activeTab = tabScores
+        }
+    }
+
     Tab {
     	//vars for pages
     	property Page albumPage: null
@@ -460,7 +474,7 @@ TabbedPane {
             id: redeemDefinition
             source: "Redeem.qml"
         }
-        /*Sheet {
+    /*Sheet {
             id: redeemSheet
             
             Redeem{

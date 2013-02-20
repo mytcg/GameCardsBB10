@@ -23,8 +23,13 @@ Page {
     Container {
         layout: DockLayout {
         }
-        
-        background: Color.create("#ededed");
+
+        ImageView {
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+            imageSource: "asset:///images/backgrounds/bg.jpg"
+        }
+        //background: Color.create("#ededed");
         
         Container {
             layout: StackLayout {
@@ -53,7 +58,7 @@ Page {
                         StandardListItem {
                             title: ListItemData.description +" ("+ListItemData.quantity+")"
                             horizontalAlignment: HorizontalAlignment.Center
-                            imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loadingthumb.png")
+                            imageSource: (ListItemData.quantity=="0"?"asset:///images/emptythumb.png":"asset:///images/loading.jpg")
                             minHeight: 66
                             /*onCreationCompleted: {
                                 imageloaderClass.loadImage(ListItemData.thumburl, this);
