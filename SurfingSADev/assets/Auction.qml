@@ -2,18 +2,12 @@ import bb.cascades 1.0
 
 Page {
     id: auctionPage
+    property NavigationPane navParent: null
     signal cancel ()
     
     titleBar: TitleBar {
         title: "Auctions"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                auctionPage.cancel();
-            }
-        }
     }
     Container {
         layout: DockLayout {

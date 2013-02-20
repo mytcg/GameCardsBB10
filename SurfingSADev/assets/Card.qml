@@ -1,24 +1,23 @@
 import bb.cascades 1.0
 
-
 Page {
     id: cardPage
-    signal cancel ()
-    
-    property string cardId: "0";
-    property string newCard: "false";
-    property string fronturl: "";
-    property string backurl: "";
-    property string flip: "1";
-    
+    signal cancel()
+
+    property string cardId: "0"
+    property string newCard: "false"
+    property string fronturl: ""
+    property string backurl: ""
+    property string flip: "1"
+
     function loadImage(String) {
         cardClass.loadImage(String);
     }
-    
+
     Container {
         layout: DockLayout {
         }
-        
+
         background: Color.create("#ededed")
 
         Label {
@@ -53,14 +52,14 @@ Page {
                 }
             ]
         }
-        Button{
+        Button {
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Bottom
-            text: "Reject" 
-            visible: (newCard=="true"?true:false)
+            text: "Reject"
+            visible: (newCard == "true" ? true : false)
             onClicked: {
-                cardClass.reject(cardId);         
-            } 
+                cardClass.reject(cardId);
+            }
         }
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
@@ -70,9 +69,8 @@ Page {
             horizontalAlignment: HorizontalAlignment.Center
             preferredWidth: 100
             preferredHeight: 100
-            
             onStopped: {
             }
-        }    
+        }
     }
 }

@@ -20,6 +20,12 @@ TabbedPane {
     Tab {
     	//vars for pages
     	property Page albumPage: null
+        property Page shopPage: null
+        property Page auctionPage: null
+        property Page notificationsPage: null
+        property Page creditsPage: null
+        property Page friendsPage: null
+        property Page invitefriendPage: null
         property Page redeemPage: null
 
         id: tabCards
@@ -119,7 +125,12 @@ TabbedPane {
                                     enabled: true
 
                                     onClicked: {
-                                        notificationsSheet.open();
+                                        //notificationsSheet.open();
+                                        if (tabCards.notificationsPage == null) {
+                                            tabCards.notificationsPage = notificationsDefinition.createObject();
+                                        }
+                                        corePane.push(tabCards.notificationsPage);
+                                        tabCards.notificationsPage.navParent = corePane;
                                         notificationsClass.loadNotifications();
                                     }
                                 } // ImageButton
@@ -133,7 +144,12 @@ TabbedPane {
                                     enabled: true
 
                                     onClicked: {
-                                        friendsSheet.open();
+                                        //friendsSheet.open();
+                                        if (tabCards.friendsPage == null) {
+                                            tabCards.friendsPage = friendsDefinition.createObject();
+                                        }
+                                        corePane.push(tabCards.friendsPage);
+                                        tabCards.friendsPage.navParent = corePane;
                                         friendsClass.loadFriends();
                                     }
                                 } // ImageButton
@@ -156,7 +172,12 @@ TabbedPane {
                                     enabled: true
 
                                     onClicked: {
-                                        shopSheet.open();
+                                        //shopSheet.open();
+                                        if (tabCards.shopPage == null) {
+                                            tabCards.shopPage = shopDefinition.createObject();
+                                        }
+                                        corePane.push(tabCards.shopPage);
+                                        tabCards.shopPage.navParent = corePane;
                                         shopClass.loadProducts();
                                     }
                                 } // ImageButton
@@ -170,7 +191,12 @@ TabbedPane {
                                     enabled: true
 
                                     onClicked: {
-                                        creditsSheet.open();
+                                        //creditsSheet.open();
+                                        if (tabCards.creditsPage == null) {
+                                            tabCards.creditsPage = creditsDefinition.createObject();
+                                        }
+                                        corePane.push(tabCards.creditsPage);
+                                        tabCards.creditsPage.navParent = corePane;
                                         creditsClass.loadCredits();
                                     }
                                 } // ImageButton
@@ -184,7 +210,12 @@ TabbedPane {
                                     enabled: true
 
                                     onClicked: {
-                                        invitefriendSheet.open()
+                                        //invitefriendSheet.open()
+                                        if (tabCards.invitefriendPage == null) {
+                                            tabCards.invitefriendPage = invitefriendDefinition.createObject();
+                                        }
+                                        corePane.push(tabCards.invitefriendPage);
+                                        tabCards.invitefriendPage.navParent = corePane;
                                     }
                                 } // ImageButton
                             }
@@ -206,7 +237,12 @@ TabbedPane {
                                     enabled: true
 
                                     onClicked: {
-                                        auctionSheet.open();
+                                        //auctionSheet.open();
+                                        if (tabCards.auctionPage == null) {
+                                            tabCards.auctionPage = auctionDefinition.createObject();
+                                        }
+                                        corePane.push(tabCards.auctionPage);
+                                        tabCards.auctionPage.navParent = corePane;
                                         auctionClass.loadAuctions();
                                     }
                                 } // ImageButton
@@ -410,65 +446,35 @@ TabbedPane {
         /*Album {
             id: album
         }*/,
-        
-        Sheet {
-            id: shopSheet
-            
-            Shop{
-                onCancel: {
-                    shopSheet.close();
-                }
-            }
+
+        ComponentDefinition {
+            id: shopDefinition
+            source: "Shop.qml"
         },
-        
-        Sheet {
-            id: auctionSheet
-            
-            Auction{
-                onCancel: {
-                    auctionSheet.close();
-                }
-            }
+
+        ComponentDefinition {
+            id: auctionDefinition
+            source: "Auction.qml"
         },
-        
-        Sheet {
-            id: creditsSheet
-            
-            Credits{
-                onCancel: {
-                    creditsSheet.close();
-                }
-            }
+
+        ComponentDefinition {
+            id: creditsDefinition
+            source: "Credits.qml"
         },
-        
-        Sheet {
-            id: friendsSheet
-            
-            Friends{
-                onCancel: {
-                    friendsSheet.close();
-                }
-            }
+
+        ComponentDefinition {
+            id: friendsDefinition
+            source: "Friends.qml"
         },
-        
-        Sheet {
-            id: invitefriendSheet
-            
-            InviteFriend{
-                onCancel: {
-                    invitefriendSheet.close();
-                }
-            }
+
+        ComponentDefinition {
+            id: invitefriendDefinition
+            source: "InviteFriend.qml"
         },
-        
-        Sheet {
-            id: notificationsSheet
-            
-            Notifications{
-                onCancel: {
-                    notificationsSheet.close();
-                }
-            }
+
+        ComponentDefinition {
+            id: notificationsDefinition
+            source: "Notifications.qml"
         },
         ComponentDefinition {
             id: redeemDefinition

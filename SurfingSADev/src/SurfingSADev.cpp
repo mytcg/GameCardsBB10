@@ -8,10 +8,12 @@
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
+#include <bb/device/DisplayInfo>
 #include <bb/cascades/DropDown>
 
 using namespace bb::cascades;
 using namespace bb::data;
+using namespace bb::device;
 
 SurfingSADev::SurfingSADev(bb::cascades::Application *app)
 : QObject(app)
@@ -74,8 +76,18 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app)
     qml->setContextProperty("auctionCreateClass", mAuctionCreate);
     qml->setContextProperty("onAuctionListClass", mOnAuctionList);
     qml->setContextProperty("auctionInfoClass", mAuctionInfo);
-    qml->setContextProperty("scoringClass", mScoring);
+	qml->setContextProperty("scoringClass", mScoring);
     qml->setContextProperty("heatScoreClass", mHeatScores);
+
+    DisplayInfo display;
+    int width = display.pixelSize().width();
+    int height = display.pixelSize().height();
+
+    QDeclarativePropertyMap* displayProperties = new QDeclarativePropertyMap;
+    displayProperties->insert("width", QVariant(width));
+    displayProperties->insert("height", QVariant(height));
+
+    qml->setContextProperty("DisplayInfo", displayProperties);
 }
 
 QString SurfingSADev::loggedIn() {
