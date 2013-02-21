@@ -51,12 +51,6 @@ Page {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
 
-            Label {
-                id: albumLabel
-                objectName: "albumViewLabel"
-                text: "0"
-                visible: false
-            }
             ListView {
                 objectName: "albumViewView"
                 horizontalAlignment: HorizontalAlignment.Fill
@@ -103,6 +97,13 @@ Page {
 
             onStopped: {
             }
+        }
+
+        Label {
+            id: albumLabel
+            objectName: "albumViewLabel"
+            text: "0"
+            visible: false
         }
     }
     attachedObjects: [

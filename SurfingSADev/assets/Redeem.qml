@@ -98,6 +98,7 @@ Page {
             onTriggered: {
                 redeemClass.redeem(redeemText.text)
             }
+            imageSource: "asset:///images/actionicons/redeem.png"
         }
     ]
 }
