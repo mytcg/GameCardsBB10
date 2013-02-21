@@ -3,6 +3,7 @@ import bb.cascades 1.0
 
 Page {
     id: auctionInfoPage
+    property NavigationPane navParent: null
     signal cancel ()
     
     property string type: "0";
@@ -23,13 +24,6 @@ Page {
     titleBar: TitleBar {
         title: "Auction Info"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                auctionInfoPage.cancel();
-            }
-        }
     }
     
     Container {

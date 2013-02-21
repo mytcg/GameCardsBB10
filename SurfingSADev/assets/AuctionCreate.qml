@@ -2,6 +2,8 @@ import bb.cascades 1.0
 
 Page {
     id: auctionCreatePage
+    property NavigationPane navParent: null
+
     signal cancel ()
     property string cardId: "0"
     

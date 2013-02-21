@@ -3,7 +3,9 @@ import bb.cascades 1.0
 
 Page {
     id: auctionListPage
-    
+    property NavigationPane navParent: null
+    property Page auctionCreatePage: null
+
     signal cancel ()
     
     property string albumid: "0";
@@ -56,9 +58,15 @@ Page {
             onTriggered: {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
-                    auctionCreate.cardId = dataModel.data (indexPath).cardid;
-                    auctionCreate.createAuctionButtonvisible = true;
-                    auctionCreateSheet.open();
+                    if (auctionListPage.auctionCreatePage == null) {
+                        auctionListPage.auctionCreatePage = auctionCreateDefinition.createObject();
+
+                        auctionListPage.auctionCreatePage.navParent = corePane;
+                    }
+                    auctionListPage.auctionCreatePage.cardId = dataModel.data (indexPath).cardid;
+                    auctionListPage.auctionCreatePage.createAuctionButtonvisible = true;
+                    navParent.push(auctionListPage.auctionCreatePage);
+                    //auctionCreateSheet.open();
                 }
             }
         }
@@ -76,17 +84,14 @@ Page {
         }    
     }
     attachedObjects: [
-        Sheet {
-            id: auctionCreateSheet
+        ComponentDefinition {
+            id: auctionCreateDefinition
+            source: "AuctionCreate.qml"
             
-            AuctionCreate{
-            id: auctionCreate
-            
-            onCancel: {
+            /*onCancel: {
                 auctionCreateSheet.close();
                 auctionListPage.loadAuctionList(albumid);
-            }
-            }
+            }*/
         }
     ]
 }

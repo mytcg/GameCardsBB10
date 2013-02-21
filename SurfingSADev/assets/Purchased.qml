@@ -3,7 +3,8 @@ import bb.cascades 1.0
 
 Page {
     id: purchasedPage
-    
+    property NavigationPane navParent: null
+    property Page cardPage: null
     property string newCards: "false"
     
     signal cancel ()
@@ -11,13 +12,6 @@ Page {
     titleBar: TitleBar {
         title: "Booster"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                purchasedPage.cancel();
-            }
-        }
     }
     
     Container {
@@ -45,8 +39,8 @@ Page {
             onTriggered: {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
-                    card.cardId = dataModel.data (indexPath).cardid;
-                    cardSheet.open();
+                    //card.cardId = dataModel.data (indexPath).cardid;
+                    //cardSheet.open();
                 }
             }
         }
@@ -64,9 +58,9 @@ Page {
         }    
     }
     attachedObjects: [
-        Sheet {
+        ComponentDefinition {
             id: cardSheet
-            
+            source: "Card.qml"
             /*Card{
             id: card
             

@@ -3,7 +3,9 @@ import bb.cascades 1.0
 
 Page {
     id: auctionCategoriesPage
-    
+    property NavigationPane navParent: null
+    property Page auctionListPage: null
+
     signal cancel ()
     
     function loadAuctionCategories(String) {
@@ -14,12 +16,12 @@ Page {
         title: "Auction Categories"
         visibility: ChromeVisibility.Visible
         
-        acceptAction: ActionItem {
+        /*acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
                 auctionCategoriesPage.cancel();
             }
-        }
+        }*/
     }
     
     Container {
@@ -61,9 +63,15 @@ Page {
                     if(dataModel.data (indexPath).hascards == "false"){
                         auctionCategoriesPage.loadAuctionCategories(dataModel.data (indexPath).albumid)
                     }else{
-                        auctionList.loadAuctionList(dataModel.data (indexPath).albumid)
-                        auctionList.albumid = dataModel.data (indexPath).albumid;
-                        auctionListSheet.open();
+                        if (auctionCategoriesPage.auctionListPage == null) {
+                            auctionCategoriesPage.auctionListPage = auctionListDefinition.createObject();
+
+                            auctionCategoriesPage.auctionListPage.navParent = corePane;
+                        }
+                        auctionCategoriesPage.auctionListPage.albumid = dataModel.data (indexPath).albumid;
+                        navParent.push(auctionCategoriesPage.auctionListPage);
+                        auctionCategoriesPage.auctionListPage.loadAuctionList(dataModel.data(indexPath).albumid)
+                        //auctionListSheet.open();
                     }
                 }
             }
@@ -84,17 +92,13 @@ Page {
     }
     
     attachedObjects: [
-        Sheet {
-            id: auctionListSheet
-            
-            AuctionList{
-            id: auctionList
-            
-            onCancel: {
+        ComponentDefinition {
+            id: auctionListDefinition
+            source: "AuctionList.qml"
+            /*onCancel: {
             auctionListSheet.close();
             auctionCategoriesPage.loadAuctionCategories("0");
-            }
-            }
+            }*/
         }
     ]
 }
