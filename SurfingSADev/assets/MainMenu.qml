@@ -271,6 +271,7 @@ TabbedPane {
                                         onClicked: {
                                             if (tabCards.redeemPage == null) {
                                                 tabCards.redeemPage = redeemDefinition.createObject();
+                                                tabCards.redeemPage.navParent = corePane;
                                             }
                                             corePane.push(tabCards.redeemPage);
                                         }

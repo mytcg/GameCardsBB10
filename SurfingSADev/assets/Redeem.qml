@@ -1,8 +1,9 @@
 import bb.cascades 1.0
 
 Page {
+    property NavigationPane navParent: null
     id: redeemPage
-    
+
     Container {
 
         attachedObjects: [
@@ -101,4 +102,11 @@ Page {
             imageSource: "asset:///images/actionicons/redeem.png"
         }
     ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navParent.pop();
+            }
+        }
+    }
 }

@@ -14,11 +14,6 @@ Page {
         albumViewClass.loadAlbum(String);
     }
 
-    titleBar: TitleBar {
-        title: "Album"
-        visibility: ChromeVisibility.Visible
-    }
-
     Container {
         layout: DockLayout {
         }
@@ -44,12 +39,33 @@ Page {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
-            topPadding: 10
-            leftPadding: 10
-            rightPadding: 10
-            bottomPadding: 10
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
+
+            Container {
+                layout: DockLayout {
+                }
+
+                ImageView {
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Fill
+                    imageSource: "asset:///images/header/header.png"
+                }
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    leftPadding: 20
+                    topPadding: 20
+                    Label {
+                        text: "ALBUM"
+                        textStyle.color: Color.LightGray
+                        verticalAlignment: VerticalAlignment.Center
+                        textStyle.fontSize: FontSize.Small
+                    }
+                }
+            }
 
             ListView {
                 objectName: "albumViewView"
