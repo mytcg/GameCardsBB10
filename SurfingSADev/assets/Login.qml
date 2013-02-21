@@ -3,16 +3,15 @@ import bb.cascades 1.0
 import bb.system 1.0
 
 // creates one page with a label
-Page {
-    id: loginQml
-    
-    signal cancel ()
-    
-    property string state: "login"
-    
+Container {
+    id: mainContainer
+    topPadding: 20
+    leftPadding: 20
+    rightPadding: 20
+
     function cancelLoginScreen() {
         if (loggedLabel.text == "1") {
-            loginQml.cancel()
+            mainContainer.visible = false 
         }
         else if (loggedLabel.text == "2") {
             dialogLabel.text = loggedResponseLabel.text
@@ -22,7 +21,7 @@ Page {
     
     function cancelRegScreen() {
         if (registeredLabel.text == "1") {
-            loginQml.cancel()
+            mainContainer.visible = false
         }
         else if (registeredLabel.text == "2") {
             dialogLabel.text = registeredResponseLabel.text
@@ -31,17 +30,11 @@ Page {
     }
     
     function showLogin() {
-        addBar.title = "Login Details"
-        actionItem.title = "Log In"
-        state = "login"
         loginContainer.visible = true
         registerContainer.visible = false
     }
     
     function showRegister() {
-        addBar.title = "Registration"
-        actionItem.title = "Register"
-        state = "register"
         loginContainer.visible = false
         registerContainer.visible = true
     }
@@ -92,33 +85,45 @@ Page {
        }
    ]
     
-    titleBar: TitleBar {
-        id: addBar
-        title: "Login Details"
-        visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            id: actionItem
-            title: "Log In"
-            onTriggered: {
-                if (state == "login") {
-                    loginClass.attemptLogin(usernameText.text, passwordText.text);
+    Container {
+        leftPadding: 20
+        rightPadding: 20
+        topPadding: 10
+        bottomPadding: 20
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
+        }
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: radioBack
+                imageSource: "asset:///images/backgrounds/big_label.png"
+                repeatPattern: RepeatPattern.XY
+            }
+        ]
+        background: radioBack.imagePaint
+        //background: Color.create("#ededed");
+        RadioGroup {
+            id: loginRadioGroup
+
+            Option {
+                text: "Login"
+                selected: true
+            }
+
+            Option {
+                text: "Register"
+            }
+
+            onSelectedIndexChanged: {
+                if (loginRadioGroup.selectedIndex == 0) {
+                    showLogin()
                 }
-                else if (state == "register") {
-                    registerClass.attemptRegistration(regUsernameText.text, regPasswordText.text, emailText.text, referrerText.text);
+                else if (loginRadioGroup.selectedIndex ==  1) {
+                    showRegister()
                 }
             }
         }
-    }
-    
-    
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
-        }
-        
-        background: Color.create("#ededed");
-        
+            
         Container {
             id: loginContainer
             
@@ -133,9 +138,6 @@ Page {
                 
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                leftPadding: 20
-                rightPadding: 20
-                topPadding: 10
                 
                 Label {
                     text: "Username:"
@@ -175,23 +177,12 @@ Page {
                     visible: false
                 }
 
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
-                    topPadding: 20
+                Button {
+                	horizontalAlignment: HorizontalAlignment.Right
+                    text: "Log In"
 
-                    Label {
-                        text: "Not a member?"
-                        verticalAlignment: VerticalAlignment.Center
-                    }
-
-                    Button {
-                        text: "Register!"
-
-                        onClicked: {
-                            showRegister()
-                        }
+                    onClicked: {
+                        loginClass.attemptLogin(usernameText.text, passwordText.text);
                     }
                 }
             }
@@ -217,85 +208,79 @@ Page {
 
             }
 
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
-
+            ScrollView {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                leftPadding: 20
-                rightPadding: 20
-                topPadding: 10
-
-                Label {
-                    text: "Username:"
-                    textStyle.fontSizeValue: 0.0
+                // Scrolling is restricted to vertical direction only, in this particular case.
+                scrollViewProperties {
+                    scrollMode: ScrollMode.Vertical
                 }
-                TextField {
-                    id: regUsernameText
-
-                    hintText: "Enter username"
-                }
-                Label {
-                    text: "Password:"
-                }
-                TextField {
-                    id: regPasswordText
-
-                    hintText: "Enter password"
-                    inputMode: TextFieldInputMode.Password
-                }
-                Label {
-                    text: "Email:"
-                }
-                TextField {
-                    id: emailText
-
-                    hintText: "Enter email"
-                    inputMode: TextFieldInputMode.EmailAddress
-                }
-                Label {
-                    text: "Referrer:"
-                }
-                TextField {
-                    id: referrerText
-
-                    hintText: "Enter referrer (optional)"
-                }
-
                 Container {
                     layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
+                        orientation: LayoutOrientation.TopToBottom
                     }
-                    topPadding: 20
+
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Fill
 
                     Label {
-                        text: "Already a member?"
-                        verticalAlignment: VerticalAlignment.Center
+                        text: "Username:"
+                        textStyle.fontSizeValue: 0.0
+                    }
+                    TextField {
+                        id: regUsernameText
+
+                        hintText: "Enter username"
+                    }
+                    Label {
+                        text: "Password:"
+                    }
+                    TextField {
+                        id: regPasswordText
+
+                        hintText: "Enter password"
+                        inputMode: TextFieldInputMode.Password
+                    }
+                    Label {
+                        text: "Email:"
+                    }
+                    TextField {
+                        id: emailText
+
+                        hintText: "Enter email"
+                        inputMode: TextFieldInputMode.EmailAddress
+                    }
+                    Label {
+                        text: "Referrer:"
+                    }
+                    TextField {
+                        id: referrerText
+
+                        hintText: "Enter referrer (optional)"
                     }
 
                     Button {
-                        text: "Log in!"
+                        horizontalAlignment: HorizontalAlignment.Right
+                        text: "Register"
 
                         onClicked: {
-                            showLogin()
+                            registerClass.attemptRegistration(regUsernameText.text, regPasswordText.text, emailText.text, referrerText.text);
                         }
                     }
-                }
 
-                //0 for nothing, 1 for success, 2 for error
-                Label {
-                    id: registeredLabel
-                    objectName: "registeredLabel"
-                    text: "0"
-                    visible: false
-                }
-                Label {
-                    id: registeredResponseLabel
-                    objectName: "registeredResponseLabel"
-                    text: ""
-                    visible: false
+                    //0 for nothing, 1 for success, 2 for error
+                    Label {
+                        id: registeredLabel
+                        objectName: "registeredLabel"
+                        text: "0"
+                        visible: false
+                    }
+                    Label {
+                        id: registeredResponseLabel
+                        objectName: "registeredResponseLabel"
+                        text: ""
+                        visible: false
+                    }
                 }
             }
 

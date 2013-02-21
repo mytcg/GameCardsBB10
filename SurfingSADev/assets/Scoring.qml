@@ -46,13 +46,23 @@ Page {
 	        
 	    }
 	    
-        ImageView {
+        /*ImageView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             imageSource: "asset:///images/backgrounds/bg.jpg"
-        }
+        }*/
 
-	    horizontalAlignment: HorizontalAlignment.Fill
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
+        horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
         Container {
             layout: StackLayout {
