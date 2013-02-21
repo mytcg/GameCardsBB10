@@ -3,7 +3,9 @@ import bb.cascades 1.0
 
 Page {
     id: onAuctionListPage
-    
+    property NavigationPane navParent: null
+    property Page auctionInfoPage: null
+
     signal cancel ()
     
     property string type: "0"
@@ -12,13 +14,6 @@ Page {
     titleBar: TitleBar {
         title: "On Auction"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                onAuctionListPage.cancel();
-            }
-        }
     }
     
     Container {
@@ -77,28 +72,33 @@ Page {
 	            ]
 	            onTriggered: {
 	                clearSelection();
-	                auctionInfo.type = type;
-	                auctionInfo.auctionid = dataModel.data (indexPath).auctioncardid;
-	                auctionInfo.usercardid = dataModel.data (indexPath).usercardid;
-	                auctionInfo.buynowprice = dataModel.data (indexPath).buynowprice;
-	                auctionInfo.username = dataModel.data (indexPath).username;
-	                auctionInfo.price = dataModel.data (indexPath).price;
-	                auctionInfo.openingbid = dataModel.data (indexPath).openingbid;
-	                auctionInfo.auctionCardLabeltext = dataModel.data (indexPath).description;
+                    if (onAuctionListPage.auctionInfoPage == null) {
+                        onAuctionListPage.auctionInfoPage = auctionInfoDefinition.createObject();
+
+                        onAuctionListPage.auctionInfoPage.navParent = corePane;
+                    }
+                    onAuctionListPage.auctionInfoPage.type = type;
+                    onAuctionListPage.auctionInfoPage.auctionid = dataModel.data (indexPath).auctioncardid;
+                    onAuctionListPage.auctionInfoPage.usercardid = dataModel.data (indexPath).usercardid;
+                    onAuctionListPage.auctionInfoPage.buynowprice = dataModel.data (indexPath).buynowprice;
+                    onAuctionListPage.auctionInfoPage.username = dataModel.data (indexPath).username;
+                    onAuctionListPage.auctionInfoPage.price = dataModel.data (indexPath).price;
+                    onAuctionListPage.auctionInfoPage.openingbid = dataModel.data (indexPath).openingbid;
+                    onAuctionListPage.auctionInfoPage.auctionCardLabeltext = dataModel.data (indexPath).description;
 	                if(dataModel.data (indexPath).lastBidUser==""){
-	                    auctionInfo.auctionBidLabeltext = "Opening Bid: "+dataModel.data (indexPath).openingbid;
+                        onAuctionListPage.auctionInfoPage.auctionBidLabeltext = "Opening Bid: "+dataModel.data (indexPath).openingbid;
 	                }else{
-	                    auctionInfo.auctionBidLabeltext = "Current Bid: "+dataModel.data (indexPath).price;
+                        onAuctionListPage.auctionInfoPage.auctionBidLabeltext = "Current Bid: "+dataModel.data (indexPath).price;
 	                }
-	                auctionInfo.auctionBuyNowLabeltext = "Buy Out: "+dataModel.data (indexPath).buynowprice;
-	                auctionInfo.sellerLabeltext = "Seller: "+dataModel.data (indexPath).username;
-	                auctionInfo.auctionBidDurationLabeltext = "End Date: "+dataModel.data (indexPath).endDate;
+                    onAuctionListPage.auctionInfoPage.auctionBuyNowLabeltext = "Buy Out: "+dataModel.data (indexPath).buynowprice;
+                    onAuctionListPage.auctionInfoPage.sellerLabeltext = "Seller: "+dataModel.data (indexPath).username;
+                    onAuctionListPage.auctionInfoPage.auctionBidDurationLabeltext = "End Date: "+dataModel.data (indexPath).endDate;
 	                
 	                if (creditsLabel.text != "") {
 	                    auctionInfo.auctionUserCreditsLabeltext = "Credits: " + creditsLabel.text + "      Premium: " + premiumLabel.text;
 	                }
-	                
-	                auctionInfoSheet.open();
+                    navParent.push(onAuctionListPage.auctionInfoPage);
+                    //auctionInfoSheet.open();
 	            }
 	        }
 	    }
@@ -116,17 +116,13 @@ Page {
         }
     }
     attachedObjects: [
-        Sheet {
-            id: auctionInfoSheet
-            
-            AuctionInfo{
-	            id: auctionInfo
-	            
-	            onCancel: {
-	                auctionInfoSheet.close();
-	                onAuctionListClass.loadOnAuctionList(albumid,type);
-	            }
-            }
+        ComponentDefinition {
+            id: auctionInfoDefinition
+            source: "AuctionInfo.qml"
+	        /*onCancel: {
+	            auctionInfoSheet.close();
+	            onAuctionListClass.loadOnAuctionList(albumid,type);
+	        }*/
         }
     ]
 }

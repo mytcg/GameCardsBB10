@@ -3,19 +3,12 @@ import bb.cascades 1.0
 
 Page {
     id: boosterPage
-    
+    property NavigationPane navParent: null
     signal cancel ()
     
     titleBar: TitleBar {
         title: "Possible Cards"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                boosterPage.cancel();
-            }
-        }
     }
     
     Container {

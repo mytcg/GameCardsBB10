@@ -3,6 +3,8 @@ import bb.cascades 1.0
 Page {
     id: auctionPage
     property NavigationPane navParent: null
+    property Page auctionCategoriesPage: null
+    property Page onAuctionListPage: null
     signal cancel ()
     
     titleBar: TitleBar {
@@ -35,8 +37,14 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
                 text: "Create new Auction"   
                 onClicked: {
-                    auctionCategories.loadAuctionCategories("0");
-                    auctionCategoriesSheet.open();
+                    if (auctionPage.auctionCategoriesPage == null) {
+                        auctionPage.auctionCategoriesPage = auctionCategoriesDefinition.createObject();
+
+                        auctionPage.auctionCategoriesPage.navParent = corePane;
+                    }
+                    navParent.push(auctionPage.auctionCategoriesPage);
+                    auctionPage.auctionCategoriesPage.loadAuctionCategories("0");
+                    //auctionCategoriesSheet.open();
                 }
             }
             ListView {
@@ -58,16 +66,24 @@ Page {
                 ]
                 onTriggered: {
                     clearSelection();
+                    if (auctionPage.onAuctionListPage == null) {
+                        auctionPage.onAuctionListPage = onAuctionListDefinition.createObject();
+
+                        auctionPage.onAuctionListPage.navParent = corePane;
+                    }
+                    
                     if(dataModel.data (indexPath).albumid=="-2"){
-                        onAuctionList.type = "1";
-                        onAuctionList.albumid = dataModel.data (indexPath).albumid;
+                        auctionPage.onAuctionListPage.type = "1";
+                        auctionPage.onAuctionListPage.albumid = dataModel.data (indexPath).albumid;
+                        navParent.push(auctionPage.onAuctionListPage);
                         onAuctionListClass.loadOnAuctionList(dataModel.data (indexPath).albumid,"1");
                     }else {
-                        onAuctionList.type = "0";
-                        onAuctionList.albumid = dataModel.data (indexPath).albumid;
+                        auctionPage.onAuctionListPage.type = "0";
+                        auctionPage.onAuctionListPage.albumid = dataModel.data (indexPath).albumid;
+                        navParent.push(auctionPage.onAuctionListPage);
                         onAuctionListClass.loadOnAuctionList(dataModel.data (indexPath).albumid,"0");
                     }
-                    onAuctionListSheet.open();
+                    //onAuctionListSheet.open();
                 }
             }
         }
@@ -87,28 +103,21 @@ Page {
     }
     
     attachedObjects: [
-        Sheet {
-            id: auctionCategoriesSheet
-            
-            AuctionCategories{
-                id: auctionCategories
-                
-                onCancel: {
-                    auctionCategoriesSheet.close();
-                    auctionClass.loadAuctions();
-                }
-            }
-        },Sheet {
-            id: onAuctionListSheet
-            
-            OnAuctionList{
-                id: onAuctionList
-                
-                onCancel: {
-                    onAuctionListSheet.close();
-                    auctionClass.loadAuctions();
-                }
-            }
+        ComponentDefinition {
+            id: auctionCategoriesDefinition
+            source: "AuctionCategories.qml"
+            /*onCancel: {
+                auctionCategoriesSheet.close();
+                auctionClass.loadAuctions();
+            }*/
+        },
+        ComponentDefinition {
+            id: onAuctionListDefinition
+            source: "OnAuctionList.qml"
+            /*onCancel: {
+                onAuctionListSheet.close();
+                auctionClass.loadAuctions();
+            }*/
         }
     ]
 }

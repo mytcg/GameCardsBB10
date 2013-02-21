@@ -3,6 +3,7 @@ import bb.cascades 1.0
 Page {
     id: shopPage
     property NavigationPane navParent: null
+    property Page purchasePage: null
     signal cancel ()
     
     titleBar: TitleBar {
@@ -68,15 +69,22 @@ Page {
                     console.log("onTriggered");
                     console.log("indexPath " + indexPath);
                     console.log("selectedItem.productname " + selectedItem.productname);
-                    purchase.productId = selectedItem.productid;
-                    purchase.purchaseType = (selectedItem.productpremium=="0"?"3":"2");
-                    
-                    purchase.productNameLabeltext = selectedItem.productname;
-                    purchase.productCostLabeltext = "Price: " + selectedItem.productprice;
-                    purchase.productNumCardsLabeltext = "Number of cards: " + selectedItem.productnumcards;
-                    purchase.productTypeLabeltext = "Product type: " + selectedItem.producttype;
-                    purchase.productUserCreditsLabeltext = "Credits: " + creditsLabel.text + "      Premium: " + premiumLabel.text;
-                    purchaseSheet.open();
+                    if (shopPage.purchasePage == null) {
+                        shopPage.purchasePage = purchaseDefinition.createObject();
+
+                        shopPage.purchasePage.navParent = corePane;
+                    }
+
+                    shopPage.purchasePage.productId = selectedItem.productid;
+                    shopPage.purchasePage.purchaseType = (selectedItem.productpremium=="0"?"3":"2");
+
+                    shopPage.purchasePage.productNameLabeltext = selectedItem.productname;
+                    shopPage.purchasePage.productCostLabeltext = "Price: " + selectedItem.productprice;
+                    shopPage.purchasePage.productNumCardsLabeltext = "Number of cards: " + selectedItem.productnumcards;
+                    shopPage.purchasePage.productTypeLabeltext = "Product type: " + selectedItem.producttype;
+                    shopPage.purchasePage.productUserCreditsLabeltext = "Credits: " + creditsLabel.text + "      Premium: " + premiumLabel.text;
+                    navParent.push(shopPage.purchasePage);
+                    //purchaseSheet.open();
                 }
                 
                 layoutProperties: StackLayoutProperties {
@@ -85,16 +93,9 @@ Page {
             }
         }
         attachedObjects: [
-            Sheet {
-                id: purchaseSheet
-                
-                Purchase{
-                    id: purchase
-                    
-                    onCancel: {
-                        purchaseSheet.close();
-                    }
-                }
+            ComponentDefinition {
+                id: purchaseDefinition
+                source: "Purchase.qml"
             }
         ]
     }

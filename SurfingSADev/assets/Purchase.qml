@@ -3,6 +3,9 @@ import bb.cascades 1.0
 
 Page {
     id: purchasePage
+    property NavigationPane navParent: null
+    property Page purchasedPage: null
+    property Page boosterPage: null
     signal cancel ()
     
     property string productId: "0";
@@ -18,13 +21,6 @@ Page {
     titleBar: TitleBar {
         title: "Shop"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                purchasePage.cancel();
-            }
-        }
     }
     
     Container {
@@ -69,7 +65,13 @@ Page {
                 verticalAlignment: VerticalAlignment.Bottom
                 text: "Purchase"  
                 onClicked: {
-                    purchasedSheet.open();
+                    if (purchasePage.purchasedPage == null) {
+                        purchasePage.purchasedPage = purchasedDefinition.createObject();
+
+                        purchasePage.purchasedPage.navParent = corePane;
+                    }
+                    navParent.push(purchasePage.purchasedPage);
+                    //purchasedSheet.open();
                     purchaseClass.purchase(productId,purchaseType);
                 }
             }
@@ -78,33 +80,26 @@ Page {
                 verticalAlignment: VerticalAlignment.Bottom
                 text: "Cards"
                 onClicked: {
-                    boosterSheet.open();
+                    if (purchasePage.boosterPage == null) {
+                        purchasePage.boosterPage = boosterDefinition.createObject();
+
+                        purchasePage.boosterPage.navParent = corePane;
+                    }
+                    navParent.push(purchasePage.boosterPage);
+                    //boosterSheet.open();
                     boosterClass.booster(productId);
                 } 
             }
         }
     }
     attachedObjects: [
-        Sheet {
-            id: purchasedSheet
-            
-            Purchased{
-                id: purchasedView
-                
-                onCancel: {
-                    purchasedSheet.close();
-                }
-            }
-        },Sheet {
-            id: boosterSheet
-            
-            Booster{
-                id: booster
-                
-                onCancel: {
-                    boosterSheet.close();
-                }
-            }
+        ComponentDefinition {
+            id: purchasedDefinition
+            source: "Purchased.qml"
+        },
+        ComponentDefinition {
+            id: boosterDefinition
+            source: "Booster.qml"
         }
     ]
 }
