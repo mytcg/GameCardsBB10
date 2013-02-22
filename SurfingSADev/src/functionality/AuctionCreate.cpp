@@ -74,8 +74,8 @@ void AuctionCreate::requestFinished(QNetworkReply* reply)
 		QString result = QString(reply->readAll());
 		if(result.mid(result.indexOf("<success>")+9,result.indexOf("</success>")-(result.indexOf("<success>")+9)).compare("1")==0){
 			mAuctionCreate->setText("Auction successfully created!");
-			Button * createAuction = root->findChild<Button*>("createAuction");
-			createAuction->setVisible(false);
+			//Button * createAuction = root->findChild<Button*>("createAuction");
+			//createAuction->setVisible(false);
 		}else{
 			mAuctionCreate->setText("Error creating auction.");
 		}

@@ -94,7 +94,7 @@ Page {
                 layout: StackLayout {
                 }
                 verticalAlignment: VerticalAlignment.Top
-                Button {
+                /*Button {
                     objectName: "bidAuctionButton"
                     horizontalAlignment: HorizontalAlignment.Left
                     //verticalAlignment: VerticalAlignment.Bottom
@@ -113,7 +113,7 @@ Page {
                     onClicked: {
                         auctionInfoClass.buyNow(auctionid, username, buynowprice, usercardid);
                     }
-                }
+                }*/
             }
         }
         
@@ -124,6 +124,31 @@ Page {
             preferredWidth: 100
             preferredHeight: 100
             onStopped: {
+            }
+        }
+    }
+    actions: [
+        ActionItem {
+            title: "Bid"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                auctionInfoClass.placeBid(auctionid, username, placeBidText.text, price, openingbid);
+            }
+            imageSource: "asset:///images/actionicons/bid.png"
+        },
+        ActionItem {
+            title: "Buy"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                auctionInfoClass.buyNow(auctionid, username, buynowprice, usercardid);
+            }
+            imageSource: "asset:///images/actionicons/buy auction.png"
+        }
+    ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navParent.pop();
             }
         }
     }

@@ -70,12 +70,12 @@ Page {
                 text: "0"
                 visible: false
             }
-            Button {
+            /*Button {
                 id: invite
                 text: "Invite"
                 onClicked: invitefriendClass.inviteFriend(usernameText.text,emailText.text,numberText.text)
                 horizontalAlignment: HorizontalAlignment.Center
-            }
+            }*/
         }
         
         // The activity indicator has an object name set so that
@@ -89,6 +89,23 @@ Page {
             
             onStopped: {
                 //cancelScreen()
+            }
+        }
+    }
+    actions: [
+        ActionItem {
+            title: "Invite Friend"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                invitefriendClass.inviteFriend(usernameText.text, emailText.text, numberText.text)
+            }
+            imageSource: "asset:///images/actionicons/invite.png"
+        }
+    ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navParent.pop();
             }
         }
     }
