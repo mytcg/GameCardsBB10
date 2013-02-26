@@ -23,11 +23,6 @@ Page {
                 id: backgroundPaint
                 imageSource: "asset:///images/backgrounds/bg.jpg"
                 repeatPattern: RepeatPattern.Fill
-            },
-            ImagePaintDefinition {
-                id: listBackgroundPaint
-                imageSource: "asset:///images/customcomponents/list_background.png"
-                repeatPattern: RepeatPattern.Fill
             }
         ]
 
@@ -84,12 +79,16 @@ Page {
                         	preferredHeight: 100
                         	preferredWidth: 768
                             id: itemRoot
-                            layout: DockLayout { 
+                            layout: DockLayout {
                             }
                             //touchPropagationMode: TouchPropagationMode.Full
-                            background: listBackgroundPaint.imagePaint
                             horizontalAlignment: HorizontalAlignment.Fill
 
+                            ImageView {
+                                imageSource: "asset:///images/customcomponents/list_background.png"
+                                verticalAlignment: VerticalAlignment.Fill
+                                horizontalAlignment: HorizontalAlignment.Fill
+                            }
                             Container {
                                 opacity: itemRoot.ListItem.active ? 0.9 : 0.0
                                 background: Color.create("#75b5d3")
