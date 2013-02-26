@@ -33,7 +33,7 @@ Page {
                 text: "0"
                 visible: false
             }
-            Button{
+            /*Button{
                 horizontalAlignment: HorizontalAlignment.Center
                 text: "Create new Auction"   
                 onClicked: {
@@ -46,7 +46,7 @@ Page {
                     auctionPage.auctionCategoriesPage.loadAuctionCategories("0");
                     //auctionCategoriesSheet.open();
                 }
-            }
+            }*/
             ListView {
                 objectName: "auctionView"
                 verticalAlignment: VerticalAlignment.Fill
@@ -120,4 +120,27 @@ Page {
             }*/
         }
     ]
+    actions: [
+        ActionItem {
+            title: "Create new Auction"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                if (auctionPage.auctionCategoriesPage == null) {
+                    auctionPage.auctionCategoriesPage = auctionCategoriesDefinition.createObject();
+
+                    auctionPage.auctionCategoriesPage.navParent = corePane;
+                }
+                navParent.push(auctionPage.auctionCategoriesPage);
+                auctionPage.auctionCategoriesPage.loadAuctionCategories("0");
+            }
+            imageSource: "asset:///images/actionicons/create new auction.png"
+        }
+    ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navParent.pop();
+            }
+        }
+    }
 }

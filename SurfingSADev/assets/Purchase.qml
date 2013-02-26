@@ -60,7 +60,7 @@ Page {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
             
-            Button{
+            /*Button{
                 horizontalAlignment: HorizontalAlignment.Left
                 verticalAlignment: VerticalAlignment.Bottom
                 text: "Purchase"  
@@ -89,7 +89,7 @@ Page {
                     //boosterSheet.open();
                     boosterClass.booster(productId);
                 } 
-            }
+            }*/
         }
     }
     attachedObjects: [
@@ -102,4 +102,43 @@ Page {
             source: "Booster.qml"
         }
     ]
+    actions: [
+        ActionItem {
+            title: "Purchase"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                if (purchasePage.purchasedPage == null) {
+                    purchasePage.purchasedPage = purchasedDefinition.createObject();
+
+                    purchasePage.purchasedPage.navParent = corePane;
+                }
+                navParent.push(purchasePage.purchasedPage);
+                //purchasedSheet.open();
+                purchaseClass.purchase(productId, purchaseType)
+            }
+            imageSource: "asset:///images/actionicons/purchase.png"
+        },
+        ActionItem {
+            title: "Booster"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                if (purchasePage.boosterPage == null) {
+                    purchasePage.boosterPage = boosterDefinition.createObject();
+
+                    purchasePage.boosterPage.navParent = corePane;
+                }
+                navParent.push(purchasePage.boosterPage);
+                //boosterSheet.open();
+                boosterClass.booster(productId);
+            }
+            imageSource: "asset:///images/actionicons/cards.png"
+        }
+    ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navParent.pop();
+            }
+        }
+    }
 }

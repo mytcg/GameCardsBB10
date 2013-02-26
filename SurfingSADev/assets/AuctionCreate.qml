@@ -76,15 +76,15 @@ Page {
                 text: ""
                 inputMode: TextFieldInputMode.NumbersAndPunctuation
             }
-            Button {
+            /*Button {
                 objectName: "createAuction"
                 id: createAuction
                 text: "Auction"
                 horizontalAlignment: HorizontalAlignment.Center
                 onClicked: {
-                    auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
+                	 auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
                 }
-            }
+            }*/
         }
         
         ActivityIndicator {
@@ -97,6 +97,23 @@ Page {
             preferredHeight: 100
             onStopped: {
                 //cancelScreen()
+            }
+        }
+    }
+    actions: [
+        ActionItem {
+            title: "Auction"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
+            }
+            imageSource: "asset:///images/actionicons/auction.png"
+        }
+    ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navParent.pop();
             }
         }
     }
