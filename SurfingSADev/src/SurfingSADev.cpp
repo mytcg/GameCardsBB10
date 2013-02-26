@@ -304,8 +304,7 @@ void SurfingSADev::dialogFinished(bb::system::SystemUiResult::Type value) {
 	Application::exit(-1);
 }
 
-void SurfingSADev::sendInvite()
-{
+void SurfingSADev::sendInvite() {
     if (!m_messageService) {
         // Instantiate the MessageService.
         m_messageService = new bb::platform::bbm::MessageService(&m_context, this);
