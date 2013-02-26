@@ -16,5 +16,6 @@ Home {
 
     onCreationCompleted: {
         checkLoggedIn()
+        app.registerApplication()
     }
 }
