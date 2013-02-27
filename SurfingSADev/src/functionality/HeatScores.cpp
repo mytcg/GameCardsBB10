@@ -82,8 +82,6 @@ void HeatScores::requestFinished(QNetworkReply* reply)
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
 
-    	(root->findChild<Label*>("heatParticipantsLabel"))->setVisible(true);
-
     	QString result(reply->readAll());
 
     	qDebug() << "\n Scoring result: " << result;
@@ -95,22 +93,6 @@ void HeatScores::requestFinished(QNetworkReply* reply)
 		QVariant scoreData = xda.loadFromBuffer(result);
 
 		QVariantMap scoreMap = scoreData.value<QVariantMap>();
-
-		int waves = scoreMap["wave_count"].value<int>();
-
-		(root->findChild<Container*>("heatWaveList"))->removeAll();
-		for (int j = 1; j <= waves; j++) {
-			QString waveString("Wave ");
-
-			QTextStream waveStream(&waveString);
-			waveStream << j;
-
-			Label *waveLavel = Label::create(waveStream.readAll());
-			waveLavel->textStyle()->setFontSize(FontSize::XSmall);
-			waveLavel->textStyle()->setColor(Color::DarkGray);
-
-			(root->findChild<Container*>("heatWaveList"))->add(waveLavel);
-		}
 
 		QVariantMap scoresMap = scoreMap["scores"].value<QVariantMap>();
 		QVariantList scoreList = scoresMap["score"].value<QVariantList>();

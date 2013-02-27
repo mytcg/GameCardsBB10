@@ -283,6 +283,9 @@ TabbedPane {
                 }
             }
         }
+        onTriggered: {
+            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+        }
     }
     
     Tab {
@@ -455,7 +458,8 @@ TabbedPane {
         }
         
         onTriggered: {
-        	if (!scoreContainer.loaded) {
+            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+            if (!scoreContainer.loaded) {
                 scoreContainer.loadEvents()
             }
         }

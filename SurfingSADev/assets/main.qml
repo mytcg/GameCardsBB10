@@ -15,6 +15,7 @@ Home {
     }
 
     onCreationCompleted: {
+        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
         checkLoggedIn()
         app.registerApplication()
     }

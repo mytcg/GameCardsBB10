@@ -6,6 +6,7 @@
 #include <bb/cascades/TextStyle>
 #include <bb/cascades/Color>
 #include <bb/cascades/StackLayout>
+#include <bb/cascades/DockLayout>
 #include <bb/cascades/StackLayoutProperties>
 #include <bb/cascades/ImagePaint>
 
@@ -16,19 +17,27 @@ using namespace bb::cascades;
 ScoreItem::ScoreItem(Container *parent) :
         CustomControl(parent)
 {
+	Container *outerContainer = new Container();
+	DockLayout *outerItemLayout = new DockLayout();
+	outerContainer->setLayout(outerItemLayout);
+	outerContainer->setRightPadding(5);
+	outerContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
+	outerContainer->setVerticalAlignment(VerticalAlignment::Center);
+
     // Dock layout with margins inside
 	Container *itemContainer = new Container();
     StackLayout *itemLayout = new StackLayout();
     itemLayout->setOrientation(LayoutOrientation::TopToBottom);
-    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/customcomponents/title_gui_buffet_empty_box.amd"), RepeatPattern::XY));
+    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/scoring/big label.png"), RepeatPattern::Fill));
     itemContainer->setLayout(itemLayout);
-    itemContainer->setTopPadding(20);
-    itemContainer->setLeftPadding(20);
-    itemContainer->setRightPadding(20);
-    itemContainer->setBottomPadding(20);
+    itemContainer->setTopPadding(10);
+    itemContainer->setLeftPadding(10);
+    itemContainer->setRightPadding(10);
+    itemContainer->setBottomPadding(10);
+    itemContainer->setRightMargin(10);
     itemContainer->setPreferredWidth(200);
 
-    mHeader = Label::create("Name!!!");
+    mHeader = Label::create("");
     mHeader->textStyle()->setFontSize(FontSize::XSmall);
     mHeader->textStyle()->setTextAlign(TextAlign::Center);
     mHeader->textStyle()->setColor(Color::Black);
@@ -39,13 +48,15 @@ ScoreItem::ScoreItem(Container *parent) :
     StackLayout *subItemLayout = new StackLayout();
     subItemLayout->setOrientation(LayoutOrientation::TopToBottom);
     mScoresContainer->setLayout(subItemLayout);
-    mScoresContainer->setHorizontalAlignment(HorizontalAlignment::Center);
+    mScoresContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
 
     // Add the components to the full item container.
     itemContainer->add(mHeader);
     itemContainer->add(mScoresContainer);
 
-    setRoot(itemContainer);
+    outerContainer->add(itemContainer);
+
+    setRoot(outerContainer);
 }
 
 void ScoreItem::setHeader(const QString header) {
@@ -55,12 +66,20 @@ void ScoreItem::setHeader(const QString header) {
 void ScoreItem::setScores(QVariantList scoreList) {
 	mScoresContainer->removeAll();
 	for (int i = 0; i < scoreList.size(); i++) {
+		Container *waveContainer = new Container();
+		DockLayout *itemLayout = new DockLayout();
+		waveContainer->setBackground(ImagePaint(QUrl("asset:///images/scoring/cell.png"), RepeatPattern::Fill));
+		waveContainer->setLayout(itemLayout);
+		waveContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
+		waveContainer->setVerticalAlignment(VerticalAlignment::Center);
+
 		Label *waveLabel = Label::create(scoreList[i].toString());
 		waveLabel->textStyle()->setFontSize(FontSize::XSmall);
 		waveLabel->textStyle()->setColor(Color::Black);
 		waveLabel->setHorizontalAlignment(HorizontalAlignment::Center);
 
-		mScoresContainer->add(waveLabel);
+		waveContainer->add(waveLabel);
+		mScoresContainer->add(waveContainer);
 	}
 }
 

@@ -1,79 +1,78 @@
 import bb.cascades 1.0
+NavigationPane {
+    id: navPane
 
-Page {
-	property bool loaded: false
+    peekEnabled: false
+    property Page heatScorePage: null
+    property bool loaded: false
 
     function loadEvents() {
         loaded = true;
         scoreContainer.enabled = false;
-        
+
         eventDropDown.removeAll()
         categoryDropDown.removeAll()
         heatDropDown.removeAll()
-        
+
         if (radioGroup.selectedIndex == 0) {
             scoringClass.getCurrentEvents()
-        }
-        else if (radioGroup.selectedIndex == 1) {
+        } else if (radioGroup.selectedIndex == 1) {
             scoringClass.getArchiveEvents()
         }
     }
-    
+
     function loadCategories() {
         scoreContainer.enabled = false;
-        
+
         categoryDropDown.removeAll()
         heatDropDown.removeAll()
-        
+
         if (eventDropDown.selectedIndex >= 0) {
             scoringClass.getCategories(eventDropDown.selectedValue)
         }
     }
-    
+
     function loadHeats() {
         scoreContainer.enabled = false;
-        
+
         heatDropDown.removeAll()
-        
+
         if (categoryDropDown.selectedIndex >= 0) {
             scoringClass.getHeats(categoryDropDown.selectedValue)
         }
     }
-    
-	Container {
-	    
-	    layout: DockLayout {
-	        
-	    }
-	    
-        /*ImageView {
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-            imageSource: "asset:///images/backgrounds/bg.jpg"
-        }*/
+    Page {
 
-        attachedObjects: [
-            ImagePaintDefinition {
-                id: backgroundPaint
-                imageSource: "asset:///images/backgrounds/bg.jpg"
-                repeatPattern: RepeatPattern.Fill
-            }
-        ]
-
-        background: backgroundPaint.imagePaint
-
-        horizontalAlignment: HorizontalAlignment.Fill
-        verticalAlignment: VerticalAlignment.Fill
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.TopToBottom
-            }
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-
+		Container {
+		    
+		    layout: DockLayout {
+		        
+		    }
+		    
+	        /*ImageView {
+	            horizontalAlignment: HorizontalAlignment.Fill
+	            verticalAlignment: VerticalAlignment.Fill
+	            imageSource: "asset:///images/backgrounds/bg.jpg"
+	        }*/
+	
+	        attachedObjects: [
+	            ImagePaintDefinition {
+	                id: backgroundPaint
+	                imageSource: "asset:///images/backgrounds/bg.jpg"
+	                repeatPattern: RepeatPattern.Fill
+	            }
+	        ]
+	
+	        background: backgroundPaint.imagePaint
+	
+	        horizontalAlignment: HorizontalAlignment.Fill
+	        verticalAlignment: VerticalAlignment.Fill
+	
             Container {
                 layout: DockLayout {
                 }
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Top
 
                 ImageView {
                     horizontalAlignment: HorizontalAlignment.Fill
@@ -101,7 +100,7 @@ Page {
             }
 
             Container {
-                topPadding: 10
+                topPadding: 165
                 bottomPadding: 10
                 leftPadding: 10
                 rightPadding: 10
@@ -185,42 +184,45 @@ Page {
                     }
 
                     onClicked: {
-                        heatSheet.open()
+                        /*heatSheet.open()
                         heatScores.event = eventDropDown.selectedOption.text
                         heatScores.group = categoryDropDown.selectedOption.text
                         heatScores.heat = heatDropDown.selectedOption.text
-                        heatScores.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))
+                        heatScores.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))*/
+
+                        if (heatScorePage == null) {
+                            heatScorePage = heatScoreDefinition.createObject();
+                        }
+                        navPane.push(heatScorePage);
+                        heatScorePage.navParent = navPane;
+                        heatScorePage.event = eventDropDown.selectedOption.text
+                        heatScorePage.group = categoryDropDown.selectedOption.text
+                        heatScorePage.heat = heatDropDown.selectedOption.text
+                        heatScorePage.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))
                     }
                 }
             }
-        }
-	
-	    // The activity indicator has an object name set so that
-	    // we can start and stop it from C++
-	    ActivityIndicator {
-	        objectName: "scoringIndicator"
-	        verticalAlignment: VerticalAlignment.Center
-	        horizontalAlignment: HorizontalAlignment.Center
-	        preferredWidth: 100
-	        preferredHeight: 100
-	        
-	        onStopped: {
-	            //cancelScreen()
-	        }
-	    }
-	}
-	
-	attachedObjects: [
-        Sheet {
-            id: heatSheet
-            peekEnabled: false
-            HeatScores{
-                id: heatScores
-                
-                onCancel: {
-                    heatSheet.close();
-                }
+		
+		    // The activity indicator has an object name set so that
+		    // we can start and stop it from C++
+		    ActivityIndicator {
+		        objectName: "scoringIndicator"
+		        verticalAlignment: VerticalAlignment.Center
+		        horizontalAlignment: HorizontalAlignment.Center
+		        preferredWidth: 100
+		        preferredHeight: 100
+		        
+		        onStopped: {
+		            //cancelScreen()
+		        }
+		    }
+		}
+		
+		attachedObjects: [
+	        ComponentDefinition {
+                id:heatScoreDefinition
+                source: "HeatScores.qml"
             }
-        }
-    ]
+        ]
+	}
 }

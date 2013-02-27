@@ -1,6 +1,7 @@
 import bb.cascades 1.0
 
 Page {
+    property NavigationPane navParent: null
     property bool currentEvent : false
 
     property alias event: eventLabel.text
@@ -16,140 +17,131 @@ Page {
 
         heatScoreClass.getHeatScores(heat, current)
     }
-
-    titleBar: TitleBar {
-        title: "Scores"
-        visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                if (currentEvent) {
-                    scoresRefreshingLabel.text = ""
-                    heatScoreClass.stopRefresh()
-                }
-                heatScoresPage.cancel();
-            }
-        }
-    }
     
     Container {
         layout: DockLayout {
         }
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
         
-        background: Color.create("#ededed")
-
-        topPadding: 10
-	    bottomPadding: 10
-	    leftPadding: 10
-	    rightPadding: 10
-
         Container {
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
 
             Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
+                layout: DockLayout {
                 }
-                
-                Label {
-                    text: "Event: "
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.DarkGray
+
+                ImageView {
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Fill
+                    imageSource: "asset:///images/header/header.png"
                 }
-                
-                Label {
-                    id: eventLabel
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.DarkGray
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    leftPadding: 20
+                    topPadding: 20
+                    Label {
+                        text: "HEAT SCORE"
+                        textStyle.color: Color.LightGray
+                        verticalAlignment: VerticalAlignment.Center
+                        textStyle.fontSize: FontSize.Small
+                    }
                 }
             }
 
             Container {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+
+                topPadding: 10
+                bottomPadding: 10
+                leftPadding: 10
+                rightPadding: 10
+
                 layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
+                    orientation: LayoutOrientation.TopToBottom
                 }
 
-                Label {
-                    text: "Group: "
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.DarkGray
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+
+                    Label {
+                        text: "Event: "
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+
+                    Label {
+                        id: eventLabel
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
                 }
 
-                Label {
-                    id: groupLabel
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.DarkGray
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+
+                    Label {
+                        text: "Group: "
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+
+                    Label {
+                        id: groupLabel
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+                }
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    bottomMargin: 20
+
+                    Label {
+                        text: "Heat: "
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+
+                    Label {
+                        id: heatLabel
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+                }
+
+                ListView {
+                    id: listView
+                    objectName: "heatListView"
+                    layout: StackListLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
                 }
             }
-
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
-                }
-                bottomMargin: 20
-
-                Label {
-                    text: "Heat: "
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.DarkGray
-                }
-
-                Label {
-                    id: heatLabel
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.color: Color.DarkGray
-                }
-            }
-
-            Container {
-	            horizontalAlignment: HorizontalAlignment.Fill
-	            verticalAlignment: VerticalAlignment.Fill
-	
-	            layout: StackLayout {
-	                orientation: LayoutOrientation.LeftToRight
-	            }
-	
-	            Container {
-	                layout: StackLayout {
-	                    orientation: LayoutOrientation.TopToBottom
-	                }
-	
-	                verticalAlignment: VerticalAlignment.Fill
-	                topPadding: 20
-	
-	                Label {
-	                    objectName: "heatParticipantsLabel"
-	                    visible: false
-	                    text: "Participants\n "
-	                    textStyle.fontSize: FontSize.XSmall
-	                    textStyle.color: Color.DarkGray
-	                    multiline: true
-	                }
-	
-	                Container {
-	                    layout: StackLayout {
-	                        orientation: LayoutOrientation.TopToBottom
-	                    }
-	                    objectName: "heatWaveList"
-	                }
-	            }
-	
-	            ListView {
-			        id: listView
-		            objectName: "heatListView"
-		            layout: StackListLayout {
-		                orientation: LayoutOrientation.LeftToRight
-		            }
-		        }
-	        }
         }
-
+        
 		Container {
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
@@ -172,6 +164,18 @@ Page {
                 objectName: "scoresRefreshingLabel"
                 textStyle.fontSize: FontSize.XXSmall
                 horizontalAlignment: HorizontalAlignment.Center
+            }
+        }
+    }
+
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                if (currentEvent) {
+                    scoresRefreshingLabel.text = ""
+                    heatScoreClass.stopRefresh()
+                }
+                navParent.pop();
             }
         }
     }
