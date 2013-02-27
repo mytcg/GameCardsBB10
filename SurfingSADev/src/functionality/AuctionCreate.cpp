@@ -76,6 +76,8 @@ void AuctionCreate::requestFinished(QNetworkReply* reply)
 			mAuctionCreate->setText("Auction successfully created!");
 			//Button * createAuction = root->findChild<Button*>("createAuction");
 			//createAuction->setVisible(false);
+			ActionItem * createAuction = root->findChild<ActionItem*>("createAuction");
+			createAuction->setEnabled(false);
 		}else{
 			mAuctionCreate->setText("Error creating auction.");
 		}

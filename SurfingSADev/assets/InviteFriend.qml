@@ -105,6 +105,10 @@ Page {
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
             onTriggered: {
+                inviteFriendLabel.text = "";
+                usernameText.text = "";
+                emailText.text = "";
+                numberText.text = "";
                 navParent.pop();
             }
         }

@@ -6,7 +6,11 @@ Page {
     property Page auctionCategoriesPage: null
     property Page onAuctionListPage: null
     signal cancel ()
-    
+
+    function loadAuctions() {
+        auctionClass.loadAuctions();
+    }
+
     titleBar: TitleBar {
         title: "Auctions"
         visibility: ChromeVisibility.Visible
@@ -70,8 +74,7 @@ Page {
                         auctionPage.onAuctionListPage = onAuctionListDefinition.createObject();
 
                         auctionPage.onAuctionListPage.navParent = corePane;
-                    }
-                    
+                    }                    
                     if(dataModel.data (indexPath).albumid=="-2"){
                         auctionPage.onAuctionListPage.type = "1";
                         auctionPage.onAuctionListPage.albumid = dataModel.data (indexPath).albumid;
@@ -106,16 +109,14 @@ Page {
         ComponentDefinition {
             id: auctionCategoriesDefinition
             source: "AuctionCategories.qml"
-            /*onCancel: {
-                auctionCategoriesSheet.close();
+            /*onPop: {
                 auctionClass.loadAuctions();
             }*/
         },
         ComponentDefinition {
             id: onAuctionListDefinition
             source: "OnAuctionList.qml"
-            /*onCancel: {
-                onAuctionListSheet.close();
+            /*onPop: {
                 auctionClass.loadAuctions();
             }*/
         }
