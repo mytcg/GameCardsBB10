@@ -8,6 +8,7 @@
 #include <bb/cascades/ActivityIndicator>
 #include <bb/cascades/Label>
 #include <bb/cascades/Button>
+#include <bb/cascades/ActionItem>
 
 using namespace bb::cascades;
 

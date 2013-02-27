@@ -62,6 +62,8 @@ Page {
                         auctionListPage.auctionCreatePage = auctionCreateDefinition.createObject();
 
                         auctionListPage.auctionCreatePage.navParent = corePane;
+
+                        auctionListPage.auctionCreatePage.albumid = albumid;
                     }
                     auctionListPage.auctionCreatePage.cardId = dataModel.data (indexPath).cardid;
                     auctionListPage.auctionCreatePage.createAuctionButtonvisible = true;
@@ -94,4 +96,12 @@ Page {
             }*/
         }
     ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                auctionCategoriesPage.loadAuctionCategories("0");
+                navParent.pop();
+            }
+        }
+    }
 }

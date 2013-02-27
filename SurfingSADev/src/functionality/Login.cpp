@@ -26,6 +26,7 @@ Login::Login(AbstractPane *root): root(root)
 void Login::attemptLogin(QString username, QString password) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
+	qDebug() << "\n Attempt Login";
 	mActivityIndicator = root->findChild<ActivityIndicator*>("loginIndicator");
 	mLoggedIn = root->findChild<Label*>("loggedLabel");
 	mResponse = root->findChild<Label*>("loggedResponseLabel");
@@ -65,8 +66,8 @@ void Login::requestFinished(QNetworkReply* reply)
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
 
-    	QString result(reply->readAll());
-
+    	QString result = QString(reply->readAll());
+    	qDebug() << "\n "+result;
     	if (result.compare("<user><result>Invalid User Details</result></user>") == 0) {
     		mLoggedIn->setText("2");
 			mResponse->setText("Invalid User Details.");
@@ -89,6 +90,7 @@ void Login::requestFinished(QNetworkReply* reply)
 				QFile::resize("data/userdata.xml", result.length());
 
 				file->close();
+				qDebug() << "\n File saved";
 			}
 			else {
 				qDebug() << "\n Failed to open file";

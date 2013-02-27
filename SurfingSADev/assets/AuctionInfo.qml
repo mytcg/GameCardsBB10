@@ -12,8 +12,9 @@ Page {
     property string usercardid: "0";
     property string buynowprice: "0";
     property string price: "";
-    property string openingbid: "0";
-    
+    property string openingbid: "0"
+    property string albumid: "0"
+
     property alias auctionCardLabeltext: auctionCardLabel.text
     property alias auctionBidLabeltext: auctionBidLabel.text
     property alias auctionBuyNowLabeltext: auctionBuyNowLabel.text
@@ -130,7 +131,9 @@ Page {
     actions: [
         ActionItem {
             title: "Bid"
+            objectName: "bidAuctionButton"
             ActionBar.placement: ActionBarPlacement.OnBar
+            enabled: (type == "0" ? true : false)
             onTriggered: {
                 auctionInfoClass.placeBid(auctionid, username, placeBidText.text, price, openingbid);
             }
@@ -138,7 +141,9 @@ Page {
         },
         ActionItem {
             title: "Buy"
+            objectName: "buyAuctionButton"
             ActionBar.placement: ActionBarPlacement.OnBar
+            enabled: (type == "0" ? true : false)
             onTriggered: {
                 auctionInfoClass.buyNow(auctionid, username, buynowprice, usercardid);
             }
@@ -148,6 +153,7 @@ Page {
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
             onTriggered: {
+                onAuctionListClass.loadOnAuctionList(albumid, type);
                 navParent.pop();
             }
         }

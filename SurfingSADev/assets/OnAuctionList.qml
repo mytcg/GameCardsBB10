@@ -78,6 +78,7 @@ Page {
                         onAuctionListPage.auctionInfoPage.navParent = corePane;
                     }
                     onAuctionListPage.auctionInfoPage.type = type;
+                    onAuctionListPage.auctionInfoPage.albumid = albumid;
                     onAuctionListPage.auctionInfoPage.auctionid = dataModel.data (indexPath).auctioncardid;
                     onAuctionListPage.auctionInfoPage.usercardid = dataModel.data (indexPath).usercardid;
                     onAuctionListPage.auctionInfoPage.buynowprice = dataModel.data (indexPath).buynowprice;
@@ -125,5 +126,13 @@ Page {
 	        }*/
         }
     ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                auctionClass.loadAuctions();
+                navParent.pop();
+            }
+        }
+    }
 }
 

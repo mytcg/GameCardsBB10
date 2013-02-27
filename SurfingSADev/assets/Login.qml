@@ -48,15 +48,15 @@ Container {
         
         Dialog {
            id: errorPopup
- 
-           Container {
+            
+                Container {
                layout: DockLayout {
                    
                }
                horizontalAlignment: HorizontalAlignment.Fill
                verticalAlignment: VerticalAlignment.Fill
                
-               Container {
+                    Container {
                    topPadding: 15
                    rightPadding: 15
                    bottomPadding: 15
@@ -82,10 +82,16 @@ Container {
    	               }
                }
            }
-       }
+           
+        }
    ]
-    
-    Container {
+    ScrollView {
+
+        // Scrolling is restricted to vertical direction only, in this particular case.
+        scrollViewProperties {
+            scrollMode: ScrollMode.Vertical
+        }
+        Container {
         leftPadding: 20
         rightPadding: 20
         topPadding: 10
@@ -297,4 +303,5 @@ Container {
             }
         }
     }
+}
 }

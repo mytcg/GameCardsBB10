@@ -90,7 +90,6 @@ Page {
             }
         } 
     }
-    
     attachedObjects: [
         ComponentDefinition {
             id: auctionListDefinition
@@ -101,4 +100,12 @@ Page {
             }*/
         }
     ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                auctionClass.loadAuctions();
+                navParent.pop();
+            }
+        }
+    }
 }

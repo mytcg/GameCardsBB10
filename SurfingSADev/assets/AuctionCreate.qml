@@ -6,14 +6,15 @@ Page {
 
     signal cancel ()
     property string cardId: "0"
-    
+    property string albumid: "0"
+
     property alias createAuctionButtonvisible: createAuction.visible
     
     titleBar: TitleBar {
         title: "Create Auction"
         visibility: ChromeVisibility.Visible
         
-        acceptAction: ActionItem {
+        /*acceptAction: ActionItem {
             title: "Back"
             onTriggered: {
                 auctionCreateLabel.text = "";
@@ -22,7 +23,7 @@ Page {
                 durationText.text = "";
                 auctionCreatePage.cancel();
             }
-        }
+        }*/
     }
     
     Container {
@@ -103,6 +104,7 @@ Page {
     actions: [
         ActionItem {
             title: "Auction"
+            objectName: "createAuction"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
                 auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
@@ -113,6 +115,11 @@ Page {
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
             onTriggered: {
+                auctionCreateLabel.text = "";
+                openingBidText.text = "";
+                buyNowText.text = "";
+                durationText.text = "";
+                auctionListClass.loadAuctionList(albumid);
                 navParent.pop();
             }
         }

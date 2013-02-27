@@ -91,6 +91,10 @@ void AuctionInfo::requestFinished(QNetworkReply* reply)
     		//buyAuction->setVisible(false);
     		//Button * bidAuction = root->findChild<Button*>("bidAuctionButton");
     		//bidAuction->setVisible(false);
+    		ActionItem * buyAuction = root->findChild<ActionItem*>("buyAuctionButton");
+    		buyAuction->setEnabled(false);
+    		ActionItem * bidAuction = root->findChild<ActionItem*>("bidAuctionButton");
+    		bidAuction->setEnabled(false);
     	}else{
     		mAuctionInfo->setText(result.mid(result.indexOf("<result>")+8,result.indexOf("</result>")-(result.indexOf("<result>")+8)));
     	}

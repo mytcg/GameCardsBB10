@@ -105,6 +105,7 @@ Page {
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
             onTriggered: {
+                redeemText.text = "";
                 navParent.pop();
             }
         }
