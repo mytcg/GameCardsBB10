@@ -67,14 +67,52 @@ Page {
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"
-                        StandardListItem {
+                        /*StandardListItem {
                             title: ListItemData.albumname
                             horizontalAlignment: HorizontalAlignment.Center
-                        }
+                        }*/
                         /*Container {
                          * id: itemRoot
                          * Label { text: ListItemData.albumname }
                          * }*/
+                        Container {
+                        	preferredHeight: 100
+                        	preferredWidth: 768
+                            id: itemRoot
+                            layout: DockLayout {
+                            }
+                            //touchPropagationMode: TouchPropagationMode.Full
+                            horizontalAlignment: HorizontalAlignment.Fill
+
+                            ImageView {
+                                imageSource: "asset:///images/customcomponents/list_background.png"
+                                verticalAlignment: VerticalAlignment.Fill
+                                horizontalAlignment: HorizontalAlignment.Fill
+                            }
+                            Container {
+                                opacity: itemRoot.ListItem.active ? 0.9 : 0.0
+                                background: Color.create("#75b5d3")
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                verticalAlignment: VerticalAlignment.Fill
+                            }
+                            Container {
+                                layout: DockLayout {
+                                }
+                                rightPadding: 10
+                                topPadding: 10
+                                bottomPadding: 10
+                                leftPadding: 20
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                verticalAlignment: VerticalAlignment.Fill
+
+                                Label {
+                                    horizontalAlignment: HorizontalAlignment.Left
+                                    text: ListItemData.albumname
+                                    verticalAlignment: VerticalAlignment.Center
+                                    textStyle.color: Color.DarkGray
+                                }
+                            }
+                        }
                     }
                 ]
                 onTriggered: {

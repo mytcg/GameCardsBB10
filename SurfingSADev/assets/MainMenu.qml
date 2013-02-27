@@ -38,7 +38,7 @@ TabbedPane {
                     ActionItem {
                         title: qsTr("Invite to download")
                         onTriggered: {
-
+                        	app.sendInvite();
                         }
                     }
                 ]
