@@ -22,24 +22,55 @@ Page {
     property alias auctionBidDurationLabeltext: auctionBidDurationLabel.text
     property alias auctionUserCreditsLabeltext: auctionUserCreditsLabel.text
     
-    titleBar: TitleBar {
-        title: "Auction Info"
-        visibility: ChromeVisibility.Visible
-    }
-    
     Container {
         layout: DockLayout {
             
         }
-        
-        background: Color.create("#ededed");
-        
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
+        Container {
+            layout: DockLayout {
+            }
+
+            verticalAlignment: VerticalAlignment.Top
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            ImageView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                //verticalAlignment: VerticalAlignment.Fill
+                imageSource: "asset:///images/header/header.png"
+            }
+
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                leftPadding: 20
+                topPadding: 20
+                Label {
+                    text: "AUCTIONS"
+                    textStyle.color: Color.LightGray
+                    verticalAlignment: VerticalAlignment.Center
+                    textStyle.fontSize: FontSize.Small
+                }
+            }
+        }
+
         Container {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             leftPadding: 20
             rightPadding: 20
-            topPadding: 10
+            topPadding: 165
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
@@ -63,24 +94,30 @@ Page {
                         orientation: LayoutOrientation.TopToBottom
                     }
                     Label{
+                        textStyle.color: Color.DarkGray
                         id: auctionCardLabel
                     }
                     Label{
+                        textStyle.color: Color.DarkGray
                         id: auctionBidLabel
                     }
                     Label{
+                        textStyle.color: Color.DarkGray
                         id: auctionBuyNowLabel
                     }
                     Label{
+                        textStyle.color: Color.DarkGray
                         id: sellerLabel
                     }
                     Label{
+                        textStyle.color: Color.DarkGray
                         id: auctionBidDurationLabel
                     }
                 }
             }
             Label {
                 text: "Place Bid"
+                textStyle.color: Color.DarkGray
                 visible: (type=="0"?true:false)
                 textStyle.fontSizeValue: 0.0
             }

@@ -6,17 +6,13 @@ Page {
     property Page purchasePage: null
     signal cancel ()
     
-    titleBar: TitleBar {
-        title: "Shop"
-        visibility: ChromeVisibility.Visible
-    }
-    
     Container {
         layout: DockLayout {
             
         }
-        background: Color.create("#ededed");
-        
+
+        background: backgroundPaint.imagePaint
+
         // The activity indicator has an object name set so that
         // we can start and stop it from C++
         ActivityIndicator {
@@ -29,13 +25,41 @@ Page {
             onStopped: {
             }
         }
-        
+
+        Container {
+            layout: DockLayout {
+            }
+
+            verticalAlignment: VerticalAlignment.Top
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            ImageView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                imageSource: "asset:///images/header/header.png"
+            }
+
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                leftPadding: 20
+                topPadding: 20
+                Label {
+                    text: "SHOP"
+                    textStyle.color: Color.LightGray
+                    verticalAlignment: VerticalAlignment.Center
+                    textStyle.fontSize: FontSize.Small
+                }
+            }
+        }
+
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
             leftPadding: 20
             rightPadding: 20
-            topPadding: 10
+            topPadding: 165
             
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
@@ -96,6 +120,11 @@ Page {
             ComponentDefinition {
                 id: purchaseDefinition
                 source: "Purchase.qml"
+            },
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
             }
         ]
     }

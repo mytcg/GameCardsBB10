@@ -11,19 +11,51 @@ Page {
     property string type: "0"
     property string albumid: "0"
     
-    titleBar: TitleBar {
-        title: "On Auction"
-        visibility: ChromeVisibility.Visible
-    }
-    
     Container {
         layout: DockLayout {
             
         }
-        background: Color.create("#ededed");
-        
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
         Container {
-            topPadding: 10
+            layout: DockLayout {
+            }
+
+            verticalAlignment: VerticalAlignment.Top
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            ImageView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                //verticalAlignment: VerticalAlignment.Fill
+                imageSource: "asset:///images/header/header.png"
+            }
+
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                leftPadding: 20
+                topPadding: 20
+                Label {
+                    text: "AUCTIONS"
+                    textStyle.color: Color.LightGray
+                    verticalAlignment: VerticalAlignment.Center
+                    textStyle.fontSize: FontSize.Small
+                }
+            }
+        }
+
+        Container {
+            topPadding: 165
             leftPadding: 10
             rightPadding: 10
             bottomPadding: 10

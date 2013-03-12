@@ -49,5 +49,7 @@ void ScoreItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *list
     qDebug() << "\n ScoreItemFactory fullName: " << fullName;
 
     scoreItem->setHeader(fullName);
+    scoreItem->setPoints(map["surfer_points"].value<QString>());
+    scoreItem->setNeeded(map["surfer_points_needed"].value<QString>());
     scoreItem->setScores(map["waves"].value<QVariantList>());
 }

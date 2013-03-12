@@ -213,80 +213,71 @@ Container {
             layout: DockLayout {
 
             }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
 
-            ScrollView {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                // Scrolling is restricted to vertical direction only, in this particular case.
-                scrollViewProperties {
-                    scrollMode: ScrollMode.Vertical
+
+                Label {
+                    text: "Username:"
+                    textStyle.fontSizeValue: 0.0
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
+                TextField {
+                    id: regUsernameText
 
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    verticalAlignment: VerticalAlignment.Fill
+                    hintText: "Enter username"
+                }
+                Label {
+                    text: "Password:"
+                }
+                TextField {
+                    id: regPasswordText
 
-                    Label {
-                        text: "Username:"
-                        textStyle.fontSizeValue: 0.0
-                    }
-                    TextField {
-                        id: regUsernameText
+                    hintText: "Enter password"
+                    inputMode: TextFieldInputMode.Password
+                }
+                Label {
+                    text: "Email:"
+                }
+                TextField {
+                    id: emailText
 
-                        hintText: "Enter username"
-                    }
-                    Label {
-                        text: "Password:"
-                    }
-                    TextField {
-                        id: regPasswordText
+                    hintText: "Enter email"
+                    inputMode: TextFieldInputMode.EmailAddress
+                }
+                Label {
+                    text: "Referrer:"
+                }
+                TextField {
+                    id: referrerText
 
-                        hintText: "Enter password"
-                        inputMode: TextFieldInputMode.Password
-                    }
-                    Label {
-                        text: "Email:"
-                    }
-                    TextField {
-                        id: emailText
+                    hintText: "Enter referrer (optional)"
+                }
 
-                        hintText: "Enter email"
-                        inputMode: TextFieldInputMode.EmailAddress
-                    }
-                    Label {
-                        text: "Referrer:"
-                    }
-                    TextField {
-                        id: referrerText
+                Button {
+                    horizontalAlignment: HorizontalAlignment.Right
+                    text: "Register"
 
-                        hintText: "Enter referrer (optional)"
+                    onClicked: {
+                        registerClass.attemptRegistration(regUsernameText.text, regPasswordText.text, emailText.text, referrerText.text);
                     }
+                }
 
-                    Button {
-                        horizontalAlignment: HorizontalAlignment.Right
-                        text: "Register"
-
-                        onClicked: {
-                            registerClass.attemptRegistration(regUsernameText.text, regPasswordText.text, emailText.text, referrerText.text);
-                        }
-                    }
-
-                    //0 for nothing, 1 for success, 2 for error
-                    Label {
-                        id: registeredLabel
-                        objectName: "registeredLabel"
-                        text: "0"
-                        visible: false
-                    }
-                    Label {
-                        id: registeredResponseLabel
-                        objectName: "registeredResponseLabel"
-                        text: ""
-                        visible: false
-                    }
+                //0 for nothing, 1 for success, 2 for error
+                Label {
+                    id: registeredLabel
+                    objectName: "registeredLabel"
+                    text: "0"
+                    visible: false
+                }
+                Label {
+                    id: registeredResponseLabel
+                    objectName: "registeredResponseLabel"
+                    text: ""
+                    visible: false
                 }
             }
 

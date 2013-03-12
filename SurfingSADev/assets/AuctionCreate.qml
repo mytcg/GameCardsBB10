@@ -8,84 +8,113 @@ Page {
     property string cardId: "0"
     property string albumid: "0"
 
-    property alias createAuctionButtonvisible: createAuction.visible
-    
-    titleBar: TitleBar {
-        title: "Create Auction"
-        visibility: ChromeVisibility.Visible
-        
-        /*acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                auctionCreateLabel.text = "";
-                openingBidText.text = "";
-                buyNowText.text="";
-                durationText.text = "";
-                auctionCreatePage.cancel();
-            }
-        }*/
-    }
+    property alias createAuctionButtonvisible: createAuction.enabled
     
     Container {
         layout: DockLayout {
             
         }
-        
-        background: Color.create("#ededed");
-        
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
         Container {
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-            leftPadding: 20
-            rightPadding: 20
-            topPadding: 10
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
-            Label {
-                id: auctionCreateLabel
-                objectName: "auctionCreateLabel"
-                text: ""
-            }
-            Label {
-                text: "Opening Bid:"
-                textStyle.fontSizeValue: 0.0
-            }
-            TextField {
-                id: openingBidText
-                objectName: "openingBidText"
-                text: ""
-                inputMode: TextFieldInputMode.NumbersAndPunctuation
-            }
-            Label {
-                text: "Buy Now Price:"
-                textStyle.fontSizeValue: 0.0
-            }
-            TextField {
-                id: buyNowText
-                objectName: "buyNowText"
-                text: ""
-                inputMode: TextFieldInputMode.NumbersAndPunctuation
-            }
-            Label {
-                text: "Auction duration(days):"
-                textStyle.fontSizeValue: 0.0
-            }
-            TextField {
-                id: durationText
-                objectName: "durationText"
-                text: ""
-                inputMode: TextFieldInputMode.NumbersAndPunctuation
-            }
-            /*Button {
-                objectName: "createAuction"
-                id: createAuction
-                text: "Auction"
-                horizontalAlignment: HorizontalAlignment.Center
-                onClicked: {
-                	 auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            Container {
+                layout: DockLayout {
                 }
-            }*/
+
+                ImageView {
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Fill
+                    imageSource: "asset:///images/header/header.png"
+                }
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+                    leftPadding: 20
+                    topPadding: 20
+                    Label {
+                        text: "CREATE AUCTION"
+                        textStyle.color: Color.LightGray
+                        verticalAlignment: VerticalAlignment.Center
+                        textStyle.fontSize: FontSize.Small
+                    }
+                }
+            }
+
+            Container {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                leftPadding: 20
+                rightPadding: 20
+                topPadding: 10
+                layout: StackLayout {
+                    orientation: LayoutOrientation.TopToBottom
+                }
+                Label {
+                    id: auctionCreateLabel
+                    textStyle.color: Color.DarkGray
+                    objectName: "auctionCreateLabel"
+                    text: ""
+                }
+                Label {
+                    text: "Opening Bid:"
+                    textStyle.color: Color.DarkGray
+                    textStyle.fontSizeValue: 0.0
+                }
+                TextField {
+                    id: openingBidText
+                    objectName: "openingBidText"
+                    text: ""
+                    inputMode: TextFieldInputMode.NumbersAndPunctuation
+                }
+                Label {
+                    text: "Buy Now Price:"
+                    textStyle.color: Color.DarkGray
+                    textStyle.fontSizeValue: 0.0
+                }
+                TextField {
+                    id: buyNowText
+                    objectName: "buyNowText"
+                    text: ""
+                    inputMode: TextFieldInputMode.NumbersAndPunctuation
+                }
+                Label {
+                    text: "Auction duration(days):"
+                    textStyle.color: Color.DarkGray
+                    textStyle.fontSizeValue: 0.0
+                }
+                TextField {
+                    id: durationText
+                    objectName: "durationText"
+                    text: ""
+                    inputMode: TextFieldInputMode.NumbersAndPunctuation
+                }
+                /*Button {
+                 * objectName: "createAuction"
+                 * id: createAuction
+                 * text: "Auction"
+                 * horizontalAlignment: HorizontalAlignment.Center
+                 * onClicked: {
+                 * auctionCreateClass.createAuction(cardId, openingBidText.text, buyNowText.text, durationText.text);
+                 * }
+                 * }*/
+            }
         }
         
         ActivityIndicator {
@@ -103,6 +132,7 @@ Page {
     }
     actions: [
         ActionItem {
+        	id: createAuction
             title: "Auction"
             objectName: "createAuction"
             ActionBar.placement: ActionBarPlacement.OnBar

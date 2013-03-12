@@ -16,82 +16,90 @@ Page {
     property alias productNumCardsLabeltext: productNumCardsLabel.text
     property alias productTypeLabeltext: productTypeLabel.text
     property alias productUserCreditsLabeltext: productUserCreditsLabel.text
-    
-    
-    titleBar: TitleBar {
-        title: "Shop"
-        visibility: ChromeVisibility.Visible
-    }
-    
-    Container {
-        leftPadding: 20
-        rightPadding: 20
-        topPadding: 10
-        background: Color.create("#ededed");
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
-        
-        Label{
-            id: productUserCreditsLabel
-            
-            horizontalAlignment: HorizontalAlignment.Center
-        }
-        
-        Label{
-            id: productNameLabel
-        }
-        Label{
-            id: productCostLabel
-        }
-        Label{
-            id: productNumCardsLabel
-        }
-        Label{
-            id: productTypeLabel
-            bottomMargin: 20
-        }
-        
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            
-            verticalAlignment: VerticalAlignment.Fill
-            horizontalAlignment: HorizontalAlignment.Fill
-            
-            /*Button{
-                horizontalAlignment: HorizontalAlignment.Left
-                verticalAlignment: VerticalAlignment.Bottom
-                text: "Purchase"  
-                onClicked: {
-                    if (purchasePage.purchasedPage == null) {
-                        purchasePage.purchasedPage = purchasedDefinition.createObject();
 
-                        purchasePage.purchasedPage.navParent = corePane;
-                    }
-                    navParent.push(purchasePage.purchasedPage);
-                    //purchasedSheet.open();
-                    purchaseClass.purchase(productId,purchaseType);
+    Container {
+    	layout: DockLayout {
+    		
+    	}
+        horizontalAlignment: HorizontalAlignment.Fill
+        verticalAlignment: VerticalAlignment.Fill
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
+        Container {
+            layout: DockLayout {
+            }
+
+            verticalAlignment: VerticalAlignment.Top
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            ImageView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                //verticalAlignment: VerticalAlignment.Fill
+                imageSource: "asset:///images/header/header.png"
+            }
+
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                leftPadding: 20
+                topPadding: 20
+                Label {
+                    text: "SHOP"
+                    textStyle.color: Color.LightGray
+                    verticalAlignment: VerticalAlignment.Center
+                    textStyle.fontSize: FontSize.Small
                 }
             }
-            Button{
-                horizontalAlignment: HorizontalAlignment.Right
-                verticalAlignment: VerticalAlignment.Bottom
-                text: "Cards"
-                onClicked: {
-                    if (purchasePage.boosterPage == null) {
-                        purchasePage.boosterPage = boosterDefinition.createObject();
+        }
 
-                        purchasePage.boosterPage.navParent = corePane;
-                    }
-                    navParent.push(purchasePage.boosterPage);
-                    //boosterSheet.open();
-                    boosterClass.booster(productId);
-                } 
-            }*/
+        Container {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            leftPadding: 20
+            rightPadding: 20
+            topPadding: 165
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
+
+            Label {
+                id: productUserCreditsLabel
+
+                horizontalAlignment: HorizontalAlignment.Center
+
+                textStyle.color: Color.DarkGray
+            }
+
+            Label {
+                textStyle.color: Color.DarkGray
+                id: productNameLabel
+            }
+            Label {
+                textStyle.color: Color.DarkGray
+                id: productCostLabel
+            }
+            Label {
+                textStyle.color: Color.DarkGray
+                id: productNumCardsLabel
+            }
+            Label {
+                textStyle.color: Color.DarkGray
+                id: productTypeLabel
+                bottomMargin: 20
+            }
         }
     }
+
     attachedObjects: [
         ComponentDefinition {
             id: purchasedDefinition

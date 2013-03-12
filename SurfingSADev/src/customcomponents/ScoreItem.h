@@ -27,6 +27,10 @@ public:
 
     void setHeader(const QString header);
 
+    void setPoints(const QString points);
+
+    void setNeeded(const QString needed);
+
     void setScores(QVariantList scoreList);
 
     void addScore(const QString score);
@@ -57,8 +61,9 @@ public:
 private:
 
     // Item Controls
-	Container *mScoresContainer;
+	Container *mScoresContainer, *mNeededContainer;
     Label *mHeader;
+    Label *mPoints;
 };
 
 #endif // ifndef _SCOREITEM_H_

@@ -104,6 +104,8 @@ void HeatScores::requestFinished(QNetworkReply* reply)
 
 			scoreEntry["surfer_name"] = score["surfer_name"].value<QString>();
 			scoreEntry["surfer_surname"] = score["surfer_surname"].value<QString>();
+			scoreEntry["surfer_points"] = score["surfer_points"].value<QString>();
+			scoreEntry["surfer_points_needed"] = score["surfer_points_needed"].value<QString>();
 			scoreEntry["waves"] = waveList;
 
 			model->insert(scoreEntry);

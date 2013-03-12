@@ -11,23 +11,55 @@ Page {
         auctionClass.loadAuctions();
     }
 
-    titleBar: TitleBar {
-        title: "Auctions"
-        visibility: ChromeVisibility.Visible
-    }
     Container {
         layout: DockLayout {
             
         }
-        
-        background: Color.create("#ededed");
-        
+
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: backgroundPaint
+                imageSource: "asset:///images/backgrounds/bg.jpg"
+                repeatPattern: RepeatPattern.Fill
+            }
+        ]
+
+        background: backgroundPaint.imagePaint
+
+        Container {
+            layout: DockLayout {
+            }
+
+            verticalAlignment: VerticalAlignment.Top
+            horizontalAlignment: HorizontalAlignment.Fill
+
+            ImageView {
+                horizontalAlignment: HorizontalAlignment.Fill
+                //verticalAlignment: VerticalAlignment.Fill
+                imageSource: "asset:///images/header/header.png"
+            }
+
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                leftPadding: 20
+                topPadding: 20
+                Label {
+                    text: "AUCTIONS"
+                    textStyle.color: Color.LightGray
+                    verticalAlignment: VerticalAlignment.Center
+                    textStyle.fontSize: FontSize.Small
+                }
+            }
+        }
+
         Container {
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
             leftPadding: 20
             rightPadding: 20
-            topPadding: 10
+            topPadding: 165
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
@@ -63,8 +95,43 @@ Page {
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"
-                        StandardListItem {
-                            title: ListItemData.albumname 
+                        Container {
+                            preferredHeight: 100
+                            preferredWidth: 768
+                            id: itemRoot
+                            layout: DockLayout {
+                            }
+                            //touchPropagationMode: TouchPropagationMode.Full
+                            horizontalAlignment: HorizontalAlignment.Fill
+
+                            ImageView {
+                                imageSource: "asset:///images/customcomponents/list_background.png"
+                                verticalAlignment: VerticalAlignment.Fill
+                                horizontalAlignment: HorizontalAlignment.Fill
+                            }
+                            Container {
+                                opacity: itemRoot.ListItem.active ? 0.9 : 0.0
+                                background: Color.create("#75b5d3")
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                verticalAlignment: VerticalAlignment.Fill
+                            }
+                            Container {
+                                layout: DockLayout {
+                                }
+                                rightPadding: 10
+                                topPadding: 10
+                                bottomPadding: 10
+                                leftPadding: 20
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                verticalAlignment: VerticalAlignment.Fill
+
+                                Label {
+                                    horizontalAlignment: HorizontalAlignment.Left
+                                    text: ListItemData.albumname
+                                    verticalAlignment: VerticalAlignment.Center
+                                    textStyle.color: Color.DarkGray
+                                }
+                            }
                         }
                     }
                 ]
