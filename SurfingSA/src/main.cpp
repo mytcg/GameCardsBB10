@@ -22,8 +22,13 @@ Q_DECL_EXPORT int main(int argc, char **argv)
         app.installTranslator( &translator );
     }
 
+    // Every application is required to have its own unique UUID. You should
+	// keep using the same UUID when you release a new version of your
+	// application.
+	// You can generate one here: http://www.guidgenerator.com/
+	const QUuid uuid(QLatin1String("ae7ab23f-a71f-4492-a21e-ab669b86b5d5"));
     // create the application pane object to init UI etc.
-    new SurfingSA(&app);
+    new SurfingSA(&app, uuid);
 
     // we complete the transaction started in the app constructor and start the client event loop here
     return Application::exec();

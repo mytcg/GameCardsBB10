@@ -40,6 +40,7 @@ void AuctionItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *li
 
     // Update the control with the correct data.
     QVariantMap map = data.value<QVariantMap>();
+
     AuctionItem *recipeItem = static_cast<AuctionItem *>(listItem);
     //recipeItem->updateItem(map["fruit"].toString());
 

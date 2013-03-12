@@ -3,7 +3,9 @@ import bb.cascades 1.0
 
 Page {
     id: auctionListPage
-    
+    property NavigationPane navParent: null
+    property Page auctionCreatePage: null
+
     signal cancel ()
     
     property string albumid: "0";
@@ -15,19 +17,14 @@ Page {
     titleBar: TitleBar {
         title: "Auction Cards"
         visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            title: "Back"
-            onTriggered: {
-                auctionListPage.cancel();
-            }
-        }
     }
     
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
+        layout: DockLayout {
         }
+        
+        background: Color.create("#ededed");
+        
         Label {
             id: auctionListLabel
             objectName: "auctionListLabel"
@@ -36,8 +33,8 @@ Page {
         }
         ListView {
             objectName: "auctionListList"
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
             
             listItemComponents: [
                 ListItemComponent {
@@ -54,9 +51,17 @@ Page {
             onTriggered: {
                 clearSelection();
                 if(dataModel.data (indexPath).quantity!="0"){
-                    auctionCreate.cardId = dataModel.data (indexPath).cardid;
-                    auctionCreate.createAuctionButtonvisible = true;
-                    auctionCreateSheet.open();
+                    if (auctionListPage.auctionCreatePage == null) {
+                        auctionListPage.auctionCreatePage = auctionCreateDefinition.createObject();
+
+                        auctionListPage.auctionCreatePage.navParent = corePane;
+
+                        auctionListPage.auctionCreatePage.albumid = albumid;
+                    }
+                    auctionListPage.auctionCreatePage.cardId = dataModel.data (indexPath).cardid;
+                    auctionListPage.auctionCreatePage.createAuctionButtonvisible = true;
+                    navParent.push(auctionListPage.auctionCreatePage);
+                    //auctionCreateSheet.open();
                 }
             }
         }
@@ -66,25 +71,30 @@ Page {
             objectName: "loadAuctionListIndicator"
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            preferredWidth: 200
-            preferredHeight: 200
+            preferredWidth: 100
+            preferredHeight: 100
             
             onStopped: {
             }
         }    
     }
     attachedObjects: [
-        Sheet {
-            id: auctionCreateSheet
+        ComponentDefinition {
+            id: auctionCreateDefinition
+            source: "AuctionCreate.qml"
             
-            AuctionCreate{
-            id: auctionCreate
-            
-            onCancel: {
+            /*onCancel: {
                 auctionCreateSheet.close();
                 auctionListPage.loadAuctionList(albumid);
-            }
-            }
+            }*/
         }
     ]
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                auctionCategoriesPage.loadAuctionCategories("0");
+                navParent.pop();
+            }
+        }
+    }
 }

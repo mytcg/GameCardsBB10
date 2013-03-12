@@ -21,17 +21,20 @@ AlbumItem::AlbumItem(Container *parent) :
     Container *itemContainer = new Container();
     DockLayout *itemLayout = new DockLayout();
     itemContainer->setLayout(itemLayout);
-    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/customcomponents/title_gui_buffet_empty_box.amd"), RepeatPattern::XY));
+    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/customcomponents/list_background.png"), RepeatPattern::XY));
     itemContainer->setHorizontalAlignment(HorizontalAlignment::Center);
-    itemContainer->setMinHeight(150);
+    itemContainer->setMinHeight(212);
     itemContainer->setPreferredWidth(740);
 
     // Sub item container
 	Container *subItemContainer = Container::create();
-	subItemContainer->setLayout(new DockLayout());
-	subItemContainer->setTopPadding(25);
-	subItemContainer->setLeftPadding(25);
-	subItemContainer->setRightPadding(25);
+	StackLayout *stackLayout = new StackLayout();
+	stackLayout->setOrientation( LayoutOrientation::LeftToRight );
+	subItemContainer->setLayout(stackLayout);
+	subItemContainer->setTopPadding(10);
+	subItemContainer->setLeftPadding(10);
+	subItemContainer->setRightPadding(10);
+	subItemContainer->setBottomPadding(13);
 	subItemContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
 	subItemContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
@@ -41,14 +44,16 @@ AlbumItem::AlbumItem(Container *parent) :
     mHighlighContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
     // The list item image, the actual image is set in updateItem
-    mItemImage = ImageView::create("asset:///images/loadingthumb.png");
-    mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
-    mItemImage->setVerticalAlignment(VerticalAlignment::Top);
+    mItemImage = ImageView::create("asset:///images/loading.jpg");
+    //mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
+    mItemImage->setVerticalAlignment(VerticalAlignment::Center);
+    mItemImage->setPreferredSize(144.0, 192.0);
 
     mItemTitle = Label::create("Title");
     mItemTitle->setLayoutProperties(StackLayoutProperties::create().spaceQuota(1));
-    mItemTitle->setHorizontalAlignment(HorizontalAlignment::Center);
-    mItemTitle->setVerticalAlignment(VerticalAlignment::Top);
+    mItemTitle->textStyle()->setColor(Color::DarkGray);
+    //mItemTitle->setHorizontalAlignment(HorizontalAlignment::Center);
+    mItemTitle->setVerticalAlignment(VerticalAlignment::Center);
 
     mItemDescription = Label::create("Description");
     mItemDescription->textStyle()->setBase(SystemDefaults::TextStyles::subtitleText());

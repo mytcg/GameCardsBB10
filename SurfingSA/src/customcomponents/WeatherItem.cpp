@@ -23,10 +23,12 @@ WeatherItem::WeatherItem(Container *parent) :
 
     mTime = Label::create("");
     mTime->textStyle()->setFontSize(FontSize::XXSmall);
+    mTime->textStyle()->setColor(Color::Black);
 	mTime->setHorizontalAlignment(HorizontalAlignment::Center);
 
     mWindSpeed = Label::create("");
     mWindSpeed->textStyle()->setFontSize(FontSize::XXSmall);
+    mWindSpeed->textStyle()->setColor(Color::Black);
 	mWindSpeed->setHorizontalAlignment(HorizontalAlignment::Center);
 	
 	mTemperatureBackground = Container::create();
@@ -34,24 +36,29 @@ WeatherItem::WeatherItem(Container *parent) :
 	
     mTemperature = Label::create("");
     mTemperature->textStyle()->setFontSize(FontSize::XXSmall);
+    mTemperature->textStyle()->setColor(Color::Black);
 	mTemperature->setHorizontalAlignment(HorizontalAlignment::Center);
 	
 	mTemperatureBackground->add(mTemperature);
 
     mCloudCover = Label::create("");
     mCloudCover->textStyle()->setFontSize(FontSize::XXSmall);
+    mCloudCover->textStyle()->setColor(Color::Black);
 	mCloudCover->setHorizontalAlignment(HorizontalAlignment::Center);
 
     mPressure = Label::create("");
     mPressure->textStyle()->setFontSize(FontSize::XXSmall);
+    mPressure->textStyle()->setColor(Color::Black);
 	mPressure->setHorizontalAlignment(HorizontalAlignment::Center);
 
     mHumidity = Label::create("");
     mHumidity->textStyle()->setFontSize(FontSize::XXSmall);
+    mHumidity->textStyle()->setColor(Color::Black);
 	mHumidity->setHorizontalAlignment(HorizontalAlignment::Center);
 
     mSwellHeight = Label::create("");
     mSwellHeight->textStyle()->setFontSize(FontSize::XXSmall);
+    mSwellHeight->textStyle()->setColor(Color::Black);
 	mSwellHeight->setHorizontalAlignment(HorizontalAlignment::Center);
 
 	mConditions = ImageView::create("asset:///images/conditions.png");
@@ -96,9 +103,6 @@ void WeatherItem::setWindSpeed(const QString windSpeed) {
 }
 
 void WeatherItem::setTemperature(QVariant temperature) {
-	qDebug() << "\n WeatherItem temperature.toInt(): " << temperature.toInt();
-	qDebug() << "\n WeatherItem getTempBackground: " << getTempBackground(temperature.toInt());
-
 	mTemperature->setText(temperature.toString());
 	
 	ImagePaint paint(QUrl(getTempBackground(temperature.toInt())));

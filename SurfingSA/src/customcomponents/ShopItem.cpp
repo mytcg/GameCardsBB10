@@ -21,18 +21,20 @@ ShopItem::ShopItem(Container *parent) :
     Container *itemContainer = new Container();
     DockLayout *itemLayout = new DockLayout();
     itemContainer->setLayout(itemLayout);
-    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/customcomponents/title_gui_buffet_empty_box.amd"), RepeatPattern::XY));
+    itemContainer->setBackground(ImagePaint(QUrl("asset:///images/customcomponents/list_background.png"), RepeatPattern::XY));
 	itemContainer->setHorizontalAlignment(HorizontalAlignment::Center);
 	itemContainer->setMinHeight(180);
 	itemContainer->setPreferredWidth(740);
 
-    // Sub item container
+	// Sub item container
 	Container *subItemContainer = Container::create();
-	subItemContainer->setLayout(new DockLayout());
-	subItemContainer->setTopPadding(5);
-	subItemContainer->setLeftPadding(15);
-	subItemContainer->setRightPadding(15);
-	subItemContainer->setBottomPadding(5);
+	StackLayout *stackLayout = new StackLayout();
+	stackLayout->setOrientation( LayoutOrientation::LeftToRight );
+	subItemContainer->setLayout(stackLayout);
+	subItemContainer->setTopPadding(10);
+	subItemContainer->setLeftPadding(10);
+	subItemContainer->setRightPadding(10);
+	subItemContainer->setBottomPadding(13);
 	subItemContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
 	subItemContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
@@ -42,25 +44,34 @@ ShopItem::ShopItem(Container *parent) :
     mHighlighContainer->setVerticalAlignment(VerticalAlignment::Fill);
 
     // The list item image, the actual image is set in updateItem
-    mItemImage = ImageView::create("asset:///images/loadingthumb.png");
+    mItemImage = ImageView::create("asset:///images/loading.jpg");
     mItemImage->setHorizontalAlignment(HorizontalAlignment::Left);
     mItemImage->setVerticalAlignment(VerticalAlignment::Top);
+    mItemImage->setPreferredSize(144.0, 192.0);
+
+    // Sub item container
+	Container *textContainer = Container::create();
+	StackLayout *textLayout = new StackLayout();
+	textLayout->setOrientation( LayoutOrientation::TopToBottom );
+	textContainer->setLayout(textLayout);
 
     mItemTitle = Label::create("Title");
-    mItemTitle->setLayoutProperties(StackLayoutProperties::create().spaceQuota(1));
-    mItemTitle->setHorizontalAlignment(HorizontalAlignment::Center);
-    mItemTitle->setVerticalAlignment(VerticalAlignment::Top);
+    mItemTitle->textStyle()->setColor(Color::DarkGray);
+	mItemTitle->setHorizontalAlignment(HorizontalAlignment::Left);
 
-    mItemDescription = Label::create("Description");
-    mItemDescription->textStyle()->setBase(SystemDefaults::TextStyles::subtitleText());
-    mItemDescription->setHorizontalAlignment(HorizontalAlignment::Center);
-    mItemDescription->setVerticalAlignment(VerticalAlignment::Center);
-    mItemDescription->setMultiline(true);
+	mItemDescription = Label::create("Description");
+	mItemDescription->textStyle()->setColor(Color::DarkGray);
+	mItemDescription->textStyle()->setBase(SystemDefaults::TextStyles::subtitleText());
+	mItemDescription->setHorizontalAlignment(HorizontalAlignment::Left);
+	mItemDescription->setMultiline(true);
+
+	//add the labels to textContainer
+	textContainer->add(mItemTitle);
+	textContainer->add(mItemDescription);
 
     // Add the shopitem details to the subitem container
     subItemContainer->add(mItemImage);
-    subItemContainer->add(mItemTitle);
-    subItemContainer->add(mItemDescription);
+    subItemContainer->add(textContainer);
 
     // Add the background image and the content to the full item container.
     itemContainer->add(mHighlighContainer);

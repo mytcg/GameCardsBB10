@@ -165,6 +165,8 @@ Container {
             }
         }
         Container {
+            visible: false
+            objectName: "weatherTitleList"
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
@@ -239,7 +241,23 @@ Container {
         objectName: "weatherIndicator"
         verticalAlignment: VerticalAlignment.Center
         horizontalAlignment: HorizontalAlignment.Center
-        preferredWidth: 200
-        preferredHeight: 200
+        preferredWidth: 100
+        preferredHeight: 100
     }
+
+    attachedObjects: [
+        OrientationHandler {
+            id: handler
+            onOrientationAboutToChange: {
+                console.log("Orientation Changing to: " + orientation)
+            }
+            onOrientationChanged: {
+                if (orientation == UIOrientation.Landscape) {
+                    //imageId.imageSource = "asset:///images/orientation/landscape.png"
+                } else {
+                    //imageId.imageSource = "asset:///images/orientation/portrait.png"
+                }
+            }
+        } // OrientationHandler
+    ]
 }

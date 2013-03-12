@@ -1,5 +1,6 @@
 #include "Booster.h"
 #include "../utils/Util.h"
+#include "../customcomponents/AlbumItemFactory.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
@@ -29,7 +30,7 @@ void Booster::booster(QString id) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++
 	qDebug() << "\n Loading Booster";
-	mActivityIndicator = root->findChild<ActivityIndicator*>("loadPurchasedIndicator");
+	mActivityIndicator = root->findChild<ActivityIndicator*>("loadBoosterIndicator");
 
 	// Start the activity indicator
 	mActivityIndicator->start();
@@ -73,6 +74,8 @@ void Booster::requestFinished(QNetworkReply* reply)
 		model->insertList(tempList);
 
 		mListView->setDataModel(model);
+		AlbumItemFactory *itemfactory = new AlbumItemFactory();
+		mListView->setListItemProvider(itemfactory);
 	}
 	else
 	{

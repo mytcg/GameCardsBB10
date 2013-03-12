@@ -3,16 +3,15 @@ import bb.cascades 1.0
 import bb.system 1.0
 
 // creates one page with a label
-Page {
-    id: loginQml
-    
-    signal cancel ()
-    
-    property string state: "login"
-    
+Container {
+    id: mainContainer
+    topPadding: 20
+    leftPadding: 20
+    rightPadding: 20
+
     function cancelLoginScreen() {
         if (loggedLabel.text == "1") {
-            loginQml.cancel()
+            mainContainer.visible = false 
         }
         else if (loggedLabel.text == "2") {
             dialogLabel.text = loggedResponseLabel.text
@@ -22,7 +21,7 @@ Page {
     
     function cancelRegScreen() {
         if (registeredLabel.text == "1") {
-            loginQml.cancel()
+            mainContainer.visible = false
         }
         else if (registeredLabel.text == "2") {
             dialogLabel.text = registeredResponseLabel.text
@@ -31,17 +30,11 @@ Page {
     }
     
     function showLogin() {
-        addBar.title = "Login Details"
-        actionItem.title = "Log In"
-        state = "login"
         loginContainer.visible = true
         registerContainer.visible = false
     }
     
     function showRegister() {
-        addBar.title = "Registration"
-        actionItem.title = "Register"
-        state = "register"
         loginContainer.visible = false
         registerContainer.visible = true
     }
@@ -55,15 +48,15 @@ Page {
         
         Dialog {
            id: errorPopup
- 
-           Container {
+            
+                Container {
                layout: DockLayout {
                    
                }
                horizontalAlignment: HorizontalAlignment.Fill
                verticalAlignment: VerticalAlignment.Fill
                
-               Container {
+                    Container {
                    topPadding: 15
                    rightPadding: 15
                    bottomPadding: 15
@@ -89,34 +82,54 @@ Page {
    	               }
                }
            }
-       }
+           
+        }
    ]
-    
-    titleBar: TitleBar {
-        id: addBar
-        title: "Login Details"
-        visibility: ChromeVisibility.Visible
-        
-        acceptAction: ActionItem {
-            id: actionItem
-            title: "Log In"
-            onTriggered: {
-                if (state == "login") {
-                    loginClass.attemptLogin(usernameText.text, passwordText.text);
+    ScrollView {
+
+        // Scrolling is restricted to vertical direction only, in this particular case.
+        scrollViewProperties {
+            scrollMode: ScrollMode.Vertical
+        }
+        Container {
+        leftPadding: 20
+        rightPadding: 20
+        topPadding: 10
+        bottomPadding: 20
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
+        }
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: radioBack
+                imageSource: "asset:///images/backgrounds/big_label.png"
+                repeatPattern: RepeatPattern.XY
+            }
+        ]
+        background: radioBack.imagePaint
+        //background: Color.create("#ededed");
+        RadioGroup {
+            id: loginRadioGroup
+
+            Option {
+                text: "Login"
+                selected: true
+            }
+
+            Option {
+                text: "Register"
+            }
+
+            onSelectedIndexChanged: {
+                if (loginRadioGroup.selectedIndex == 0) {
+                    showLogin()
                 }
-                else if (state == "register") {
-                    registerClass.attemptRegistration(regUsernameText.text, regPasswordText.text, emailText.text, referrerText.text);
+                else if (loginRadioGroup.selectedIndex ==  1) {
+                    showRegister()
                 }
             }
         }
-    }
-    
-    
-    Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
-        }
-        
+            
         Container {
             id: loginContainer
             
@@ -131,9 +144,6 @@ Page {
                 
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                leftPadding: 20
-                rightPadding: 20
-                topPadding: 10
                 
                 Label {
                     text: "Username:"
@@ -142,8 +152,10 @@ Page {
                 TextField {
                     id: usernameText
                     objectName: "usernameText"
-                    
+
                     hintText: "Enter username"
+                    inputMode: TextFieldInputMode.Text
+
                 }
                 Label {
                     text: "Password:"
@@ -151,11 +163,12 @@ Page {
                 TextField {
                     id: passwordText
                     objectName: "passwordText"
-                    
+
                     hintText: "Enter password"
                     inputMode: TextFieldInputMode.Password
+
                 }
-                
+
                 //0 for nothing, 1 for success, 2 for error
                 Label {
                     id: loggedLabel
@@ -169,67 +182,52 @@ Page {
                     text: ""
                     visible: false
                 }
-                
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
-                    topPadding: 20
-                    
-                    Label {
-                        text: "Not a member?"
-                        verticalAlignment: VerticalAlignment.Center
-                    }
-                    
-                    Button {
-                        text: "Register!"
-                        
-                        onClicked: {
-                            showRegister()
-                        }
+
+                Button {
+                	horizontalAlignment: HorizontalAlignment.Right
+                    text: "Log In"
+
+                    onClicked: {
+                        loginClass.attemptLogin(usernameText.text, passwordText.text);
                     }
                 }
             }
-            
+
             ActivityIndicator {
                 objectName: "loginIndicator"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-                preferredWidth: 200
-                preferredHeight: 200
-                
+                preferredWidth: 100
+                preferredHeight: 100
+
                 onStopped: {
                     cancelLoginScreen()
                 }
             }
         }
-        
+
         Container {
             id: registerContainer
             visible: false
-            
+
             layout: DockLayout {
-                
+
             }
-            
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
+
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                leftPadding: 20
-                rightPadding: 20
-                topPadding: 10
-                
+
                 Label {
                     text: "Username:"
                     textStyle.fontSizeValue: 0.0
                 }
                 TextField {
                     id: regUsernameText
-                    
+
                     hintText: "Enter username"
                 }
                 Label {
@@ -237,7 +235,7 @@ Page {
                 }
                 TextField {
                     id: regPasswordText
-                    
+
                     hintText: "Enter password"
                     inputMode: TextFieldInputMode.Password
                 }
@@ -246,7 +244,7 @@ Page {
                 }
                 TextField {
                     id: emailText
-                    
+
                     hintText: "Enter email"
                     inputMode: TextFieldInputMode.EmailAddress
                 }
@@ -255,30 +253,19 @@ Page {
                 }
                 TextField {
                     id: referrerText
-                    
+
                     hintText: "Enter referrer (optional)"
                 }
-                
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
-                    topPadding: 20
-                    
-                    Label {
-                        text: "Already a member?"
-                        verticalAlignment: VerticalAlignment.Center
-                    }
-                    
-                    Button {
-                        text: "Log in!"
-                        
-                        onClicked: {
-                            showLogin()
-                        }
+
+                Button {
+                    horizontalAlignment: HorizontalAlignment.Right
+                    text: "Register"
+
+                    onClicked: {
+                        registerClass.attemptRegistration(regUsernameText.text, regPasswordText.text, emailText.text, referrerText.text);
                     }
                 }
-                
+
                 //0 for nothing, 1 for success, 2 for error
                 Label {
                     id: registeredLabel
@@ -293,13 +280,13 @@ Page {
                     visible: false
                 }
             }
-            
+
             ActivityIndicator {
                 objectName: "registerIndicator"
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-                preferredWidth: 200
-                preferredHeight: 200
+                preferredWidth: 100
+                preferredHeight: 100
                 
                 onStopped: {
                     cancelRegScreen()
@@ -307,4 +294,5 @@ Page {
             }
         }
     }
+}
 }

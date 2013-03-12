@@ -1,5 +1,6 @@
 #include "Purchase.h"
 #include "../utils/Util.h"
+#include "../customcomponents/AlbumItemFactory.h"
 
 #include <bb/data/XmlDataAccess>
 #include <bb/cascades/GroupDataModel>
@@ -76,6 +77,8 @@ void Purchase::requestFinished(QNetworkReply* reply)
 		model->insertList(tempList);
 
 		mListView->setDataModel(model);
+		AlbumItemFactory *itemfactory = new AlbumItemFactory();
+		mListView->setListItemProvider(itemfactory);
 	}
 	else
 	{
