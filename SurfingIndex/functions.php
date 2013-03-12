@@ -112,8 +112,6 @@ function getHeatScores($heatId) {
 	$scoreQuery = myqu($scoreQu);
 	
 	$lastWave = 0;
-	
-	
 	foreach ($scoreQuery as $score) {
 		for ($i = 15; $i > 0; $i--) {
 			if ($score['wave_'.$i] != null && $i > $lastWave) {
@@ -123,25 +121,84 @@ function getHeatScores($heatId) {
 		}
 	}
 	
+	$index = 0;
+	$topScore = 0;
+	$scoresArray = array();
+	foreach ($scoreQuery as $score) {
+		$topWaves = array();
+		$tempTopScore = 0;
+		for ($i = 1; $i <= $lastWave; $i++) {
+			if ($score['wave_'.$i] != null) {
+				if ($topWaves[0] == null || ($topWaves[0] != null && ($topWaves[0]['score'] < $score['wave_'.$i]))) {
+					if ($topWaves[0] != null) {
+						$topWaves[1] = $topWaves[0];
+					}
+					$topWave = array();
+					$topWave['score'] = $score['wave_'.$i];
+					$topWave['index'] = $i;
+					
+					$topWaves[0] = $topWave;
+				}
+				else if ($topWaves[1] == null || ($topWaves[1] != null && ($topWaves[1]['score'] < $score['wave_'.$i]))) {
+					$topWave = array();
+					$topWave['score'] = $score['wave_'.$i];
+					$topWave['index'] = $i;
+					
+					$topWaves[1] = $topWave;
+				}
+			}
+		}
+		
+		if ($topWaves[0] != null) {
+			$tempTopScore += $topWaves[0]['score'];
+		}
+		if ($topWaves[1] != null) {
+			$tempTopScore += $topWaves[1]['score'];
+		}
+		if ($tempTopScore > $topScore) {
+			$topScore = $tempTopScore;
+		}
+		$scoresArray[$index] = $topWaves;
+		$index++;
+	}
+	
 	$retXml = '<score_data>';
 	
 	$retXml .= '<wave_count>'.$lastWave.'</wave_count>';
 	
 	$retXml .= '<scores>';
 	
+	$index = 0;
 	foreach ($scoreQuery as $score) {
+		$topWaves = $scoresArray[$index];
+		$index0 = -1;
+		$index1 = -1;
+		$points = 0;
+		
+		if ($topWaves[0] != null) {
+			$index0 = $topWaves[0]['index'];
+			$points += $topWaves[0]['score'];
+		}
+		if ($topWaves[1] != null) {
+			$index1 = $topWaves[1]['index'];
+			$points += $topWaves[1]['score'];
+		}
+		
 		$retXml .= '<score>';
 		
 		$retXml .= '<surfer_name>'.$score['surfer_name'].'</surfer_name>';
 		$retXml .= '<surfer_surname>'.$score['surfer_surname'].'</surfer_surname>';
+		$retXml .= '<surfer_points>'.$points.'</surfer_points>';
+		$retXml .= '<surfer_points_needed>'.($topScore - $points).'</surfer_points_needed>';
 		
 		$retXml .= '<waves>';
 		for ($i = 1; $i <= $lastWave; $i++) {
-			$retXml .= '<wave>'.$score['wave_'.$i].'</wave>';
+			$retXml .= '<wave highlight="'.(($i==$index0 || $i==$index1)?'true':'false').'">'.$score['wave_'.$i].'</wave>';
 		}
 		$retXml .= '</waves>';
 		
 		$retXml .= '</score>';
+		$index++;
 	}
 	
 	$retXml .= '</scores></score_data>';
