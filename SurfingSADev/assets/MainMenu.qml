@@ -432,7 +432,7 @@ TabbedPane {
                         }
                     }
 
-                    News {
+                    Feed {
                         id: newsContainer
 
                         horizontalAlignment: HorizontalAlignment.Fill

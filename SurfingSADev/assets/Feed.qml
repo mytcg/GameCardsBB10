@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import bb.data 1.0
 
 Container {
     layout: DockLayout {

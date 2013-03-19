@@ -5,6 +5,7 @@
 #include <QTextStream>
 
 #include <bb/data/XmlDataAccess>
+#include <bb/data/DataSource>
 
 #include <bb/device/DisplayInfo>
 
