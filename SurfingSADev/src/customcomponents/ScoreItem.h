@@ -5,6 +5,7 @@
 #include <bb/cascades/ListItemListener>
 #include <bb/cascades/ImageView>
 #include <bb/cascades/Label>
+#include <bb/cascades/ImageView>
 
 using namespace bb::cascades;
 
@@ -35,6 +36,8 @@ public:
 
     void addScore(const QString score);
 
+    void setColour(const QString colour);
+
     /**
 	 * ListItemListener interface function called when the select state changes.
 	 *
@@ -64,6 +67,7 @@ private:
 	Container *mScoresContainer, *mNeededContainer;
     Label *mHeader;
     Label *mPoints;
+    ImageView *mColImage;
 };
 
 #endif // ifndef _SCOREITEM_H_

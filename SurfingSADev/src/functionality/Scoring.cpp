@@ -101,6 +101,31 @@ void Scoring::getCategories(QString id) {
 	mNetworkAccessManager->get(request);
 }
 
+void Scoring::getRounds(QString id) {
+	// Retrieve the activity indicator from QML so that we can start
+	// and stop it from C++
+	mActivityIndicator = root->findChild<ActivityIndicator*>("scoringIndicator");
+
+	// Start the activity indicator
+	mActivityIndicator->start();
+
+	//set the string vars
+	mapString = "round";
+	idString = "round_id";
+	nameString = "round_description";
+	dropDownString = "scoringRoundDropDown";
+
+	// Create and send the network request
+	QNetworkRequest request = QNetworkRequest();
+
+	QString url = "http://surfingsa.mytcg.net/_phone/index.php?eventrounds=";
+	url.append(id);
+
+	request.setUrl(QUrl(url));
+
+	mNetworkAccessManager->get(request);
+}
+
 void Scoring::getHeats(QString id) {
 	// Retrieve the activity indicator from QML so that we can start
 	// and stop it from C++

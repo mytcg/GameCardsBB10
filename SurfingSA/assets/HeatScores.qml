@@ -6,6 +6,7 @@ Page {
 
     property alias event: eventLabel.text
     property alias group: groupLabel.text
+    property alias round: roundLabel.text
     property alias heat: heatLabel.text
     
 
@@ -83,7 +84,7 @@ Page {
                     }
 
                     Label {
-                        text: "Event: "
+                        text: "Competition: "
                         textStyle.fontSize: FontSize.Large
                         textStyle.color: Color.DarkGray
                     }
@@ -101,13 +102,31 @@ Page {
                     }
 
                     Label {
-                        text: "Group: "
+                        text: "Division: "
                         textStyle.fontSize: FontSize.Large
                         textStyle.color: Color.DarkGray
                     }
 
                     Label {
                         id: groupLabel
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+                }
+
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+
+                    Label {
+                        text: "Round: "
+                        textStyle.fontSize: FontSize.Large
+                        textStyle.color: Color.DarkGray
+                    }
+
+                    Label {
+                        id: roundLabel
                         textStyle.fontSize: FontSize.Large
                         textStyle.color: Color.DarkGray
                     }

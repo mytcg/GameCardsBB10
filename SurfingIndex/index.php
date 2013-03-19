@@ -37,6 +37,14 @@ if ($event_id = $_GET['eventgroups']) {
 	exit;
 }
 
+if ($division_id = $_GET['eventrounds']) {
+	$eventRounds = getEventRounds($division_id);
+	
+	echo $eventRounds;
+	
+	exit;
+}
+
 if ($group_id = $_GET['eventheats']) {
 	$eventHeats = getEventHeats($group_id);
 	

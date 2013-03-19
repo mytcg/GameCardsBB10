@@ -12,6 +12,7 @@ NavigationPane {
 
         eventDropDown.removeAll()
         categoryDropDown.removeAll()
+        roundDropDown.removeAll()
         heatDropDown.removeAll()
 
         if (radioGroup.selectedIndex == 0) {
@@ -25,10 +26,22 @@ NavigationPane {
         scoreContainer.enabled = false;
 
         categoryDropDown.removeAll()
+        roundDropDown.removeAll()
         heatDropDown.removeAll()
 
         if (eventDropDown.selectedIndex >= 0) {
             scoringClass.getCategories(eventDropDown.selectedValue)
+        }
+    }
+
+    function loadRounds() {
+        scoreContainer.enabled = false;
+
+        roundDropDown.removeAll()
+        heatDropDown.removeAll()
+
+        if (categoryDropDown.selectedIndex >= 0) {
+            scoringClass.getRounds(categoryDropDown.selectedValue)
         }
     }
 
@@ -37,8 +50,8 @@ NavigationPane {
 
         heatDropDown.removeAll()
 
-        if (categoryDropDown.selectedIndex >= 0) {
-            scoringClass.getHeats(categoryDropDown.selectedValue)
+        if (roundDropDown.selectedIndex >= 0) {
+            scoringClass.getHeats(roundDropDown.selectedValue)
         }
     }
     Page {
@@ -99,107 +112,136 @@ NavigationPane {
                 }
             }
 
-            Container {
-                topPadding: 165
-                bottomPadding: 10
-                leftPadding: 10
-                rightPadding: 10
-
-                id: scoreContainer
-                objectName: "scoreContainer"
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
+			ScrollView {
+                // Scrolling is restricted to vertical direction only, in this particular case.
+                scrollViewProperties {
+                    scrollMode: ScrollMode.Vertical
                 }
-                horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Fill
 
                 Container {
-                    RadioGroup {
-                        id: radioGroup
+                    topPadding: 165
+                    bottomPadding: 10
+                    leftPadding: 10
+                    rightPadding: 10
 
-                        Option {
-                            text: "Live Scores"
-                            selected: true
-                        }
+                    id: scoreContainer
+                    objectName: "scoreContainer"
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.TopToBottom
+                    }
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Fill
 
-                        Option {
-                            text: "Archive"
+                    Container {
+                        RadioGroup {
+                            id: radioGroup
+
+                            Option {
+                                text: "Live Events"
+                                selected: true
+                            }
+
+                            Option {
+                                text: "Archive"
+                            }
+
+                            onSelectedIndexChanged: {
+                                loadEvents()
+                            }
                         }
+                        attachedObjects: [
+                            ImagePaintDefinition {
+                                id: radioBack
+                                imageSource: "asset:///images/backgrounds/big_label.png"
+                                repeatPattern: RepeatPattern.XY
+                            }
+                        ]
+                        background: radioBack.imagePaint
+                    }
+
+                    DropDown {
+                        objectName: "scoringEventDropDown"
+                        id: eventDropDown
+                        horizontalAlignment: HorizontalAlignment.Center
+                        bottomMargin: 50
+
+                        title: "Competition"
 
                         onSelectedIndexChanged: {
-                            loadEvents()
+                            loadCategories()
                         }
                     }
-                    attachedObjects: [
-                        ImagePaintDefinition {
-                            id: radioBack
-                            imageSource: "asset:///images/backgrounds/big_label.png"
-                            repeatPattern: RepeatPattern.XY
+
+                    DropDown {
+                        objectName: "scoringCategoryDropDown"
+                        id: categoryDropDown
+                        horizontalAlignment: HorizontalAlignment.Center
+                        bottomMargin: 50
+
+                        title: "Division"
+
+                        onSelectedIndexChanged: {
+                            loadRounds()
                         }
-                    ]
-                    background: radioBack.imagePaint
-                }
-
-                DropDown {
-                    objectName: "scoringEventDropDown"
-                    id: eventDropDown
-                    horizontalAlignment: HorizontalAlignment.Center
-                    bottomMargin: 50
-
-                    title: "Event"
-
-                    onSelectedIndexChanged: {
-                        loadCategories()
-                    }
-                }
-
-                DropDown {
-                    objectName: "scoringCategoryDropDown"
-                    id: categoryDropDown
-                    horizontalAlignment: HorizontalAlignment.Center
-                    bottomMargin: 50
-
-                    title: "Group"
-
-                    onSelectedIndexChanged: {
-                        loadHeats()
-                    }
-                }
-
-                DropDown {
-                    objectName: "scoringHeatDropDown"
-                    id: heatDropDown
-                    horizontalAlignment: HorizontalAlignment.Center
-                    bottomMargin: 50
-
-                    title: "Heat"
-                }
-                Button {
-                    id: findScoreButton
-                    text: "View Scores"
-                    horizontalAlignment: HorizontalAlignment.Center
-
-                    enabled: {
-                        heatDropDown.selectedIndex >= 0
                     }
 
-                    onClicked: {
-                        /*heatSheet.open()
-                        heatScores.event = eventDropDown.selectedOption.text
-                        heatScores.group = categoryDropDown.selectedOption.text
-                        heatScores.heat = heatDropDown.selectedOption.text
-                        heatScores.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))*/
+                    DropDown {
+                        objectName: "scoringRoundDropDown"
+                        id: roundDropDown
+                        horizontalAlignment: HorizontalAlignment.Center
+                        bottomMargin: 50
 
-                        if (heatScorePage == null) {
-                            heatScorePage = heatScoreDefinition.createObject();
+                        title: "Round"
+
+                        onSelectedIndexChanged: {
+                            loadHeats()
                         }
-                        navPane.push(heatScorePage);
-                        heatScorePage.navParent = navPane;
-                        heatScorePage.event = eventDropDown.selectedOption.text
-                        heatScorePage.group = categoryDropDown.selectedOption.text
-                        heatScorePage.heat = heatDropDown.selectedOption.text
-                        heatScorePage.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))
                     }
+                    
+                    DropDown {
+                        objectName: "scoringHeatDropDown"
+                        id: heatDropDown
+                        horizontalAlignment: HorizontalAlignment.Center
+                        bottomMargin: 50
+
+                        title: "Heat"
+
+                        onSelectedIndexChanged: {
+                            if (selectedIndex != -1) {
+                                if (heatScorePage == null) {
+                                    heatScorePage = heatScoreDefinition.createObject()
+                                }
+                                navPane.push(heatScorePage)
+                                heatScorePage.navParent = navPane;
+                                heatScorePage.event = eventDropDown.selectedOption.text
+                                heatScorePage.group = categoryDropDown.selectedOption.text
+                                heatScorePage.round = roundDropDown.selectedOption.text
+                                heatScorePage.heat = heatDropDown.selectedOption.text
+                                heatScorePage.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))
+                            }
+                        }
+                    }
+                    /*Button {
+                     * id: findScoreButton
+                     * text: "View Scores"
+                     * horizontalAlignment: HorizontalAlignment.Center
+                     * 
+                     * enabled: {
+                     * heatDropDown.selectedIndex >= 0
+                     * }
+                     * 
+                     * onClicked: {
+                     * if (heatScorePage == null) {
+                     * heatScorePage = heatScoreDefinition.createObject();
+                     * }
+                     * navPane.push(heatScorePage);
+                     * heatScorePage.navParent = navPane;
+                     * heatScorePage.event = eventDropDown.selectedOption.text
+                     * heatScorePage.group = categoryDropDown.selectedOption.text
+                     * heatScorePage.heat = heatDropDown.selectedOption.text
+                     * heatScorePage.init(heatDropDown.selectedValue, (radioGroup.selectedIndex == 0))
+                     * }
+                     * }*/
                 }
             }
 		

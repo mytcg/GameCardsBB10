@@ -36,6 +36,8 @@ public:
 
     Q_INVOKABLE void getCategories(QString id);
 
+    Q_INVOKABLE void getRounds(QString id);
+
     Q_INVOKABLE void getHeats(QString id);
 
 private slots:

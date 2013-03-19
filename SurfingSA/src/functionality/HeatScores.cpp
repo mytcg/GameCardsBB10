@@ -81,6 +81,8 @@ void HeatScores::requestFinished(QNetworkReply* reply)
 {
     // Check the network reply for errors
     if (reply->error() == QNetworkReply::NoError) {
+    	QString colours [] = {"asset:///images/scoring/red.png", "asset:///images/scoring/black.png",
+    	    	"asset:///images/scoring/blue.png", "asset:///images/scoring/green.png", "asset:///images/scoring/white.png"};
 
     	QString result(reply->readAll());
 
@@ -103,9 +105,9 @@ void HeatScores::requestFinished(QNetworkReply* reply)
 			QVariantList waveList = wavesMap["wave"].value<QVariantList>();
 
 			scoreEntry["surfer_name"] = score["surfer_name"].value<QString>();
-			scoreEntry["surfer_surname"] = score["surfer_surname"].value<QString>();
 			scoreEntry["surfer_points"] = score["surfer_points"].value<QString>();
 			scoreEntry["surfer_points_needed"] = score["surfer_points_needed"].value<QString>();
+			scoreEntry["surfer_colour"] = colours[i%5];
 			scoreEntry["waves"] = waveList;
 
 			model->insert(scoreEntry);

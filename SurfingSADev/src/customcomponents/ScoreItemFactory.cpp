@@ -42,14 +42,12 @@ void ScoreItemFactory::updateItem(ListView* list, bb::cascades::VisualNode *list
     QVariantMap map = data.value<QVariantMap>();
     ScoreItem *scoreItem = static_cast<ScoreItem *>(listItem);
 
-    QString fullName = map["surfer_name"].value<QString>();
-    fullName.append("\n");
-    fullName.append(map["surfer_surname"].value<QString>());
+    QString name = map["surfer_name"].value<QString>();
+    name.replace(" ", "\n");
 
-    qDebug() << "\n ScoreItemFactory fullName: " << fullName;
-
-    scoreItem->setHeader(fullName);
+    scoreItem->setHeader(name);
     scoreItem->setPoints(map["surfer_points"].value<QString>());
     scoreItem->setNeeded(map["surfer_points_needed"].value<QString>());
     scoreItem->setScores(map["waves"].value<QVariantList>());
+    scoreItem->setColour(map["surfer_colour"].value<QString>());
 }

@@ -107,7 +107,7 @@ Page {
                         leftPadding: 20
                         Label {
                         	text: "SURFING COLLECTABLE CARDS"
-                            textStyle.color: Color.create("#ffe6e6e6")
+                            textStyle.color: Color.create("#ff81d3df")
                             textStyle.fontSize: FontSize.Small
                         }
                         Label {
@@ -170,7 +170,7 @@ Page {
                         leftPadding: 20
                         Label {
                             text: "WEATHER REPORT"
-                            textStyle.color: Color.create("#ffe6e6e6")
+                            textStyle.color: Color.create("#ff81d3df")
                             textStyle.fontSize: FontSize.Small
                         }
                         Label {
@@ -233,7 +233,7 @@ Page {
                         leftPadding: 20
                         Label {
                             text: "SURFING NEWS"
-                            textStyle.color: Color.create("#ffe6e6e6")
+                            textStyle.color: Color.create("#ff81d3df")
                             textStyle.fontSize: FontSize.Small
                         }
                         Label {
@@ -296,7 +296,7 @@ Page {
 
                         Label {
                             text: "COMPETITION SCORING"
-                            textStyle.color: Color.create("#ffe6e6e6")
+                            textStyle.color: Color.create("#ff81d3df")
                             textStyle.fontSize: FontSize.Small
                         }
                         Label {

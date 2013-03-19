@@ -36,11 +36,16 @@ ScoreItem::ScoreItem(Container *parent) :
     itemContainer->setRightMargin(10);
     itemContainer->setPreferredWidth(200);
 
+    mColImage = ImageView::create("asset:///images/scoring/red.png");
+    mColImage->setHorizontalAlignment(HorizontalAlignment::Fill);
+    mColImage->setBottomMargin(0);
+
     mHeader = Label::create("");
     mHeader->textStyle()->setFontSize(FontSize::XSmall);
     mHeader->textStyle()->setTextAlign(TextAlign::Center);
     mHeader->textStyle()->setColor(Color::White);
     mHeader->setHorizontalAlignment(HorizontalAlignment::Center);
+    mHeader->setBottomMargin(0);
     mHeader->setMultiline(true);
 
     mPoints = Label::create("");
@@ -48,6 +53,7 @@ ScoreItem::ScoreItem(Container *parent) :
     mPoints->textStyle()->setTextAlign(TextAlign::Center);
     mPoints->textStyle()->setColor(Color::White);
     mPoints->setHorizontalAlignment(HorizontalAlignment::Center);
+    mPoints->setBottomMargin(0);
 
     mNeededContainer = new Container();
 	StackLayout *neededItemLayout = new StackLayout();
@@ -63,6 +69,7 @@ ScoreItem::ScoreItem(Container *parent) :
     mScoresContainer->setHorizontalAlignment(HorizontalAlignment::Fill);
 
     // Add the components to the full item container.
+    itemContainer->add(mColImage);
     itemContainer->add(mHeader);
     itemContainer->add(mPoints);
     itemContainer->add(mNeededContainer);
@@ -122,7 +129,7 @@ void ScoreItem::setScores(QVariantList scoreList) {
 		}
 		else {
 			waveContainer->setBackground(ImagePaint(QUrl("asset:///images/scoring/blue cell.png"), RepeatPattern::Fill));
-			waveLabel->textStyle()->setColor(Color::fromARGB(0xff47899E));
+			waveLabel->textStyle()->setColor(Color::White);
 		}
 
 		waveContainer->add(waveLabel);
@@ -132,6 +139,10 @@ void ScoreItem::setScores(QVariantList scoreList) {
 
 void ScoreItem::addScore(const QString score) {
 	qDebug() << "\n ScoreItemFactory score: " << score;
+}
+
+void ScoreItem::setColour(const QString image) {
+	mColImage->setImageSource(QUrl(image));
 }
 
 void ScoreItem::select(bool select)
