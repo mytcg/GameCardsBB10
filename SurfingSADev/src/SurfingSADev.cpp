@@ -34,6 +34,7 @@ SurfingSADev::SurfingSADev(bb::cascades::Application *app, const QUuid &uuid)
 , m_statusMessage(tr("Please wait while the application connects to BBM."))
 , m_messageService(0)
 {
+	bb::data::DataSource::registerQmlTypes();
     // create scene document from main.qml asset
     // set parent to created document to ensure it exists for the whole application lifetime
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
