@@ -56,7 +56,9 @@ Container {
 
             // Load the XML data from a remote data source, specifying that the
             // "item" data items should be loaded
-            source: "http://feeds.feedburner.com/blackberry/CAxx/"
+            //source: "http://feeds.feedburner.com/blackberry/CAxx/"
+
+            source: "http://www.surfingsouthafrica.co.za/?cat=12&feed=rss2"
             query: "/rss/channel/item"
             type: DataSourceType.Xml
 
