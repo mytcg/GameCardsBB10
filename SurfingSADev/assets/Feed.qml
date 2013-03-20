@@ -5,41 +5,34 @@ Container {
     layout: DockLayout {
     }
 
-    // To enable scrolling in the WebView, it is put inside a ScrollView.
-    ScrollView {
+    property NavigationPane newsPane: null
 
-        // Scrolling is restricted to vertical direction only, in this particular case.
-        scrollViewProperties {
-            scrollMode: ScrollMode.Vertical
-        }
+    ListView {
+        id: myListView
+        dataModel: dataModel
+        listItemComponents: [
+            ListItemComponent {
+                type: "item"
 
-        ListView {
-            id: myListView
-            dataModel: dataModel
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
+                // Use a standard list item to display the data in the data
+                // model
+                StandardListItem {
 
-                    // Use a standard list item to display the data in the data
-                    // model
-                    StandardListItem {
-
-                        title: ListItemData.title
-                        description: ListItemData.description
-
-                    }
+                    title: ListItemData.title
+                    description: ListItemData.description
 
                 }
-            ]
-            onTriggered: {
-                var feedItem = dataModel.data(indexPath);
 
-                var page = detailsPage.createObject();
-                page.htmlContent = feedItem.link;
-                newsPane.push(page);
             }
+        ]
+        onTriggered: {
+            var feedItem = dataModel.data(indexPath);
+
+            var page = detailsPage.createObject();
+            page.htmlContent = feedItem.link;
+            newsPane.push(page);
         }
-    } // ScrollView
+    }
     attachedObjects: [
         GroupDataModel {
             id: dataModel

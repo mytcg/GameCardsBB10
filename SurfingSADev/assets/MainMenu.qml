@@ -373,78 +373,83 @@ TabbedPane {
         title: "News"
         imageSource: "asset:///images/tabs/news_icon_tab.png"
 
-        Page {
+        NavigationPane {
+            id: newsPane
 
-            Container {
-                layout: DockLayout {
-                }
-                
-                //background: Color.create("#ededed");
-                /*ImageView {
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    verticalAlignment: VerticalAlignment.Fill
-                    imageSource: "asset:///images/backgrounds/bg.jpg"
-                }*/
+            Page {
 
-                attachedObjects: [
-                    ImagePaintDefinition {
-                        id: newsBackgroundPaint
-                        imageSource: "asset:///images/backgrounds/bg.jpg"
-                        repeatPattern: RepeatPattern.Fill
-                    }
-                ]
+	            Container {
+	                layout: DockLayout {
+	                }
+	                
+	                //background: Color.create("#ededed");
+	                /*ImageView {
+	                    horizontalAlignment: HorizontalAlignment.Fill
+	                    verticalAlignment: VerticalAlignment.Fill
+	                    imageSource: "asset:///images/backgrounds/bg.jpg"
+	                }*/
+	
+	                attachedObjects: [
+	                    ImagePaintDefinition {
+	                        id: newsBackgroundPaint
+	                        imageSource: "asset:///images/backgrounds/bg.jpg"
+	                        repeatPattern: RepeatPattern.Fill
+	                    }
+	                ]
+	
+	                background: newsBackgroundPaint.imagePaint
+	
+	                Container {
+	                    layout: StackLayout {
+	                        orientation: LayoutOrientation.TopToBottom
+	                    }
+	                    horizontalAlignment: HorizontalAlignment.Fill
+	                    verticalAlignment: VerticalAlignment.Fill
+	
+	                    Container {
+	                        layout: DockLayout {
+	                        }
+	
+	                        ImageView {
+	                            horizontalAlignment: HorizontalAlignment.Fill
+	                            verticalAlignment: VerticalAlignment.Fill
+	                            imageSource: "asset:///images/header/header.png"
+	                        }
+	
+	                        Container {
+	                            layout: StackLayout {
+	                                orientation: LayoutOrientation.LeftToRight
+	                            }
+	                            leftPadding: 20
+	                            topPadding: 20
+	                            ImageView {
+	                                imageSource: "asset:///images/tabs/news_icon_tab.png"
+	                                verticalAlignment: VerticalAlignment.Center
+	                            }
+	                            Label {
+	                                text: "NEWS"
+	                                textStyle.color: Color.LightGray
+	                                verticalAlignment: VerticalAlignment.Center
+	                                textStyle.fontSize: FontSize.Small
+	                            }
+	                        }
+	                    }
+	
+	                    Feed {
+	                        id: newsContainer
+	                        newsPane: newsPane
+	                        horizontalAlignment: HorizontalAlignment.Fill
+	                        verticalAlignment: VerticalAlignment.Fill
+	
+	                        topPadding: 10
+	                        bottomPadding: 10
+	                        leftPadding: 10
+	                        rightPadding: 10
+	                    }
+	                }
+		        }
 
-                background: newsBackgroundPaint.imagePaint
-
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.TopToBottom
-                    }
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    verticalAlignment: VerticalAlignment.Fill
-
-                    Container {
-                        layout: DockLayout {
-                        }
-
-                        ImageView {
-                            horizontalAlignment: HorizontalAlignment.Fill
-                            verticalAlignment: VerticalAlignment.Fill
-                            imageSource: "asset:///images/header/header.png"
-                        }
-
-                        Container {
-                            layout: StackLayout {
-                                orientation: LayoutOrientation.LeftToRight
-                            }
-                            leftPadding: 20
-                            topPadding: 20
-                            ImageView {
-                                imageSource: "asset:///images/tabs/news_icon_tab.png"
-                                verticalAlignment: VerticalAlignment.Center
-                            }
-                            Label {
-                                text: "NEWS"
-                                textStyle.color: Color.LightGray
-                                verticalAlignment: VerticalAlignment.Center
-                                textStyle.fontSize: FontSize.Small
-                            }
-                        }
-                    }
-
-                    Feed {
-                        id: newsContainer
-
-                        horizontalAlignment: HorizontalAlignment.Fill
-                        verticalAlignment: VerticalAlignment.Fill
-
-                        topPadding: 10
-                        bottomPadding: 10
-                        leftPadding: 10
-                        rightPadding: 10
-                    }
-                }
-	        }
+        	}
         }
     }
     
